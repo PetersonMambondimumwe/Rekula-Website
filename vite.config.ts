@@ -5,5 +5,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    host: true, // exposes on all local IP addresses for testing on desktop and mobile
   },
 });
