@@ -25,11 +25,11 @@ export const Footer: React.FC = () => {
           {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1">
+              <div className="w-9 h-9 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1 overflow-hidden">
                 <img
-                  src="/assets/rekula-logo.png"
+                  src="/assets/rekula-logo-cream.png"
                   alt="Re:kula Logo"
-                  className="w-full h-full object-contain filter invert contrast-125 opacity-90"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div className="flex flex-col">

@@ -1,17 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 
 interface RekulaCapstoneStageProps {
   onProgressChange?: (progress: number) => void;
-  onRequestScrollDown?: () => void;
+  replaySignal?: number;
 }
 
 export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
   onProgressChange,
+  replaySignal = 0,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+
+  // References to communicate reset between React renders and Three.js loop
+  const animStartTimeRef = useRef<number>(performance.now());
+  const resetTriggerRef = useRef<number>(replaySignal);
+
+  useEffect(() => {
+    animStartTimeRef.current = performance.now();
+    setAnimationCompleted(false);
+  }, [replaySignal]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -33,13 +43,13 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     renderer.toneMappingExposure = 1.06;
 
     // ─────────────────────────────────────────────────────────────
-    // 2. SCENE & CAMERA (EXACT FRUSTUM CALIBRATION)
+    // 2. SCENE & CAMERA (PRECISE CINEMATIC CALIBRATION)
     // ─────────────────────────────────────────────────────────────
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
 
     // ─────────────────────────────────────────────────────────────
-    // 3. STUDIO LIGHTING (VIVID, NATURAL, ZERO HARSH ARTIFACTS)
+    // 3. STUDIO LIGHTING (WARM, CINEMATIC, GENTLE CONTRAST)
     // ─────────────────────────────────────────────────────────────
     const ambientLight = new THREE.AmbientLight(0xfff5eb, 1.4);
     scene.add(ambientLight);
@@ -57,7 +67,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     // ─────────────────────────────────────────────────────────────
     const textureLoader = new THREE.TextureLoader();
 
-    // 4A. Purified Graduation Cap (ZERO stray skin pixels)
+    // 4A. Purified Graduation Cap (Zero stray skin pixels)
     const capTex = textureLoader.load('/assets/rekula-cap-crisp.png');
     capTex.colorSpace = THREE.SRGBColorSpace;
     capTex.generateMipmaps = true;
@@ -95,7 +105,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       depthWrite: false,
     });
     const hand = new THREE.Mesh(handGeom, handMaterial);
-    // Explicitly hidden at launch so no part can ever be seen at t=0
+    // Explicitly hidden at launch so no part of hand is ever visible at start
     hand.visible = false;
     hand.position.set(0.12, -12.0, 0);
     scene.add(hand);
@@ -149,10 +159,8 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     fit();
 
     // ─────────────────────────────────────────────────────────────
-    // 6. SILKY SMOOTH SCROLL TRACKING & INTERACTION
+    // 6. INTERACTIVE 3D PERSPECTIVE DRAG (ACTIVE ONCE SETTLED)
     // ─────────────────────────────────────────────────────────────
-    let target = 0;
-    let cur = 0;
     let isDragging = false;
     let dragStartX = 0;
     let dragStartY = 0;
@@ -160,26 +168,10 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     let dragRotX = 0;
     let targetDragRotY = 0;
     let targetDragRotX = 0;
+    let curProgress = 0;
 
-    const handleScroll = () => {
-      const trackEl = document.getElementById('rekula-track');
-      if (trackEl) {
-        const rect = trackEl.getBoundingClientRect();
-        const maxScroll = trackEl.offsetHeight - window.innerHeight;
-        const currentScroll = -rect.top;
-        target = Math.min(1, Math.max(0, currentScroll / (maxScroll || 1)));
-      } else {
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        target = Math.min(1, Math.max(0, window.scrollY / (maxScroll || 1)));
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    // Drag Interaction in Final State
     const onMouseDown = (e: MouseEvent) => {
-      if (cur > 0.6) {
+      if (curProgress > 0.6) {
         isDragging = true;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
@@ -206,7 +198,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     window.addEventListener('mouseup', onMouseUp);
 
     const onTouchStart = (e: TouchEvent) => {
-      if (cur > 0.6 && e.touches.length === 1) {
+      if (curProgress > 0.6 && e.touches.length === 1) {
         isDragging = true;
         dragStartX = e.touches[0].clientX;
         dragStartY = e.touches[0].clientY;
@@ -233,27 +225,36 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     window.addEventListener('touchend', onTouchEnd);
 
     // ─────────────────────────────────────────────────────────────
-    // 7. UNIFIED, SILKY ANIMATION LOOP ("EVERYTHING COMES AT ONCE")
+    // 7. AUTOMATIC TIMED ANIMATION LOOP (MOVES ON ITS OWN ON OPEN)
     // ─────────────────────────────────────────────────────────────
     let animId: number;
     const clock = new THREE.Clock();
+    const START_DELAY_MS = 650; // Pause at launch to let user see RE:KULA cap
+    const DURATION_MS = 2200;    // Silky smooth glide duration
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      const now = performance.now();
+      const elapsed = now - animStartTimeRef.current;
       const time = clock.getElapsedTime();
 
-      // Responsive silky inertia smoothing
-      cur += (target - cur) * 0.11;
-      const t = cur;
-
-      setScrollProgress(t);
-      if (onProgressChange) {
-        onProgressChange(t);
+      // Compute raw progress 0 -> 1 based on elapsed time
+      let rawT = 0;
+      if (elapsed > START_DELAY_MS) {
+        rawT = Math.min(1, (elapsed - START_DELAY_MS) / DURATION_MS);
       }
 
-      // Single unified silky smooth progression curve
-      // Cubic ease for continuous, unbroken, simultaneous motion
-      const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      // Cubic Ease-In-Out for natural, physical momentum
+      const ease = rawT < 0.5 ? 4 * rawT * rawT * rawT : 1 - Math.pow(-2 * rawT + 2, 3) / 2;
+      curProgress = ease;
+
+      if (onProgressChange) {
+        onProgressChange(ease);
+      }
+
+      if (rawT >= 1 && !animationCompleted) {
+        setAnimationCompleted(true);
+      }
 
       // Drag inertia
       dragRotY += (targetDragRotY - dragRotY) * 0.08;
@@ -283,11 +284,11 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
 
       // ─────────────────────────────────────────────────────────
       // 7B. SYNCHRONIZED HAND MOTION
-      // - At launch (t = 0), strictly hidden so no finger is visible
-      // - The instant scroll begins (t > 0.01), hand glides smoothly
-      //   upward in unison with the cap, meeting at the same time!
+      // - At launch (ease = 0), strictly hidden so no finger is visible
+      // - The instant transition begins (ease > 0.01), hand glides
+      //   smoothly upward in unison with cap, meeting seamlessly!
       // ─────────────────────────────────────────────────────────
-      if (t < 0.01) {
+      if (ease < 0.01) {
         hand.visible = false;
         hand.position.set(0.12, -12.0, 0);
         contactShadow.material.opacity = 0;
@@ -325,7 +326,6 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', fit);
-      window.removeEventListener('scroll', handleScroll);
       container.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', onMouseUp);
@@ -343,7 +343,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     <div
       ref={containerRef}
       className="absolute inset-0 w-full h-full pointer-events-auto"
-      title={scrollProgress > 0.6 ? 'Drag to rotate perspective' : undefined}
+      title={animationCompleted ? 'Drag to rotate perspective' : undefined}
     >
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

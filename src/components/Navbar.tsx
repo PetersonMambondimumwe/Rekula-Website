@@ -48,11 +48,11 @@ export const Navbar: React.FC = () => {
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3 group text-left focus:outline-none"
         >
-          <div className="w-8 h-8 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1 group-hover:border-softblue transition-colors">
+          <div className="w-8 h-8 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1 group-hover:border-softblue transition-colors overflow-hidden">
             <img
-              src="/assets/rekula-logo.png"
-              alt="Re:kula Emblem"
-              className="w-full h-full object-contain filter invert contrast-125 opacity-90"
+              src="/assets/rekula-logo-cream.png"
+              alt="Re:kula Logo"
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="flex flex-col">

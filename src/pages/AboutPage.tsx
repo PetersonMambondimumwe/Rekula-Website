@@ -84,16 +84,17 @@ export const AboutPage: React.FC = () => {
 
         <div className="lg:col-span-5">
           <div className="rounded-cards bg-surface border border-border-cork p-2 shadow-2xl">
-            <div className="rounded-lg overflow-hidden aspect-[4/3] bg-void relative">
+            <div className="rounded-lg overflow-hidden aspect-[3/4] sm:aspect-[4/3] bg-void relative">
               <img
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=80"
-                alt="Supportive learning environment at Re:kula"
-                className="w-full h-full object-cover brightness-[0.7]"
+                src="/assets/shawn-maluleke.png"
+                alt="Shawn Maluleke, Founder of Re:kula"
+                className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[0.92]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-4 left-4 right-4 text-left">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-ember">PRETORIA BASE · EST. 2023</p>
-                <p className="font-serif text-sm uppercase tracking-wider text-cream font-medium mt-0.5">Shawn Maluleke, Founder</p>
+                <p className="text-[10px] font-mono uppercase tracking-widest text-ember">FOUNDER & LEAD EDUCATOR · EST. 2023</p>
+                <p className="font-serif text-base uppercase tracking-wider text-cream font-medium mt-0.5">Shawn Maluleke</p>
+                <p className="text-[11px] text-cream-muted font-mono tracking-wider">B.Ed (22 Distinctions) · Cum Laude</p>
               </div>
             </div>
           </div>
