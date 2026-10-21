@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { commonSubjects } from '../data/initialData';
-import { CheckCircle2, Plus, Trash2, Upload, AlertCircle, Briefcase, FileText } from 'lucide-react';
+import { Briefcase, Plus, Trash2, Upload, AlertCircle, FileText } from 'lucide-react';
 
-interface SubjectEntry {
+interface CareerSubjectEntry {
   id: string;
   subject: string;
   highestGrade: string;
@@ -21,35 +21,33 @@ export const CareersForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('Pretoria');
-  const [workPreference, setWorkPreference] = useState<'Online' | 'In person' | 'Both'>('Both');
+  const [workPreference, setWorkPreference] = useState<'In person' | 'Online' | 'Both'>('Both');
 
   const [role, setRole] = useState<'Tutor' | 'Teacher' | 'Educational psychologist' | 'Psychology student' | 'Other'>('Tutor');
   const [roleOther, setRoleOther] = useState('');
 
-  // Repeatable subjects
-  const [subjectsList, setSubjectsList] = useState<SubjectEntry[]>([
+  const [subjectsList, setSubjectsList] = useState<CareerSubjectEntry[]>([
     {
       id: 'subj-1',
       subject: 'Mathematics',
-      highestGrade: 'Grade 10–12 (FET / Matric)',
+      highestGrade: 'FET (Gr 10–12 / Matric)',
       curricula: ['CAPS', 'IEB'],
     },
   ]);
 
-  // Areas of practice (for psychologists & psychology students)
   const [psychAreas, setPsychAreas] = useState<string[]>(['Learning support']);
-  const [phases, setPhases] = useState<string[]>(['FET (Gr 10–12)']);
+  const [phases, setPhases] = useState<string[]>(['Senior (Gr 7–9)', 'FET (Gr 10–12)']);
   const [interests, setInterests] = useState<string[]>(['One-to-one tutoring']);
 
   const [highestQualification, setHighestQualification] = useState('');
-  const [saceStatus, setSaceStatus] = useState<'Registered' | 'Not registered' | 'In progress'>('In progress');
+  const [experienceYears, setExperienceYears] = useState('1–3');
+  const [saceStatus, setSaceStatus] = useState<'Registered' | 'Not registered' | 'In progress'>('Not registered');
   const [saceNumber, setSaceNumber] = useState('');
   const [hpcsaStatus, setHpcsaStatus] = useState<'Registered' | 'Not registered'>('Not registered');
   const [hpcsaNumber, setHpcsaNumber] = useState('');
   const [studentInstitutionYear, setStudentInstitutionYear] = useState('');
-  const [experienceYears, setExperienceYears] = useState('1–3');
   const [remedialExperience, setRemedialExperience] = useState('');
-  const [availabilities, setAvailabilities] = useState<string[]>(['Weekday afternoons', 'Weekends']);
+
   const [cvFileName, setCvFileName] = useState('');
   const [motivation, setMotivation] = useState('');
   const [consent, setConsent] = useState(false);
@@ -60,7 +58,7 @@ export const CareersForm: React.FC = () => {
       {
         id: `subj-${Date.now()}`,
         subject: '',
-        highestGrade: 'Grade 10–12',
+        highestGrade: 'FET (Gr 10–12 / Matric)',
         curricula: ['CAPS'],
       },
     ]);
@@ -71,7 +69,7 @@ export const CareersForm: React.FC = () => {
     setSubjectsList((prev) => prev.filter((s) => s.id !== id));
   };
 
-  const updateSubjectRow = (id: string, field: keyof SubjectEntry, val: any) => {
+  const updateSubjectRow = (id: string, field: keyof CareerSubjectEntry, val: any) => {
     setSubjectsList((prev) =>
       prev.map((s) => (s.id === id ? { ...s, [field]: val } : s))
     );
@@ -90,27 +88,21 @@ export const CareersForm: React.FC = () => {
     );
   };
 
-  const togglePsychArea = (item: string) => {
-    setPsychAreas((prev) =>
-      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-    );
-  };
-
-  const togglePhase = (phase: string) => {
+  const togglePhase = (p: string) => {
     setPhases((prev) =>
-      prev.includes(phase) ? prev.filter((p) => p !== phase) : [...prev, phase]
+      prev.includes(p) ? prev.filter((item) => item !== p) : [...prev, p]
     );
   };
 
-  const toggleInterest = (interest: string) => {
+  const toggleInterest = (i: string) => {
     setInterests((prev) =>
-      prev.includes(interest) ? prev.filter((i) => i !== interest) : [...prev, interest]
+      prev.includes(i) ? prev.filter((item) => item !== i) : [...prev, i]
     );
   };
 
-  const toggleAvailability = (item: string) => {
-    setAvailabilities((prev) =>
-      prev.includes(item) ? prev.filter((a) => a !== item) : [...prev, item]
+  const togglePsychArea = (area: string) => {
+    setPsychAreas((prev) =>
+      prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area]
     );
   };
 
@@ -136,12 +128,12 @@ export const CareersForm: React.FC = () => {
     }
 
     if (!cvFileName) {
-      setErrorMsg('Please attach your CV document (PDF or DOCX).');
+      setErrorMsg('Please upload your CV document.');
       return;
     }
 
     if (!consent) {
-      setErrorMsg('Please tick the consent box to submit your application.');
+      setErrorMsg('Please accept the privacy consent box to submit your application.');
       return;
     }
 
@@ -153,16 +145,17 @@ export const CareersForm: React.FC = () => {
       workPreference,
       role: role === 'Other' ? roleOther : role,
       subjects: subjectsList,
-      psychAreas: (role === 'Educational psychologist' || role === 'Psychology student') ? psychAreas : undefined,
+      psychAreas,
       phases,
       interests,
       highestQualification,
-      sace: { status: saceStatus, number: saceNumber },
-      hpcsa: role === 'Educational psychologist' ? { status: hpcsaStatus, number: hpcsaNumber } : undefined,
-      studentDetails: studentInstitutionYear,
       experienceYears,
+      saceStatus,
+      saceNumber,
+      hpcsaStatus,
+      hpcsaNumber,
+      studentInstitutionYear,
       remedialExperience,
-      availabilities,
       cvFileName,
       motivation,
     });
@@ -172,19 +165,19 @@ export const CareersForm: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="text-center py-12 px-6 bg-white rounded-3xl border border-navy/10 space-y-4 animate-in fade-in">
-        <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto ring-8 ring-emerald-50/50">
-          <CheckCircle2 className="w-9 h-9" />
+      <div className="text-center py-12 px-6 bg-surface rounded-cards border border-border-cork space-y-4 animate-in fade-in">
+        <div className="w-14 h-14 bg-softblue/20 text-softblue border border-softblue/40 rounded-full flex items-center justify-center mx-auto">
+          <Briefcase className="w-7 h-7" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-navy">
+        <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
           Application Successfully Lodged
         </h3>
-        <p className="text-sm text-slate-subtle max-w-lg mx-auto leading-relaxed">
-          Thank you, <span className="font-semibold text-navy">{fullName}</span>. We keep every application on file in our dedicated educator registry. Shawn and our leadership team will review your qualifications and contact you when matching tutoring or workshop opportunities arise.
+        <p className="text-sm text-cream-muted max-w-lg mx-auto leading-relaxed">
+          Thank you, <span className="text-cream font-medium">{fullName}</span>. We keep every application on file in our dedicated educator registry. Shawn and our leadership team will review your qualifications and contact you when matching tutoring or workshop opportunities arise.
         </p>
         <button
           onClick={() => setSubmitted(false)}
-          className="text-xs text-softblue hover:underline font-medium"
+          className="text-xs text-softblue hover:underline font-mono uppercase tracking-wider pt-2"
         >
           Submit another application
         </button>
@@ -195,7 +188,7 @@ export const CareersForm: React.FC = () => {
   const isPsych = role === 'Educational psychologist' || role === 'Psychology student';
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 text-left text-navy">
+    <form onSubmit={handleSubmit} className="space-y-8 text-left text-cream">
       <input
         type="text"
         value={honeypot}
@@ -205,171 +198,201 @@ export const CareersForm: React.FC = () => {
       />
 
       {errorMsg && (
-        <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-2 text-xs text-red-800">
-          <AlertCircle className="w-4 h-4 text-red-600" />
+        <div className="p-4 bg-red-950/50 border border-red-800/80 rounded-lg flex items-center gap-3 text-xs text-red-200">
+          <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      {/* Basic Contact */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            required
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="e.g. Peterson Mambondimumwe"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
-          />
+      {/* 1. Basic Contact */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-dashed border-border-cork">
+          <span className="w-5 h-5 rounded-full bg-void border border-border-cork text-softblue text-[10px] font-mono font-bold flex items-center justify-center">
+            1
+          </span>
+          <h3 className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream">
+            CONTACT DETAILS
+          </h3>
         </div>
 
-        <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
-            Email Address <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@tuks.co.za"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
-            Phone / WhatsApp <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="tel"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="067 435 0849"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
-            Province / City <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            required
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="e.g. Pretoria / Hatfield / Centurion"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-xs font-semibold text-navy mb-1.5">
-          Can you work online, in person, or both? <span className="text-red-500">*</span>
-        </label>
-        <div className="flex gap-2">
-          {['In person', 'Online', 'Both'].map((mode) => (
-            <button
-              type="button"
-              key={mode}
-              onClick={() => setWorkPreference(mode as any)}
-              className={`flex-1 py-2 text-xs rounded-xl border transition-colors ${
-                workPreference === mode
-                  ? 'bg-navy text-white font-medium border-navy'
-                  : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              {mode}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Role Picker */}
-      <div>
-        <label className="block text-xs font-semibold text-navy mb-1.5">
-          I am applying as a: <span className="text-red-500">*</span>
-        </label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {['Tutor', 'Teacher', 'Educational psychologist', 'Psychology student', 'Other'].map((r) => (
-            <label
-              key={r}
-              className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs cursor-pointer ${
-                role === r
-                  ? 'border-softblue bg-softblue-tint/50 text-navy font-semibold'
-                  : 'border-slate-200 text-slate-600'
-              }`}
-            >
-              <input
-                type="radio"
-                name="roleOption"
-                checked={role === r}
-                onChange={() => setRole(r as any)}
-                className="text-softblue focus:ring-softblue"
-              />
-              <span className="truncate">{r}</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+              Full Name <span className="text-ember">*</span>
             </label>
-          ))}
+            <input
+              type="text"
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="e.g. Peterson Mambondimumwe"
+              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+              Email Address <span className="text-ember">*</span>
+            </label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.co.za"
+              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+              Phone / WhatsApp <span className="text-ember">*</span>
+            </label>
+            <input
+              type="tel"
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="067 435 0849"
+              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+              Province / City <span className="text-ember">*</span>
+            </label>
+            <input
+              type="text"
+              required
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="e.g. Pretoria / Hatfield / Centurion"
+              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+            />
+          </div>
         </div>
-        {role === 'Other' && (
-          <input
-            type="text"
-            value={roleOther}
-            onChange={(e) => setRoleOther(e.target.value)}
-            placeholder="Please specify your role..."
-            className="mt-2 w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200"
-          />
-        )}
+
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            Can you work online, in person, or both? <span className="text-ember">*</span>
+          </label>
+          <div className="flex gap-2">
+            {(['In person', 'Online', 'Both'] as const).map((mode) => (
+              <button
+                type="button"
+                key={mode}
+                onClick={() => setWorkPreference(mode)}
+                className={`flex-1 py-2.5 text-xs rounded-lg border transition-all cursor-pointer ${
+                  workPreference === mode
+                    ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
+                    : 'border-border-cork bg-void/50 text-cream-muted hover:border-border-driftwood'
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Repeatable Subjects for Tutors / Teachers */}
+      {/* 2. Role Picker */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-dashed border-border-cork">
+          <span className="w-5 h-5 rounded-full bg-void border border-border-cork text-softblue text-[10px] font-mono font-bold flex items-center justify-center">
+            2
+          </span>
+          <h3 className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream">
+            ROLE & SPECIALISATION
+          </h3>
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2.5">
+            I am applying as a: <span className="text-ember">*</span>
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            {(['Tutor', 'Teacher', 'Educational psychologist', 'Psychology student', 'Other'] as const).map((r) => (
+              <label
+                key={r}
+                className={`flex items-center gap-2.5 p-3 rounded-lg border text-xs cursor-pointer transition-all ${
+                  role === r
+                    ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
+                    : 'border-border-cork bg-void/50 hover:border-border-driftwood text-cream-muted'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="roleOption"
+                  checked={role === r}
+                  onChange={() => setRole(r)}
+                  className="accent-cream"
+                />
+                <span className="truncate">{r}</span>
+              </label>
+            ))}
+          </div>
+
+          {role === 'Other' && (
+            <input
+              type="text"
+              value={roleOther}
+              onChange={(e) => setRoleOther(e.target.value)}
+              placeholder="Please specify your role..."
+              className="mt-3 w-full px-4 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            />
+          )}
+        </div>
+      </div>
+
+      {/* 3. Repeatable Subjects for Tutors / Teachers */}
       {!isPsych && (
-        <div className="space-y-3 p-4 bg-slate-50 rounded-2xl border border-slate-200/70">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-bold text-navy">
-              Subjects You Can Tutor or Teach <span className="text-red-500">*</span>
-            </label>
+        <div className="space-y-4 p-5 sm:p-6 bg-void/70 rounded-cards border border-border-cork">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-dashed border-border-cork">
+            <div>
+              <label className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream block">
+                Subjects You Can Tutor or Teach <span className="text-ember">*</span>
+              </label>
+              <span className="text-[11px] text-cream-muted mt-0.5 block">
+                Add each subject you are qualified and passionate to instruct.
+              </span>
+            </div>
             <button
               type="button"
               onClick={addSubjectRow}
-              className="inline-flex items-center gap-1 text-xs text-softblue hover:underline font-semibold"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border-cork hover:border-cream text-cream text-[11px] font-mono uppercase tracking-wider transition-all bg-surface hover:bg-surface-elevated shrink-0 cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5" /> Add Another Subject
+              <Plus className="w-3.5 h-3.5 text-softblue" />
+              <span>Add Another Subject</span>
             </button>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {subjectsList.map((entry, idx) => (
               <div
                 key={entry.id}
-                className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2.5"
+                className="p-4 sm:p-5 bg-surface border border-border-cork/90 rounded-lg space-y-4 shadow-sm"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-bold text-softblue">
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-softblue font-medium flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-softblue" />
                     Subject #{idx + 1}
                   </span>
                   {subjectsList.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeSubjectRow(entry.id)}
-                      className="text-red-500 hover:text-red-700 p-1"
+                      className="text-cream-muted hover:text-red-400 p-1 transition-colors cursor-pointer"
                       title="Remove subject"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] text-slate-subtle mb-1">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
                       Subject Name:
                     </label>
                     <input
@@ -377,24 +400,24 @@ export const CareersForm: React.FC = () => {
                       required
                       value={entry.subject}
                       onChange={(e) => updateSubjectRow(entry.id, 'subject', e.target.value)}
-                      placeholder="e.g. Mathematics / Physical Sciences / English"
-                      className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200"
+                      placeholder="e.g. Mathematics, Physical Sciences, English"
+                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] text-slate-subtle mb-1">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
                       Highest Grade / Level Supported:
                     </label>
                     <select
                       value={entry.highestGrade}
                       onChange={(e) => updateSubjectRow(entry.id, 'highestGrade', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
+                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
                     >
-                      <option value="Foundation (Gr R–3)">Foundation Phase (Gr R–3)</option>
-                      <option value="Intermediate (Gr 4–6)">Intermediate Phase (Gr 4–6)</option>
-                      <option value="Senior (Gr 7–9)">Senior Phase (Gr 7–9)</option>
-                      <option value="FET (Gr 10–12 / Matric)">FET Phase (Gr 10–12 / Matric)</option>
+                      <option value="Foundation Phase (Gr R–3)">Foundation Phase (Gr R–3)</option>
+                      <option value="Intermediate Phase (Gr 4–6)">Intermediate Phase (Gr 4–6)</option>
+                      <option value="Senior Phase (Gr 7–9)">Senior Phase (Gr 7–9)</option>
+                      <option value="FET Phase (Gr 10–12 / Matric)">FET Phase (Gr 10–12 / Matric)</option>
                       <option value="First-Year University">First-Year University</option>
                       <option value="Adult Matric">Adult Matric</option>
                     </select>
@@ -402,24 +425,27 @@ export const CareersForm: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-slate-subtle mb-1">
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
                     Curricula You Know for this Subject:
                   </label>
-                  <div className="flex gap-2">
-                    {['CAPS', 'IEB', 'Cambridge International'].map((c) => (
-                      <button
-                        type="button"
-                        key={c}
-                        onClick={() => toggleCurriculumOnRow(entry.id, c)}
-                        className={`text-[11px] px-2.5 py-1 rounded-full border transition-colors ${
-                          entry.curricula.includes(c)
-                            ? 'bg-softblue text-white border-softblue font-medium'
-                            : 'border-slate-200 text-slate-600 bg-slate-50'
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    ))}
+                  <div className="flex flex-wrap gap-2">
+                    {['CAPS', 'IEB', 'Cambridge International'].map((c) => {
+                      const isSelected = entry.curricula.includes(c);
+                      return (
+                        <button
+                          type="button"
+                          key={c}
+                          onClick={() => toggleCurriculumOnRow(entry.id, c)}
+                          className={`text-xs px-3.5 py-1 rounded-full border transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-cream text-void font-medium border-cream'
+                              : 'border-border-cork bg-void text-cream-muted hover:border-border-driftwood'
+                          }`}
+                        >
+                          {c}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -430,25 +456,25 @@ export const CareersForm: React.FC = () => {
 
       {/* Areas of Practice for Psychologists */}
       {isPsych && (
-        <div className="space-y-2 p-4 bg-softblue-tint/30 rounded-2xl border border-softblue/30">
-          <label className="block text-xs font-bold text-navy">
-            Areas of Practice <span className="text-red-500">*</span>
+        <div className="space-y-3 p-5 bg-void/70 rounded-cards border border-border-cork">
+          <label className="block text-xs font-mono uppercase tracking-[0.2em] text-cream">
+            Areas of Practice <span className="text-ember">*</span>
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
             {['Learning support', 'Academic Assessment', 'Counselling', 'Early reading & literacy', 'Other'].map((area) => (
               <label
                 key={area}
-                className={`flex items-center gap-2 p-2 rounded-xl border cursor-pointer ${
+                className={`flex items-center gap-2.5 p-3 rounded-lg border cursor-pointer transition-all ${
                   psychAreas.includes(area)
-                    ? 'border-softblue bg-white text-navy font-semibold'
-                    : 'border-slate-200 text-slate-600'
+                    ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
+                    : 'border-border-cork bg-void/50 hover:border-border-driftwood text-cream-muted'
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={psychAreas.includes(area)}
                   onChange={() => togglePsychArea(area)}
-                  className="rounded text-softblue focus:ring-softblue"
+                  className="accent-cream"
                 />
                 <span className="truncate">{area}</span>
               </label>
@@ -458,40 +484,43 @@ export const CareersForm: React.FC = () => {
       )}
 
       {/* Phases You Can Support */}
-      <div>
-        <label className="block text-xs font-semibold text-navy mb-1.5">
+      <div className="space-y-2">
+        <label className="block text-xs font-medium uppercase tracking-wider text-cream">
           Phases You Can Support
         </label>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {[
             'Foundation (Gr R–3)',
             'Intermediate (Gr 4–6)',
             'Senior (Gr 7–9)',
             'FET (Gr 10–12)',
             'Adult learners',
-          ].map((phase) => (
-            <button
-              type="button"
-              key={phase}
-              onClick={() => togglePhase(phase)}
-              className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
-                phases.includes(phase)
-                  ? 'bg-navy text-white font-medium'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              {phase}
-            </button>
-          ))}
+          ].map((phase) => {
+            const isSelected = phases.includes(phase);
+            return (
+              <button
+                type="button"
+                key={phase}
+                onClick={() => togglePhase(phase)}
+                className={`px-3.5 py-1.5 rounded-full text-xs border transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-cream text-void font-medium border-cream'
+                    : 'border-border-cork bg-void text-cream-muted hover:border-border-driftwood'
+                }`}
+              >
+                {phase}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* Interests */}
-      <div>
-        <label className="block text-xs font-semibold text-navy mb-1.5">
+      <div className="space-y-2">
+        <label className="block text-xs font-medium uppercase tracking-wider text-cream">
           I am also interested in:
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           {[
             'One-to-one tutoring',
             'Facilitating exam workshops',
@@ -499,17 +528,17 @@ export const CareersForm: React.FC = () => {
           ].map((item) => (
             <label
               key={item}
-              className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs cursor-pointer ${
+              className={`flex items-center gap-2.5 p-3 rounded-lg border text-xs cursor-pointer transition-all ${
                 interests.includes(item)
-                  ? 'border-softblue bg-softblue-tint/40 text-navy font-medium'
-                  : 'border-slate-200 text-slate-600'
+                  ? 'border-softblue bg-softblue/15 text-softblue font-medium'
+                  : 'border-border-cork bg-void/50 hover:border-border-driftwood text-cream-muted'
               }`}
             >
               <input
                 type="checkbox"
                 checked={interests.includes(item)}
                 onChange={() => toggleInterest(item)}
-                className="rounded text-softblue focus:ring-softblue"
+                className="accent-softblue"
               />
               <span className="truncate">{item}</span>
             </label>
@@ -517,11 +546,11 @@ export const CareersForm: React.FC = () => {
         </div>
       </div>
 
-      {/* Qualification & Registration */}
+      {/* Qualifications & Registration */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
-            Highest Qualification <span className="text-red-500">*</span>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            Highest Qualification <span className="text-ember">*</span>
           </label>
           <input
             type="text"
@@ -529,18 +558,18 @@ export const CareersForm: React.FC = () => {
             value={highestQualification}
             onChange={(e) => setHighestQualification(e.target.value)}
             placeholder="e.g. B.Ed (UP, 2024) / BSc Mathematics (Wits, 2023)"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
             Years of Experience
           </label>
           <select
             value={experienceYears}
             onChange={(e) => setExperienceYears(e.target.value)}
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue bg-white"
+            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
           >
             <option value="None yet">None yet (Eager to learn)</option>
             <option value="Under 1">Under 1 year</option>
@@ -552,19 +581,19 @@ export const CareersForm: React.FC = () => {
 
         {!isPsych && (
           <div>
-            <label className="block text-xs font-semibold text-navy mb-1.5">
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
               SACE Registration Status
             </label>
             <div className="flex gap-2 mb-2">
-              {['Registered', 'Not registered', 'In progress'].map((st) => (
+              {(['Registered', 'Not registered', 'In progress'] as const).map((st) => (
                 <button
                   type="button"
                   key={st}
-                  onClick={() => setSaceStatus(st as any)}
-                  className={`flex-1 py-1.5 text-[11px] rounded-lg border ${
+                  onClick={() => setSaceStatus(st)}
+                  className={`flex-1 py-2 text-xs rounded-lg border transition-all cursor-pointer ${
                     saceStatus === st
-                      ? 'bg-softblue text-white border-softblue font-medium'
-                      : 'border-slate-200 text-slate-600'
+                      ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
+                      : 'border-border-cork bg-void/50 text-cream-muted hover:border-border-driftwood'
                   }`}
                 >
                   {st}
@@ -577,7 +606,7 @@ export const CareersForm: React.FC = () => {
                 value={saceNumber}
                 onChange={(e) => setSaceNumber(e.target.value)}
                 placeholder="Enter SACE registration number..."
-                className="w-full px-3.5 py-1.5 text-xs rounded-lg border border-slate-200"
+                className="w-full px-3.5 py-2 text-xs bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream mt-2"
               />
             )}
           </div>
@@ -585,19 +614,19 @@ export const CareersForm: React.FC = () => {
 
         {role === 'Educational psychologist' && (
           <div>
-            <label className="block text-xs font-semibold text-navy mb-1.5">
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
               HPCSA Registration Status
             </label>
             <div className="flex gap-2 mb-2">
-              {['Registered', 'Not registered'].map((st) => (
+              {(['Registered', 'Not registered'] as const).map((st) => (
                 <button
                   type="button"
                   key={st}
-                  onClick={() => setHpcsaStatus(st as any)}
-                  className={`flex-1 py-1.5 text-[11px] rounded-lg border ${
+                  onClick={() => setHpcsaStatus(st)}
+                  className={`flex-1 py-2 text-xs rounded-lg border transition-all cursor-pointer ${
                     hpcsaStatus === st
-                      ? 'bg-softblue text-white border-softblue font-medium'
-                      : 'border-slate-200 text-slate-600'
+                      ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
+                      : 'border-border-cork bg-void/50 text-cream-muted hover:border-border-driftwood'
                   }`}
                 >
                   {st}
@@ -610,7 +639,7 @@ export const CareersForm: React.FC = () => {
                 value={hpcsaNumber}
                 onChange={(e) => setHpcsaNumber(e.target.value)}
                 placeholder="Enter HPCSA registration number..."
-                className="w-full px-3.5 py-1.5 text-xs rounded-lg border border-slate-200"
+                className="w-full px-3.5 py-2 text-xs bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream mt-2"
               />
             )}
           </div>
@@ -618,7 +647,7 @@ export const CareersForm: React.FC = () => {
 
         {(role === 'Psychology student' || role === 'Tutor') && (
           <div>
-            <label className="block text-xs font-semibold text-navy mb-1.5">
+            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
               Current Year & Institution (Students)
             </label>
             <input
@@ -626,13 +655,13 @@ export const CareersForm: React.FC = () => {
               value={studentInstitutionYear}
               onChange={(e) => setStudentInstitutionYear(e.target.value)}
               placeholder="e.g. 3rd Year B.Ed, University of Pretoria"
-              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
         )}
 
         <div>
-          <label className="block text-xs font-semibold text-navy mb-1.5">
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
             Remedial / Early Reading Experience (Optional)
           </label>
           <input
@@ -640,19 +669,19 @@ export const CareersForm: React.FC = () => {
             value={remedialExperience}
             onChange={(e) => setRemedialExperience(e.target.value)}
             placeholder="e.g. 2 years remedial reading; Setswana literacy"
-            className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
       </div>
 
       {/* CV Upload */}
-      <div className="p-4 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 text-center">
+      <div className="p-6 bg-void/60 rounded-cards border-2 border-dashed border-border-cork hover:border-border-driftwood transition-colors text-center cursor-pointer">
         <label className="cursor-pointer block">
           <Upload className="w-8 h-8 text-softblue mx-auto mb-2" />
-          <span className="text-xs font-bold text-navy block">
-            Upload Your Curriculum Vitae (CV) <span className="text-red-500">*</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-cream block font-medium">
+            Upload Your Curriculum Vitae (CV) <span className="text-ember">*</span>
           </span>
-          <span className="text-[11px] text-slate-subtle block mt-0.5">
+          <span className="text-[11px] text-cream-muted block mt-1">
             PDF or Word (.docx) format only, max 5MB.
           </span>
           <input
@@ -663,8 +692,8 @@ export const CareersForm: React.FC = () => {
           />
         </label>
         {cvFileName && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-white border border-emerald-300 rounded-full text-xs text-emerald-800 font-medium">
-            <FileText className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
+            <FileText className="w-3.5 h-3.5 text-emerald-400" />
             <span>Attached: {cvFileName}</span>
           </div>
         )}
@@ -672,7 +701,7 @@ export const CareersForm: React.FC = () => {
 
       {/* Motivation */}
       <div>
-        <label className="block text-xs font-semibold text-navy mb-1.5">
+        <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
           Tell us why you want to join Re:kula (Optional)
         </label>
         <textarea
@@ -680,21 +709,21 @@ export const CareersForm: React.FC = () => {
           value={motivation}
           onChange={(e) => setMotivation(e.target.value)}
           placeholder="Share your teaching philosophy, passion for education, and what drew you to Re:kula..."
-          className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+          className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
 
       {/* Consent */}
-      <div className="pt-2 border-t border-slate-100">
-        <label className="flex items-start gap-2.5 text-xs text-navy cursor-pointer">
+      <div className="pt-2 border-t border-dashed border-border-cork">
+        <label className="flex items-start gap-3 text-xs text-cream-muted cursor-pointer">
           <input
             type="checkbox"
             required
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
-            className="mt-0.5 rounded text-softblue focus:ring-softblue"
+            className="mt-0.5 accent-cream"
           />
-          <span>
+          <span className="leading-relaxed">
             I agree to Re:kula storing my information to consider me for educational opportunities as outlined in the{' '}
             <button
               type="button"
@@ -703,21 +732,23 @@ export const CareersForm: React.FC = () => {
             >
               privacy policy
             </button>
-            . <span className="text-red-500">*</span>
+            . <span className="text-ember">*</span>
           </span>
         </label>
-        <p className="text-[11px] text-slate-subtle mt-1.5">
+        <p className="text-[11px] text-cream-muted/70 mt-2 font-mono">
           Note: We never ask for ID copies, bank details, or sensitive financial information at the initial application stage. Child protection and police clearance checks occur prior to final onboarding.
         </p>
       </div>
 
-      <button
-        type="submit"
-        className="w-full bg-navy hover:bg-navy-800 text-white font-semibold py-3.5 px-6 rounded-full text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
-      >
-        <Briefcase className="w-4 h-4" />
-        <span>Submit Application to Join Team</span>
-      </button>
+      <div className="pt-2">
+        <button
+          type="submit"
+          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <Briefcase className="w-4 h-4 text-void" />
+          <span>Submit Application to Join Team</span>
+        </button>
+      </div>
     </form>
   );
 };
