@@ -27,10 +27,6 @@ export const HowItWorksPage: React.FC = () => {
       
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-          <span>SIMPLICITY & CERTAINTY · THE 4-STEP PARTNERSHIP</span>
-        </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           HOW WORKING WITH US WORKS.
         </h1>

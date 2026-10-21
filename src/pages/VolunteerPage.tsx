@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { VolunteerForm } from '../components/VolunteerForm';
-import { HeartHandshake, BookOpen, Users, ShieldCheck } from 'lucide-react';
+import { BookOpen, Users, ShieldCheck } from 'lucide-react';
 
 export const VolunteerPage: React.FC = () => {
   return (
@@ -9,10 +9,6 @@ export const VolunteerPage: React.FC = () => {
       
       {/* Header strictly from brief */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-emerald-400 text-[10px] font-mono uppercase tracking-widest">
-          <HeartHandshake className="w-3 h-3 text-emerald-400" />
-          <span>GIVING BACK INITIATIVE · COMMUNITY TUTORING</span>
-        </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           GIVE A LEARNER THE CHANCE TO GROW.
         </h1>

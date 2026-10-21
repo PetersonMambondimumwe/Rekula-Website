@@ -46,15 +46,15 @@ export const HomePage: React.FC = () => {
             visibility: heroOpacity <= 0 ? 'hidden' : 'visible',
           }}
         >
-          <div className="flex items-center gap-3 sm:gap-6">
-            <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 shrink-0">
+          <div className="flex items-center gap-4 sm:gap-7">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 shrink-0">
               <img
                 src="/assets/rekula-logo-cream.png"
                 alt="Re:kula Logo"
-                className="w-full h-full object-contain filter drop-shadow-xl"
+                className="w-full h-full object-contain filter drop-shadow-2xl"
               />
             </div>
-            <h1 className="font-serif text-[54px] sm:text-[88px] lg:text-[124px] font-medium tracking-tight text-cream leading-[0.88]">
+            <h1 className="font-serif text-[56px] sm:text-[92px] lg:text-[132px] font-medium tracking-tight text-cream leading-[0.88]">
               Re<span className="text-softblue">:</span>kula
             </h1>
           </div>
@@ -139,17 +139,6 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Minimal Hero Bottom Bar */}
-        <div className="relative z-20 w-full px-6 sm:px-12 pb-5 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-cream-muted pointer-events-none">
-          <div>
-            <span>GROW AGAIN</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span>PRETORIA & GLOBAL ONLINE</span>
-          </div>
-        </div>
-
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
@@ -157,11 +146,6 @@ export const HomePage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <section className="w-full bg-void px-6 sm:px-12 py-24 border-t border-dashed border-border-cork text-left space-y-12">
         <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-            <span>SIMPLICITY & CERTAINTY · THE 4-STEP PARTNERSHIP</span>
-          </div>
-
           <h2 className="font-serif text-[34px] sm:text-[46px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
             HOW WORKING WITH US WORKS.
           </h2>
@@ -197,19 +181,6 @@ export const HomePage: React.FC = () => {
               <div className="w-8 h-px bg-border-cork group-hover:bg-softblue/60 transition-colors" />
             </div>
           ))}
-        </div>
-
-        {/* Discrete Next Step Bar */}
-        <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-dashed border-border-cork text-xs text-cream-muted">
-          <p>
-            Ready to get started? We begin with a confidential consultation to understand your learner.
-          </p>
-          <button
-            onClick={() => openConsultationModal()}
-            className="rounded-buttons-pill bg-cream text-void hover:bg-white px-6 py-2.5 text-xs font-medium tracking-[0.14em] uppercase transition-all shadow-md shrink-0 cursor-pointer"
-          >
-            Request Consultation
-          </button>
         </div>
       </section>
 

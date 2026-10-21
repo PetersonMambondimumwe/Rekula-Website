@@ -43,23 +43,18 @@ export const Navbar: React.FC = () => {
         {/* Left: Re:kula Wordmark & Model Identity */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 group text-left focus:outline-none"
+          className="flex items-center gap-3.5 group text-left focus:outline-none"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
+          <div className="h-10 sm:h-12 w-auto flex items-center justify-center shrink-0">
             <img
               src="/assets/rekula-logo-cream.png"
               alt="Re:kula Logo"
-              className="w-full h-full object-contain filter drop-shadow group-hover:scale-105 transition-transform"
+              className="h-full w-auto object-contain filter drop-shadow group-hover:scale-105 transition-transform"
             />
           </div>
-          <div className="flex flex-col">
-            <span className="font-sans text-[15px] sm:text-[16px] font-medium tracking-[0.06em] text-cream leading-none">
-              Re<span className="text-softblue">:</span>kula
-            </span>
-            <span className="text-[9px] font-medium tracking-[0.22em] text-cream-muted uppercase mt-1">
-              GROW AGAIN
-            </span>
-          </div>
+          <span className="font-sans text-[18px] sm:text-[21px] font-medium tracking-[0.04em] text-cream leading-none">
+            Re<span className="text-softblue">:</span>kula
+          </span>
         </button>
 
         {/* Center/Right: Desktop Minimal Navigation (ORYZO 12px uppercase) */}
