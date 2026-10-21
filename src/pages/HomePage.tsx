@@ -102,7 +102,7 @@ export const HomePage: React.FC = () => {
               </span>
 
               <p className="text-[18px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
-                Whatever the reason a learner has fallen behind, we close the gap, build confidence, and guide them to their capstone moment without judgement.
+                Learning support that meets every learner where they are.
               </p>
 
               {/* Primary Action Buttons (Pill-shaped controls) */}
