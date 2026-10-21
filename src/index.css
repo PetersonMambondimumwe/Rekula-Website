@@ -3,70 +3,121 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-void: #070D14;
+    --color-surface: #111D2A;
+    --color-surface-subtle: #162536;
+    --color-cork-border: #203448;
+    --color-warm-cream: #F3EADB;
+    --color-ember-accent: #D97736;
+    --color-softblue: #4C86A8;
+  }
+
   html {
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    scroll-behavior: smooth;
+    background-color: var(--color-void);
+    color: var(--color-warm-cream);
   }
-  
+
   body {
-    @apply text-navy bg-white selection:bg-softblue selection:text-white;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background-color: #070D14;
+    color: #F3EADB;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    selection-background-color: #4C86A8;
+    selection-color: #F3EADB;
   }
 
-  h1, h2, h3, h4, .font-serif {
-    font-family: 'Source Serif 4', Georgia, serif;
-    letter-spacing: -0.015em;
+  ::selection {
+    background-color: #4C86A8;
+    color: #FFFFFF;
   }
 }
 
-/* Custom Double-Bezel Card Utility */
-.bezel-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1.5rem;
-  box-shadow: 0 0 0 1px rgba(20, 48, 74, 0.08), 0 4px 16px -2px rgba(20, 48, 74, 0.04), 0 12px 32px -8px rgba(20, 48, 74, 0.06);
-  transition: all 400ms cubic-bezier(0.32, 0.72, 0, 1);
+/* Hairline dashed dividers from ORYZO */
+.dashed-divider {
+  border-top: 1px dashed #203448;
+  width: 100%;
 }
 
-.bezel-card:hover {
-  box-shadow: 0 0 0 1px rgba(76, 134, 168, 0.35), 0 8px 24px -4px rgba(20, 48, 74, 0.08), 0 24px 48px -8px rgba(20, 48, 74, 0.12);
-  transform: translateY(-2px);
+.dashed-divider-v {
+  border-left: 1px dashed #203448;
+  height: 100%;
 }
 
-/* Glass Island Nav */
-.glass-island {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(20, 48, 74, 0.08);
-  box-shadow: 0 10px 30px -10px rgba(20, 48, 74, 0.08);
+/* Pill buttons from ORYZO */
+.btn-pill-filled {
+  border-radius: 36px;
+  background-color: #162536;
+  color: #F3EADB;
+  padding: 14px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  transition: all 300ms cubic-bezier(0.32, 0.72, 0, 1);
+  border: 1px solid rgba(76, 134, 168, 0.2);
 }
 
-.glass-island-dark {
-  background: rgba(20, 48, 74, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+.btn-pill-filled:hover {
+  background-color: #4C86A8;
+  color: #FFFFFF;
+  border-color: #4C86A8;
 }
 
-/* Subtle decorative pattern */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(20, 48, 74, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(20, 48, 74, 0.03) 1px, transparent 1px);
+.btn-pill-outlined {
+  border-radius: 22.5px;
+  background-color: transparent;
+  border: 1px solid #F3EADB;
+  color: #F3EADB;
+  padding: 8px 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  transition: all 300ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* Scrollbar refinement */
+.btn-pill-outlined:hover {
+  background-color: #F3EADB;
+  color: #070D14;
+}
+
+/* Underline text input from ORYZO */
+.input-underline {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #203448;
+  color: #F3EADB;
+  padding: 8px 2px;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.input-underline:focus {
+  border-bottom-color: #F3EADB;
+}
+
+/* Custom 3D Canvas styles */
+.webgl-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+}
+
+/* Custom sleek scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F3F7FA;
+  background: #070D14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #A3BDCD;
-  border-radius: 4px;
+  background: #203448;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #4C86A8;

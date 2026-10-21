@@ -7,47 +7,76 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: '#0B1B2B',
-          900: '#0F2438',
-          DEFAULT: '#14304A',
-          800: '#1A3D5E',
-          700: '#224F79',
-          600: '#2C6496',
+        // ORYZO Cinematic Adaptation for Re:kula
+        void: '#070D14',          // Page canvas / deepest warm-navy void
+        surface: {
+          DEFAULT: '#111D2A',     // Elevated surface / card background
+          subtle: '#162536',      // Hover / secondary elevated surface
+          light: '#1D2E42',
+        },
+        border: {
+          cork: '#203448',        // Hairline dividers, dashed section separators
+          driftwood: '#324E6B',   // Mid-tone dividers
+          cream: '#F3EADB',       // Outline button border
+        },
+        cream: {
+          DEFAULT: '#F3EADB',     // Warm cream typography & high contrast captions
+          light: '#FAF6F0',
+          muted: '#C8BDB0',
+          dim: '#8E857B',
         },
         softblue: {
           DEFAULT: '#4C86A8',
           hover: '#3D7290',
           light: '#72A3C0',
-          tint: '#EAF1F6',
-          mist: '#F3F7FA',
+          glow: '#4C86A8',
         },
-        slate: {
-          subtle: '#5A6772',
-          muted: '#808F9B',
-          light: '#E2E8F0',
+        ember: {
+          DEFAULT: '#D97736',     // Rare editorial accent for credits and focus badges
+          glow: '#E06D3B',
         },
-        brand: {
-          bg: '#FFFFFF',
-          tint: '#EAF1F6',
-          dark: '#14304A',
-          accent: '#4C86A8',
-          leaf: '#428173',
+        navy: {
+          950: '#060B11',
+          900: '#0A121C',
+          DEFAULT: '#14304A',
+          800: '#1A3D5E',
         }
       },
       fontFamily: {
-        serif: ['"Source Serif 4"', 'Newsreader', 'Georgia', 'serif'],
-        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Source Serif 4"', 'Georgia', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
-      boxShadow: {
-        'bezel': '0 0 0 1px rgba(20, 48, 74, 0.06), 0 2px 4px rgba(20, 48, 74, 0.04), 0 12px 24px -4px rgba(20, 48, 74, 0.06)',
-        'bezel-hover': '0 0 0 1px rgba(76, 134, 168, 0.2), 0 8px 16px -2px rgba(20, 48, 74, 0.08), 0 20px 32px -4px rgba(20, 48, 74, 0.1)',
-        'inner-glow': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.8)',
-        'soft-float': '0 20px 40px -15px rgba(20, 48, 74, 0.08)',
+      fontSize: {
+        'display': ['51px', { lineHeight: '0.9', letterSpacing: '0px' }],
+        'display-lg': ['72px', { lineHeight: '0.9', letterSpacing: '-0.01em' }],
+        'display-xl': ['96px', { lineHeight: '0.88', letterSpacing: '-0.02em' }],
+        'heading': ['41px', { lineHeight: '0.9', letterSpacing: '0px' }],
+        'body-editorial': ['29px', { lineHeight: '1.26', letterSpacing: '0px' }],
+        'body-editorial-sm': ['22px', { lineHeight: '1.3', letterSpacing: '0px' }],
+        'micro': ['8px', { lineHeight: '1.2', letterSpacing: '0.05em' }],
+        'sub': ['12px', { lineHeight: '1.2', letterSpacing: '0.08em' }],
       },
-      transitionTimingFunction: {
-        'spring': 'cubic-bezier(0.32, 0.72, 0, 1)',
-      }
+      borderRadius: {
+        'cards': '12px',
+        'buttons-pill': '36px',
+        'buttons-outlined': '22.5px',
+      },
+      spacing: {
+        '6': '6px',
+        '8': '8px',
+        '9': '9px',
+        '10': '10px',
+        '12': '12px',
+        '14': '14px',
+        '18': '18px',
+        '24': '24px',
+        '31': '31px',
+        '41': '41px',
+        '45': '45px',
+        '68': '68px',
+        '204': '204px',
+      },
     },
   },
   plugins: [],

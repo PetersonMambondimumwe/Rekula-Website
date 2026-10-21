@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { siteSettings } from '../data/initialData';
-import { ArrowUpRight, MessageSquare, Mail, MapPin, ShieldCheck, Heart, Lock } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, ArrowUpRight, Lock } from 'lucide-react';
 import { NavigationTab } from '../types';
 
 export const Footer: React.FC = () => {
@@ -12,67 +12,58 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-navy-950 text-white/80 pt-16 pb-12 border-t border-white/10 relative overflow-hidden">
-      {/* Decorative subtle ambient circle */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-softblue/10 rounded-full blur-3xl pointer-events-none" />
+    <footer className="w-full bg-void text-cream pt-20 pb-12 border-t border-dashed border-border-cork relative overflow-hidden">
+      
+      {/* Background ambient warmth */}
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-softblue/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+      <div className="w-full px-6 sm:px-12 relative z-10 space-y-16">
+        
+        {/* Top Row: Brand & Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-dashed border-border-cork text-left">
           
-          {/* Col 1 & 2: Brand & Mission */}
+          {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white p-1 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1">
                 <img
                   src="/assets/rekula-logo.png"
                   alt="Re:kula Logo"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain filter invert contrast-125 opacity-90"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-2xl font-bold tracking-tight text-white leading-none">
-                  Re<span className="text-softblue-light">:</span>kula
+                <span className="font-sans text-sm font-medium tracking-[0.2em] text-cream uppercase leading-none">
+                  RE<span className="text-softblue">:</span>KULA
                 </span>
-                <span className="text-[10px] tracking-[0.25em] font-semibold text-softblue-light uppercase mt-0.5">
+                <span className="text-[9px] font-medium tracking-[0.25em] text-cream-muted uppercase mt-0.5">
                   GROW AGAIN
                 </span>
               </div>
             </div>
 
-            <p className="text-sm text-slate-muted max-w-md leading-relaxed">
-              Re:kula is the premier academic partner for learners of every age whose education needs a different kind of support. Whatever the reason a learner has fallen behind, we close the gap, build confidence, and help them grow again.
+            <p className="text-xs sm:text-[13px] text-cream-muted max-w-sm leading-relaxed">
+              The academic partner for learners of every age whose education needs a different kind of support. Whatever the reason a learner has fallen behind, we close the gap, build confidence, and help them grow again.
             </p>
 
-            <div className="pt-2 flex flex-wrap gap-2 text-xs">
-              <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70">
-                CAPS Curricula
-              </span>
-              <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70">
-                IEB Accredited
-              </span>
-              <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70">
-                Cambridge International
-              </span>
-            </div>
-
-            <div className="pt-2">
-              <p className="text-xs text-slate-muted italic">
-                * Re:kula tailors every academic journey individually. We do not publish fixed rate cards or packages; pricing options are discussed transparently during consultation.
-              </p>
+            <div className="pt-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted space-y-1">
+              <p>* FOUNDED IN PRETORIA, SOUTH AFRICA · 2023</p>
+              <p>* CAPS · IEB · CAMBRIDGE INTERNATIONAL PROGRAMMES</p>
             </div>
           </div>
 
-          {/* Col 3: Services */}
+          {/* Services */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-softblue-light">
-              Services
+            <h4 className="text-[10px] font-medium uppercase tracking-[0.25em] text-ember">
+              SERVICES
             </h4>
-            <ul className="space-y-2 text-sm">
+            <div className="dashed-divider my-2" />
+            <ul className="space-y-2 text-xs text-cream-muted">
               {publishedServices.map((service) => (
                 <li key={service.id}>
                   <button
                     onClick={() => navigateToService(service.slug)}
-                    className="hover:text-white transition-colors text-left"
+                    className="hover:text-white transition-colors text-left uppercase tracking-wider"
                   >
                     {service.title}
                   </button>
@@ -81,33 +72,34 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => handleNav('services')}
-                  className="text-softblue-light hover:underline text-xs flex items-center gap-1 mt-1"
+                  className="text-softblue hover:underline text-[11px] uppercase tracking-wider flex items-center gap-1 mt-2"
                 >
-                  Explore all services <ArrowUpRight className="w-3 h-3" />
+                  All Services Hub &rarr;
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Explore */}
+          {/* Navigation */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-softblue-light">
-              Explore
+            <h4 className="text-[10px] font-medium uppercase tracking-[0.25em] text-ember">
+              EXPLORE
             </h4>
-            <ul className="space-y-2 text-sm">
+            <div className="dashed-divider my-2" />
+            <ul className="space-y-2 text-xs text-cream-muted uppercase tracking-wider">
               <li>
                 <button onClick={() => handleNav('about')} className="hover:text-white transition-colors">
-                  Our Story & Mission
+                  Our Philosophy
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('how-it-works')} className="hover:text-white transition-colors">
-                  How Working With Us Works
+                  How It Works & FAQ
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('founder')} className="hover:text-white transition-colors">
-                  Meet Founder Shawn Maluleke
+                  Meet Shawn Maluleke
                 </button>
               </li>
               <li>
@@ -117,12 +109,12 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button onClick={() => handleNav('careers')} className="hover:text-white transition-colors">
-                  Careers (Join Our Team)
+                  Careers (Join Team)
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('volunteer')} className="hover:text-white transition-colors">
-                  Get Involved (Volunteer Tutoring)
+                  Give Back (Volunteer)
                 </button>
               </li>
               <li>
@@ -133,31 +125,32 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Col 5: Contact & Base */}
+          {/* Contact Base */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-softblue-light">
-              Pretoria Base
+            <h4 className="text-[10px] font-medium uppercase tracking-[0.25em] text-ember">
+              PRETORIA BASE
             </h4>
-            <ul className="space-y-3 text-sm text-slate-muted">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-softblue-light shrink-0 mt-0.5" />
-                <span>Pretoria, Gauteng, South Africa (In-person & Nationwide/Global Online)</span>
+            <div className="dashed-divider my-2" />
+            <ul className="space-y-3 text-xs text-cream-muted">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-softblue shrink-0 mt-0.5" />
+                <span>Pretoria, Gauteng · In-Person & Global Online</span>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-softblue-light shrink-0" />
+              <li className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-softblue shrink-0" />
                 <a href={`mailto:${siteSettings.displayEmail}`} className="hover:text-white transition-colors">
                   {siteSettings.displayEmail}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+              <li className="flex items-center gap-2">
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <a
-                  href={`https://wa.me/27674350849`}
+                  href="https://wa.me/27674350849"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white text-emerald-300 transition-colors font-medium"
+                  className="text-emerald-400 hover:underline font-mono"
                 >
-                  WhatsApp: +27 67 435 0849
+                  +27 67 435 0849
                 </a>
               </li>
             </ul>
@@ -165,36 +158,31 @@ export const Footer: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => handleNav('contact')}
-                className="w-full text-center px-4 py-2.5 rounded-full bg-softblue hover:bg-softblue-hover text-white text-xs font-semibold tracking-wide transition-all shadow-sm"
+                className="w-full rounded-buttons-outlined border border-cream text-cream hover:bg-cream hover:text-void py-2.5 text-[10px] font-medium uppercase tracking-widest transition-colors"
               >
-                Get in Touch
+                Direct Consultation
               </button>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-muted">
+        {/* Bottom Bar: System legal & studio credit */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
           <div>
-            &copy; {new Date().getFullYear()} Re:kula (Pty) Ltd. Founded in Pretoria, South Africa. All rights reserved.
+            &copy; {new Date().getFullYear()} RE:KULA (PTY) LTD · GROW AGAIN · ALL RIGHTS RESERVED
           </div>
 
           <div className="flex items-center gap-6">
-            <button
-              onClick={() => handleNav('privacy')}
-              className="hover:text-white transition-colors"
-            >
-              Privacy & Child Protection
-            </button>
+            <span>NO PRICING DISPLAYED · TAILORED ASSESSMENTS ONLY</span>
             
             <button
               onClick={() => handleNav('admin')}
               className="hover:text-white transition-colors flex items-center gap-1.5 opacity-60 hover:opacity-100"
               title="Founder CMS Studio"
             >
-              <Lock className="w-3 h-3 text-softblue-light" />
-              <span>Founder CMS Portal</span>
+              <Lock className="w-3 h-3 text-softblue" />
+              <span>FOUNDER PORTAL</span>
             </button>
           </div>
         </div>
