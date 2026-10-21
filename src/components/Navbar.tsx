@@ -22,12 +22,10 @@ export const Navbar: React.FC = () => {
   };
 
   const navItems: { tab: NavigationTab; label: string }[] = [
-    { tab: 'home', label: 'INTRO' },
+    { tab: 'home', label: 'HOME' },
     { tab: 'services', label: 'SERVICES' },
-    { tab: 'how-it-works', label: 'HOW IT WORKS' },
     { tab: 'founder', label: 'FOUNDER' },
     { tab: 'testimonials', label: 'STORIES' },
-    { tab: 'careers', label: 'CAREERS' },
     { tab: 'volunteer', label: 'GIVE BACK' },
     { tab: 'contact', label: 'CONTACT' },
   ];

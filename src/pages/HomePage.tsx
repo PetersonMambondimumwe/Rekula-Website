@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useApp } from '../context/AppContext';
 import { RekulaCapstoneStage } from '../components/RekulaCapstoneStage';
+import { processSteps } from '../data/initialData';
 import { ArrowUpRight, MessageSquare } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
@@ -24,135 +25,193 @@ export const HomePage: React.FC = () => {
   const finalTranslate = (1 - finalProgress) * 20;
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-void select-none flex flex-col justify-between text-cream">
+    <div className="relative w-full bg-void select-none text-cream">
       
       {/* ─────────────────────────────────────────────────────────────
-          1. 3D WEBGL STAGE (CAP & HAND MOVE ON THEIR OWN UPON OPEN)
+          1. 3D HERO VIEWPORT (CAP & HAND MOVE ON THEIR OWN UPON OPEN)
           ───────────────────────────────────────────────────────────── */}
-      <RekulaCapstoneStage
-        onProgressChange={handleProgressChange}
-      />
+      <div className="relative w-full h-[100dvh] overflow-hidden flex flex-col justify-between">
+        
+        {/* 3D WebGL Canvas Layer */}
+        <RekulaCapstoneStage
+          onProgressChange={handleProgressChange}
+        />
 
-      {/* ─────────────────────────────────────────────────────────────
-          2. HERO BRAND (VISIBLE ON OPEN, FADES OUT AS ANIMATION GLIDES)
-          Business logo sits cleanly before the word Re:kula
-          ───────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute left-6 sm:left-12 top-28 sm:top-36 z-20 pointer-events-none transition-transform will-change-transform"
-        style={{
-          opacity: heroOpacity,
-          transform: `translateY(${heroTranslate}px)`,
-          visibility: heroOpacity <= 0 ? 'hidden' : 'visible',
-        }}
-      >
-        <div className="flex items-center gap-3 sm:gap-6">
-          <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 shrink-0">
-            <img
-              src="/assets/rekula-logo-cream.png"
-              alt="Re:kula Logo"
-              className="w-full h-full object-contain filter drop-shadow-xl"
-            />
+        {/* Hero Brand Title (Visible on open, fades out as animation glides) */}
+        <div
+          className="absolute left-6 sm:left-12 top-28 sm:top-36 z-20 pointer-events-none transition-transform will-change-transform"
+          style={{
+            opacity: heroOpacity,
+            transform: `translateY(${heroTranslate}px)`,
+            visibility: heroOpacity <= 0 ? 'hidden' : 'visible',
+          }}
+        >
+          <div className="flex items-center gap-3 sm:gap-6">
+            <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 shrink-0">
+              <img
+                src="/assets/rekula-logo-cream.png"
+                alt="Re:kula Logo"
+                className="w-full h-full object-contain filter drop-shadow-xl"
+              />
+            </div>
+            <h1 className="font-serif text-[54px] sm:text-[88px] lg:text-[124px] font-medium tracking-tight text-cream leading-[0.88]">
+              Re<span className="text-softblue">:</span>kula
+            </h1>
           </div>
-          <h1 className="font-serif text-[54px] sm:text-[88px] lg:text-[124px] font-medium tracking-tight text-cream leading-[0.88]">
-            Re<span className="text-softblue">:</span>kula
-          </h1>
         </div>
+
+        {/* Core Value Proposition & Actions (Revealed in palm state) */}
+        <div
+          className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-none transition-transform will-change-transform"
+          style={{
+            opacity: finalProgress,
+            transform: `translateY(${finalTranslate}px)`,
+            visibility: finalProgress <= 0 ? 'hidden' : 'visible',
+          }}
+        >
+          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Column: Mission Headline & Curriculum */}
+            <div className="lg:col-span-4 text-left space-y-4">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
+                ACADEMIC SUPPORT & CONSULTING
+              </span>
+
+              <h2 className="font-serif text-[34px] sm:text-[44px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+                YOUR ACADEMIC FUTURE IN <span className="text-softblue italic">TRUSTED HANDS.</span>
+              </h2>
+
+              <div className="dashed-divider my-3" />
+
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+                <span className="text-softblue font-medium">CAPS</span>
+                <span>·</span>
+                <span className="text-softblue font-medium">IEB</span>
+                <span>·</span>
+                <span className="text-softblue font-medium">CAMBRIDGE</span>
+              </div>
+            </div>
+
+            {/* Center Column: Spatial Void for the Live 3D Hand & Cap */}
+            <div className="lg:col-span-4 h-[200px] sm:h-[300px] lg:h-[400px] flex items-center justify-center relative pointer-events-none" />
+
+            {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
+            <div className="lg:col-span-4 text-left space-y-5">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
+                OUR PROMISE
+              </span>
+
+              <p className="text-[18px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
+                Whatever the reason a learner has fallen behind, we close the gap, build confidence, and guide them to their capstone moment without judgement.
+              </p>
+
+              {/* Primary Action Buttons (Pill-shaped controls) */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pointer-events-auto">
+                <button
+                  onClick={() => openConsultationModal()}
+                  className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Request Consultation</span>
+                  <ArrowUpRight className="w-4 h-4 text-void" />
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('services')}
+                  className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all text-center cursor-pointer"
+                >
+                  Explore Services
+                </button>
+              </div>
+
+              <div className="pt-2 flex items-center gap-3 pointer-events-auto">
+                <a
+                  href="https://wa.me/27674350849"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-emerald-400 hover:underline font-mono inline-flex items-center gap-1.5 uppercase tracking-wider cursor-pointer"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Chat on WhatsApp: +27 67 435 0849</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Minimal Hero Bottom Bar */}
+        <div className="relative z-20 w-full px-6 sm:px-12 pb-5 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-cream-muted pointer-events-none">
+          <div>
+            <span>GROW AGAIN</span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span>PRETORIA & GLOBAL ONLINE</span>
+          </div>
+        </div>
+
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          3. CORE VALUE PROPOSITION & ACTIONS (REVEALED IN PALM STATE)
-          Straightforward: what the business is about, nothing overwhelming
+          2. HOW IT WORKS CARDS (REPLACES WHOLE SECTION BELOW HAND)
           ───────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-none transition-transform will-change-transform"
-        style={{
-          opacity: finalProgress,
-          transform: `translateY(${finalTranslate}px)`,
-          visibility: finalProgress <= 0 ? 'hidden' : 'visible',
-        }}
-      >
-        <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* Left Column: Mission Headline & Curriculum */}
-          <div className="lg:col-span-4 text-left space-y-4">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
-              ACADEMIC SUPPORT & CONSULTING
-            </span>
-
-            <h2 className="font-serif text-[34px] sm:text-[44px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-              YOUR ACADEMIC FUTURE IN <span className="text-softblue italic">TRUSTED HANDS.</span>
-            </h2>
-
-            <div className="dashed-divider my-3" />
-
-            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted">
-              <span className="text-softblue font-medium">CAPS</span>
-              <span>·</span>
-              <span className="text-softblue font-medium">IEB</span>
-              <span>·</span>
-              <span className="text-softblue font-medium">CAMBRIDGE</span>
-            </div>
+      <section className="w-full bg-void px-6 sm:px-12 py-24 border-t border-dashed border-border-cork text-left space-y-12">
+        <div className="max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-ember" />
+            <span>SIMPLICITY & CERTAINTY · THE 4-STEP PARTNERSHIP</span>
           </div>
 
-          {/* Center Column: Spatial Void for the Live 3D Hand & Cap */}
-          <div className="lg:col-span-4 h-[200px] sm:h-[300px] lg:h-[400px] flex items-center justify-center relative pointer-events-none" />
+          <h2 className="font-serif text-[34px] sm:text-[46px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
+            HOW WORKING WITH US WORKS.
+          </h2>
 
-          {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
-          <div className="lg:col-span-4 text-left space-y-5">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
-              OUR PROMISE
-            </span>
+          <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
+            We know that falling behind or shifting curricula can feel stressful. Our four-step partnership eliminates anxiety by establishing a transparent, supportive plan tailored to your learner’s life.
+          </p>
+        </div>
 
-            <p className="text-[18px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
-              Whatever the reason a learner has fallen behind, we close the gap, build confidence, and guide them to their capstone moment without judgement.
-            </p>
+        {/* 4 Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {processSteps.map((step) => (
+            <div
+              key={step.number}
+              className="rounded-cards bg-surface/50 border border-border-cork p-7 flex flex-col justify-between space-y-6 hover:border-softblue/40 transition-colors group"
+            >
+              <div className="space-y-3">
+                <span className="font-mono text-3xl font-light text-cream-muted/50 group-hover:text-softblue transition-colors block">
+                  {step.number}
+                </span>
+                <div className="dashed-divider my-2" />
+                <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
+                  {step.title}
+                </h3>
+                <p className="text-xs font-mono font-medium text-softblue uppercase tracking-wider">
+                  {step.summary}
+                </p>
+                <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
+                  {step.detail}
+                </p>
+              </div>
 
-            {/* Primary Action Buttons (Pill-shaped controls) */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pointer-events-auto">
-              <button
-                onClick={() => openConsultationModal()}
-                className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Request Consultation</span>
-                <ArrowUpRight className="w-4 h-4 text-void" />
-              </button>
-
-              <button
-                onClick={() => setActiveTab('services')}
-                className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all text-center cursor-pointer"
-              >
-                Explore Services
-              </button>
+              <div className="w-8 h-px bg-border-cork group-hover:bg-softblue/60 transition-colors" />
             </div>
-
-            <div className="pt-2 flex items-center gap-3 pointer-events-auto">
-              <a
-                href="https://wa.me/27674350849"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-emerald-400 hover:underline font-mono inline-flex items-center gap-1.5 uppercase tracking-wider cursor-pointer"
-              >
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>Chat on WhatsApp: +27 67 435 0849</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* ─────────────────────────────────────────────────────────────
-          4. BOTTOM MINIMAL BAR (NO REPLAY SEQUENCE TEXT)
-          ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-20 w-full px-6 sm:px-12 pb-5 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-cream-muted pointer-events-none">
-        <div>
-          <span>GROW AGAIN</span>
+          ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <span>PRETORIA & GLOBAL ONLINE</span>
+        {/* Discrete Next Step Bar */}
+        <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-dashed border-border-cork text-xs text-cream-muted">
+          <p>
+            Ready to get started? We begin with a confidential consultation to understand your learner.
+          </p>
+          <button
+            onClick={() => openConsultationModal()}
+            className="rounded-buttons-pill bg-cream text-void hover:bg-white px-6 py-2.5 text-xs font-medium tracking-[0.14em] uppercase transition-all shadow-md shrink-0 cursor-pointer"
+          >
+            Request Consultation
+          </button>
         </div>
-      </div>
+      </section>
 
     </div>
   );
