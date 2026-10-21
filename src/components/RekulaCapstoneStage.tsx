@@ -229,7 +229,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     // ─────────────────────────────────────────────────────────────
     let animId: number;
     const clock = new THREE.Clock();
-    const START_DELAY_MS = 650; // Pause at launch to let user see RE:KULA cap
+    const START_DELAY_MS = 650; // Pause at launch to let user see Re:kula cap
     const DURATION_MS = 2200;    // Silky smooth glide duration
 
     const animate = () => {

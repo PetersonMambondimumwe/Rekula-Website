@@ -33,10 +33,10 @@ export const Footer: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-sans text-sm font-medium tracking-[0.2em] text-cream uppercase leading-none">
-                  RE<span className="text-softblue">:</span>KULA
+                <span className="font-sans text-base font-medium tracking-[0.06em] text-cream leading-none">
+                  Re<span className="text-softblue">:</span>kula
                 </span>
-                <span className="text-[9px] font-medium tracking-[0.25em] text-cream-muted uppercase mt-0.5">
+                <span className="text-[9px] font-medium tracking-[0.22em] text-cream-muted uppercase mt-1">
                   GROW AGAIN
                 </span>
               </div>
@@ -170,7 +170,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar: System legal & studio credit */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
           <div>
-            &copy; {new Date().getFullYear()} RE:KULA (PTY) LTD · GROW AGAIN · ALL RIGHTS RESERVED
+            &copy; {new Date().getFullYear()} Re:kula (Pty) Ltd · GROW AGAIN · ALL RIGHTS RESERVED
           </div>
 
           <div className="flex items-center gap-6">

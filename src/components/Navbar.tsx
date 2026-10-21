@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
     >
       <div className="w-full px-6 sm:px-12 flex items-center justify-between">
         
-        {/* Left: RE:KULA Wordmark & Model Identity */}
+        {/* Left: Re:kula Wordmark & Model Identity */}
         <button
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3 group text-left focus:outline-none"
@@ -56,10 +56,10 @@ export const Navbar: React.FC = () => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-sans text-[13px] sm:text-[14px] font-medium tracking-[0.18em] text-cream uppercase leading-none">
-              RE<span className="text-softblue">:</span>KULA
+            <span className="font-sans text-[14px] sm:text-[15px] font-medium tracking-[0.06em] text-cream leading-none">
+              Re<span className="text-softblue">:</span>kula
             </span>
-            <span className="text-[9px] font-medium tracking-[0.25em] text-cream-muted uppercase mt-0.5">
+            <span className="text-[9px] font-medium tracking-[0.22em] text-cream-muted uppercase mt-1">
               GROW AGAIN
             </span>
           </div>
@@ -126,8 +126,8 @@ export const Navbar: React.FC = () => {
         <div className="lg:hidden fixed inset-0 top-[60px] bg-void/98 backdrop-blur-2xl z-40 p-6 flex flex-col justify-between animate-in fade-in duration-200">
           <div className="space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-dashed border-border-cork">
-              <span className="text-[10px] uppercase tracking-[0.25em] font-medium text-cream-muted">
-                RE:KULA · SITEMAP
+              <span className="text-[10px] tracking-[0.25em] font-medium text-cream-muted">
+                Re:kula · SITEMAP
               </span>
               <span className="text-[10px] uppercase tracking-[0.15em] text-ember">
                 PRETORIA · EST. 2023

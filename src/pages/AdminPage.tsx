@@ -112,8 +112,8 @@ export const AdminPage: React.FC = () => {
             <Shield className="w-3.5 h-3.5" />
             <span>FOUNDER CMS STUDIO</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream mt-1">
-            RE:KULA STUDIO PORTAL.
+          <h1 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-cream mt-1">
+            Re:kula Studio Portal.
           </h1>
           <p className="text-xs text-cream-muted font-mono">
             Manage services, review verified testimonials, track inquiries, and export data.

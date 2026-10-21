@@ -13,10 +13,10 @@ export const CareersPage: React.FC = () => {
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
           <Briefcase className="w-3 h-3 text-ember" />
-          <span>JOIN THE RE:KULA TEAM · EDUCATORS & SPECIALISTS</span>
+          <span>JOIN THE Re:kula TEAM · EDUCATORS & SPECIALISTS</span>
         </div>
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-          JOIN THE RE:KULA TEAM.
+        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium tracking-tight text-cream leading-[0.92]">
+          JOIN THE Re:kula TEAM.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
           We’re building a team of caring, capable people who believe every learner can grow again. If you’re passionate about helping learners succeed, we’d love to hear from you.

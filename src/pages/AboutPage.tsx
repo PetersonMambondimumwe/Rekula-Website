@@ -145,8 +145,8 @@ export const AboutPage: React.FC = () => {
       {/* 4. The 10 Differentiators from Brief */}
       <section className="space-y-12">
         <div className="space-y-3 max-w-2xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-softblue">
-            WHY RE:KULA
+          <span className="text-[10px] font-mono tracking-[0.25em] text-softblue uppercase">
+            WHY Re:kula
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream">
             Ten Distinctive Principles

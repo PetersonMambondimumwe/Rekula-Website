@@ -51,8 +51,8 @@ export const HomePage: React.FC = () => {
           visibility: heroOpacity <= 0 ? 'hidden' : 'visible',
         }}
       >
-        <h1 className="font-serif text-[60px] sm:text-[96px] lg:text-[136px] font-medium uppercase tracking-tight text-cream leading-[0.88]">
-          RE<span className="text-softblue">:</span>KULA
+        <h1 className="font-serif text-[60px] sm:text-[96px] lg:text-[136px] font-medium tracking-tight text-cream leading-[0.88]">
+          Re<span className="text-softblue">:</span>kula
         </h1>
       </div>
 
