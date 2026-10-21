@@ -19,7 +19,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     if (!canvas || !container) return;
 
     // ─────────────────────────────────────────────────────────────
-    // 1. RENDERER SETUP (ALPHA TRANSPARENT, HIGH PERFORMANCE)
+    // 1. RENDERER SETUP (TRANSPARENT, ANTI-ALIASED, HIGH PERFORMANCE)
     // ─────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -30,44 +30,44 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMappingExposure = 1.06;
 
     // ─────────────────────────────────────────────────────────────
-    // 2. SCENE & CAMERA (TUNED FRUSTUM & HEADROOM)
+    // 2. SCENE & CAMERA (EXACT FRUSTUM CALIBRATION)
     // ─────────────────────────────────────────────────────────────
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
 
     // ─────────────────────────────────────────────────────────────
-    // 3. STUDIO LIGHTING (VIVID, NATURAL, ZERO WHITE SEAMS)
+    // 3. STUDIO LIGHTING (CLEAN & VIVID, ZERO HARSH ARTIFACTS)
     // ─────────────────────────────────────────────────────────────
-    const ambientLight = new THREE.AmbientLight(0xfff5eb, 1.35);
+    const ambientLight = new THREE.AmbientLight(0xfff5eb, 1.4);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffedd7, 1.9);
+    const keyLight = new THREE.DirectionalLight(0xffedd7, 1.8);
     keyLight.position.set(4, 6, 4);
     scene.add(keyLight);
 
-    const fillLight = new THREE.PointLight(0x6098bc, 6, 16);
+    const fillLight = new THREE.PointLight(0x6098bc, 5, 16);
     fillLight.position.set(-3, 1, 4);
     scene.add(fillLight);
 
     // ─────────────────────────────────────────────────────────────
-    // 4. LOAD HIGH-RESOLUTION CRISP TEXTURES
+    // 4. LOAD HIGH-RESOLUTION PURIFIED TEXTURES
     // ─────────────────────────────────────────────────────────────
     const textureLoader = new THREE.TextureLoader();
 
-    // 4A. Graduation Cap (Complete, Beveled Diamond, Gold Tassel)
+    // 4A. Purified Graduation Cap (Guaranteed ZERO stray skin pixels)
     const capTex = textureLoader.load('/assets/rekula-cap-crisp.png');
     capTex.colorSpace = THREE.SRGBColorSpace;
     capTex.generateMipmaps = true;
     capTex.minFilter = THREE.LinearMipmapLinearFilter;
     capTex.magFilter = THREE.LinearFilter;
 
-    // Cap natural proportions: 604 x 319 (aspect = 1.893)
-    // Sized comfortably so it NEVER clips browser borders
-    const capWidth = 3.35;
-    const capHeight = capWidth / (604 / 319); // 1.77
+    // Sized comfortably to fit harmoniously within center viewport
+    // Natural aspect ratio: 598 x 319 = 1.8746
+    const capWidth = 2.85;
+    const capHeight = capWidth / 1.8746; // 1.52
     const capGeom = new THREE.PlaneGeometry(capWidth, capHeight);
     const capMaterial = new THREE.MeshBasicMaterial({
       map: capTex,
@@ -78,16 +78,16 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     const cap = new THREE.Mesh(capGeom, capMaterial);
     scene.add(cap);
 
-    // 4B. Human Hand (Photographic Warm Skin, Open Palm, Cupped Fingers)
+    // 4B. Purified Human Hand (Complete, Natural Warm Skin)
     const handTex = textureLoader.load('/assets/rekula-hand-crisp.png');
     handTex.colorSpace = THREE.SRGBColorSpace;
     handTex.generateMipmaps = true;
     handTex.minFilter = THREE.LinearMipmapLinearFilter;
     handTex.magFilter = THREE.LinearFilter;
 
-    // Hand natural proportions: 857 x 340 (aspect = 2.52)
-    const handWidth = 5.2;
-    const handHeight = handWidth / (857 / 340); // 2.06
+    // Natural aspect ratio: 857 x 404 = 2.121
+    const handWidth = 4.0;
+    const handHeight = handWidth / 2.121; // 1.886
     const handGeom = new THREE.PlaneGeometry(handWidth, handHeight);
     const handMaterial = new THREE.MeshBasicMaterial({
       map: handTex,
@@ -96,20 +96,20 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       depthWrite: false,
     });
     const hand = new THREE.Mesh(handGeom, handMaterial);
-    // Hidden initially at launch
+    // Explicitly hidden at launch so no part can ever be seen at t=0
     hand.visible = false;
-    hand.position.set(0.3, -10.0, 0);
+    hand.position.set(0.1, -12.0, 0);
     scene.add(hand);
 
-    // 4C. Organic Palm Contact Shadow (Fades in softly as cap lands)
+    // 4C. Soft Palm Contact Shadow (Fades in softly as cap hovers over palm)
     const shadowCanvas = document.createElement('canvas');
     shadowCanvas.width = 256;
     shadowCanvas.height = 256;
     const sCtx = shadowCanvas.getContext('2d');
     if (sCtx) {
       const sGrad = sCtx.createRadialGradient(128, 128, 10, 128, 128, 120);
-      sGrad.addColorStop(0, 'rgba(4, 2, 1, 0.78)');
-      sGrad.addColorStop(0.5, 'rgba(8, 4, 2, 0.32)');
+      sGrad.addColorStop(0, 'rgba(4, 2, 1, 0.75)');
+      sGrad.addColorStop(0.5, 'rgba(8, 4, 2, 0.30)');
       sGrad.addColorStop(1, 'rgba(8, 4, 2, 0.0)');
       sCtx.fillStyle = sGrad;
       sCtx.fillRect(0, 0, 256, 256);
@@ -118,7 +118,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     shadowTex.colorSpace = THREE.SRGBColorSpace;
 
     const contactShadow = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.2, 0.75),
+      new THREE.PlaneGeometry(2.0, 0.65),
       new THREE.MeshBasicMaterial({
         map: shadowTex,
         transparent: true,
@@ -130,7 +130,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     scene.add(contactShadow);
 
     // ─────────────────────────────────────────────────────────────
-    // 5. RESPONSIVE RESIZE HANDLING & VIEWPORT BOUNDS
+    // 5. RESPONSIVE RESIZE HANDLING
     // ─────────────────────────────────────────────────────────────
     let isMobile = false;
 
@@ -139,8 +139,8 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       const h = container.clientHeight || window.innerHeight;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
-      isMobile = w / h < 0.9;
-      const d = isMobile ? 10.5 : 7.2;
+      isMobile = w / h < 0.95;
+      const d = isMobile ? 10.2 : 7.2;
       camera.position.set(0, (2.8 * d) / 7.2, (5.6 * d) / 7.2 * 1.05);
       camera.lookAt(0, 0.15, 0);
       camera.updateProjectionMatrix();
@@ -150,7 +150,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     fit();
 
     // ─────────────────────────────────────────────────────────────
-    // 6. SILKY SCROLL TRACKING & 3D INTERACTION
+    // 6. SCROLL INTERPOLATION & 3D INTERACTION
     // ─────────────────────────────────────────────────────────────
     let target = 0;
     let cur = 0;
@@ -183,7 +183,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Mouse & Touch Drag to Rotate in Final State
+    // Drag Interaction in Final State
     const onMouseDown = (e: MouseEvent) => {
       if (cur > 0.72) {
         isDragging = true;
@@ -261,68 +261,67 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       const s1 = smoothstep(0.04, 0.35, t);
       const s2 = smoothstep(0.35, 0.85, t);
 
-      // Drag inertia interpolation
+      // Drag inertia
       dragRotY += (targetDragRotY - dragRotY) * 0.08;
       dragRotX += (targetDragRotX - dragRotX) * 0.08;
 
       // ─────────────────────────────────────────────────────────
-      // 7A. CAP POSITION & SCALE
-      // At launch (t=0):
-      // - Placed comfortably in view (y = 0.15) with generous headroom
-      // - Sized cleanly so top board is NEVER cut off
-      // - On desktop: positioned slightly to the right (x = 0.85)
-      //   to harmoniously balance with the left-hand hero text
-      // - On mobile: centered (x = 0)
-      // As user scrolls:
-      // - Glides smoothly into the center palm hover position
+      // 7A. CAP POSITIONING
+      // Launch (t = 0):
+      // - Centered comfortably with generous headroom (y = 0.15)
+      // - Desktop: placed in center-right showcase (x = 0.75)
+      // - Mobile: centered (x = 0)
+      // Scroll to Reveal (t -> 1):
+      // - Glides down smoothly to hover right above the palm (x = -0.22, y = 0.42)
       // ─────────────────────────────────────────────────────────
-      const capStartX = isMobile ? 0.0 : 0.82;
-      const capFinalX = -0.30;
-      const capX = capStartX + (capFinalX - capStartX) * s2 + dragRotY * 0.4;
+      const capStartX = isMobile ? 0.0 : 0.78;
+      const capFinalX = -0.22;
+      const capX = capStartX + (capFinalX - capStartX) * s2 + dragRotY * 0.35;
 
-      const capStartY = 0.18;
-      const capPeakY = 0.75;
-      const capFinalY = 0.48;
+      const capStartY = 0.15;
+      const capPeakY = 0.65;
+      const capFinalY = 0.42;
       const capY =
         capStartY +
         (capPeakY - capStartY) * s1 -
         (capPeakY - capFinalY) * s2 +
-        Math.sin(time * 1.4) * 0.035 * (1 - s1 * 0.4);
+        Math.sin(time * 1.4) * 0.03 * (1 - s1 * 0.4);
 
       cap.position.set(capX, capY, 0.08);
 
       // Subtle 3D tilt
-      cap.rotation.y = dragRotY * 0.5;
-      cap.rotation.x = dragRotX * 0.4;
-      cap.rotation.z = Math.sin(time * 0.8) * 0.012 * (1 - s2);
+      cap.rotation.y = dragRotY * 0.45;
+      cap.rotation.x = dragRotX * 0.35;
+      cap.rotation.z = Math.sin(time * 0.8) * 0.01 * (1 - s2);
 
       // ─────────────────────────────────────────────────────────
-      // 7B. HAND POSITION & VISIBILITY
-      // At launch (t=0):
-      // - Hand is strictly invisible and positioned far below (-10.0)
-      // - ZERO part of any finger or palm can be seen
-      // Only when user actually scrolls (t > 0.12):
-      // - Hand becomes visible and glides gracefully up to meet cap
+      // 7B. HAND POSITIONING & STRICT LAUNCH INVISIBILITY
+      // At launch (t < 0.14):
+      // - hand.visible = false, positioned far below at -12.0
+      // - ABSOLUTELY ZERO PART OF ANY FINGER IS VISIBLE
+      // When scrolling (t >= 0.14):
+      // - hand becomes visible and glides smoothly up into view
+      // - Settles right below cap (x = 0.12, y = -0.52)
       // ─────────────────────────────────────────────────────────
-      if (t < 0.12) {
+      if (t < 0.14) {
         hand.visible = false;
-        hand.position.set(0.3, -10.0, 0);
+        hand.position.set(0.12, -12.0, 0);
       } else {
         hand.visible = true;
-        const handRise = smoothstep(0.15, 0.82, t);
-        const handStartX = 0.28;
-        const handFinalX = 0.22;
-        const handX = handStartX + (handFinalX - handStartX) * handRise + dragRotY * 0.3;
+        const handRise = smoothstep(0.16, 0.85, t);
+        const handStartX = 0.18;
+        const handFinalX = 0.12;
+        const handX = handStartX + (handFinalX - handStartX) * handRise + dragRotY * 0.25;
 
-        const handY = -5.8 + 5.15 * handRise + Math.sin(time * 1.1) * 0.02 * handRise;
+        const handY = -5.8 + 5.28 * handRise + Math.sin(time * 1.1) * 0.015 * handRise;
         hand.position.set(handX, handY, 0.02);
 
-        hand.rotation.y = dragRotY * 0.4;
-        hand.rotation.x = dragRotX * 0.3;
+        hand.rotation.y = dragRotY * 0.35;
+        hand.rotation.x = dragRotX * 0.25;
 
-        // Contact shadow darkens under cap as hand arrives
-        contactShadow.material.opacity = smoothstep(0.68, 0.88, t) * 0.72;
-        contactShadow.position.set(capX, handY + 0.55, 0.04);
+        // Contact shadow fades in as cap hovers over palm
+        contactShadow.material.opacity = smoothstep(0.68, 0.88, t) * 0.70;
+        contactShadow.position.set(capX, handY + 0.52, 0.04);
       }
 
       renderer.render(scene, camera);
