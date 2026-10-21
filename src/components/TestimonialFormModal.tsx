@@ -75,11 +75,11 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-navy-950/60 backdrop-blur-md animate-in fade-in">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-navy/10 p-6 sm:p-8 my-8 max-h-[90vh] overflow-y-auto text-left text-navy">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-navy-950/60 backdrop-blur-md animate-in fade-in">
+      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-navy/10 p-5 sm:p-8 my-4 sm:my-8 max-h-[92vh] sm:max-h-[90vh] overflow-y-auto text-left text-navy">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -128,7 +128,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Shawn Maluleke"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+                  className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
                 />
                 <span className="text-[10px] text-slate-subtle">
                   Private; will not be published unless selected below.
@@ -145,7 +145,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.co.za"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+                  className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
                 />
                 <span className="text-[10px] text-slate-subtle">
                   Never published; used only to verify consent.
@@ -161,7 +161,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                 <select
                   value={authorType}
                   onChange={(e) => setAuthorType(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                  className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 bg-white"
                 >
                   <option value="Parent or guardian">Parent or guardian</option>
                   <option value="Adult learner">Adult learner (second-chance matric)</option>
@@ -178,7 +178,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                 <select
                   value={gradeStage}
                   onChange={(e) => setGradeStage(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                  className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 bg-white"
                 >
                   <option value="Early reader">Early reader (Gr R–3)</option>
                   <option value="Primary school">Primary school (Gr 4–7)</option>
@@ -196,7 +196,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
               <select
                 value={selectedServices[0]}
                 onChange={(e) => setSelectedServices([e.target.value])}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 bg-white"
               >
                 {publishedServices.map((s) => (
                   <option key={s.id} value={s.title}>
@@ -224,7 +224,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                 value={quote}
                 onChange={(e) => setQuote(e.target.value)}
                 placeholder="What was the situation before Re:kula, and what difference did the support make?"
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
+                className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
               />
             </div>
 

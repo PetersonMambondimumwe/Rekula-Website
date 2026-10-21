@@ -62,7 +62,7 @@ export const CareersPage: React.FC = () => {
       </section>
 
       {/* Application Form Box */}
-      <section className="rounded-cards bg-surface/70 border border-border-cork p-6 sm:p-10 shadow-2xl space-y-6">
+      <section className="rounded-cards bg-surface/70 border border-border-cork p-4 sm:p-10 shadow-2xl space-y-6">
         <div className="border-b border-dashed border-border-cork pb-4">
           <h2 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
             Educator Application Form

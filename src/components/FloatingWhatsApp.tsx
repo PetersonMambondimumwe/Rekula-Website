@@ -16,10 +16,10 @@ export const FloatingWhatsApp: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       {/* Popover Bubble in Warm-Dark Theme */}
       {isOpen && (
-        <div className="mb-3 w-80 sm:w-96 rounded-cards bg-surface border border-border-cork p-5 shadow-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="mb-3 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-cards bg-surface border border-border-cork p-4 sm:p-5 shadow-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-center justify-between pb-3 border-b border-dashed border-border-cork">
             <div className="flex items-center gap-2.5">
               <div className="relative">
@@ -61,7 +61,7 @@ export const FloatingWhatsApp: React.FC = () => {
               value={customMsg}
               onChange={(e) => setCustomMsg(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 px-3 py-2 text-xs rounded-full bg-void border border-border-cork text-cream placeholder:text-cream-muted/50 focus:outline-none focus:border-cream"
+              className="flex-1 px-3.5 py-2 text-base sm:text-xs rounded-full bg-void border border-border-cork text-cream placeholder:text-cream-muted/50 focus:outline-none focus:border-cream"
             />
             <button
               type="submit"

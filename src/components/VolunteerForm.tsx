@@ -203,7 +203,7 @@ export const VolunteerForm: React.FC = () => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. Peterson Mambondimumwe"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -217,7 +217,7 @@ export const VolunteerForm: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.co.za"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -231,7 +231,7 @@ export const VolunteerForm: React.FC = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="067 435 0849"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -245,7 +245,7 @@ export const VolunteerForm: React.FC = () => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="e.g. Pretoria / Mamelodi / Soshanguve"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
         </div>
@@ -294,7 +294,7 @@ export const VolunteerForm: React.FC = () => {
               value={volunteerRoleOther}
               onChange={(e) => setVolunteerRoleOther(e.target.value)}
               placeholder="Please specify your occupation or background..."
-              className="mt-3 w-full px-4 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="mt-3 w-full px-4 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           )}
         </div>
@@ -355,7 +355,7 @@ export const VolunteerForm: React.FC = () => {
                     value={entry.subject}
                     onChange={(e) => updateSubjectRow(entry.id, 'subject', e.target.value)}
                     placeholder="e.g. Mathematics, Reading, Physical Sciences"
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
                   />
                 </div>
 
@@ -366,7 +366,7 @@ export const VolunteerForm: React.FC = () => {
                   <select
                     value={entry.highestGrade}
                     onChange={(e) => updateSubjectRow(entry.id, 'highestGrade', e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
                   >
                     <option value="Foundation Phase (Gr R–3)">Foundation Phase (Gr R–3)</option>
                     <option value="Intermediate Phase (Gr 4–6)">Intermediate Phase (Gr 4–6)</option>
@@ -434,7 +434,7 @@ export const VolunteerForm: React.FC = () => {
           value={otherLanguage}
           onChange={(e) => setOtherLanguage(e.target.value)}
           placeholder="Other languages (e.g. Xhosa, Sesotho, French)..."
-          className="w-full px-4 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+          className="w-full px-4 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
 
@@ -450,7 +450,7 @@ export const VolunteerForm: React.FC = () => {
             value={qualificationOrStudy}
             onChange={(e) => setQualificationOrStudy(e.target.value)}
             placeholder="e.g. 2nd Year BSc Physics, UP / Retired Maths Teacher"
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
 
@@ -461,7 +461,7 @@ export const VolunteerForm: React.FC = () => {
           <select
             value={saceStatus}
             onChange={(e) => setSaceStatus(e.target.value as any)}
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
           >
             <option value="Not applicable">Not applicable</option>
             <option value="Registered">Registered</option>
@@ -498,7 +498,7 @@ export const VolunteerForm: React.FC = () => {
           <select
             value={timeOffered}
             onChange={(e) => setTimeOffered(e.target.value)}
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
           >
             <option value="1–2 hours a week">1–2 hours a week</option>
             <option value="3–5 hours a week">3–5 hours a week</option>
@@ -514,7 +514,7 @@ export const VolunteerForm: React.FC = () => {
           <select
             value={commitmentLength}
             onChange={(e) => setCommitmentLength(e.target.value)}
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
           >
             <option value="One school term">One school term</option>
             <option value="A semester or half year">A semester or half year</option>
@@ -559,7 +559,7 @@ export const VolunteerForm: React.FC = () => {
           value={whyVolunteer}
           onChange={(e) => setWhyVolunteer(e.target.value)}
           placeholder="Tell us what motivates you to support under-resourced learners..."
-          className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+          className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
 

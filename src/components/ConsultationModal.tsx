@@ -23,9 +23,9 @@ export const ConsultationModal: React.FC = () => {
   if (!isConsultationModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-void/85 backdrop-blur-xl animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-void/85 backdrop-blur-xl animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-3xl rounded-cards bg-surface border border-border-cork p-6 sm:p-10 my-8 max-h-[90vh] overflow-y-auto shadow-2xl text-left text-cream animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-3xl rounded-cards bg-surface border border-border-cork p-5 sm:p-10 my-3 sm:my-8 max-h-[92vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl text-left text-cream animate-in zoom-in-95 duration-200"
         role="dialog"
         aria-modal="true"
         aria-labelledby="consultation-modal-title"
@@ -33,7 +33,7 @@ export const ConsultationModal: React.FC = () => {
         {/* Close Button */}
         <button
           onClick={closeConsultationModal}
-          className="absolute top-6 right-6 w-8 h-8 rounded-full bg-void border border-border-cork text-cream-muted hover:text-white flex items-center justify-center transition-colors"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-void border border-border-cork text-cream-muted hover:text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />

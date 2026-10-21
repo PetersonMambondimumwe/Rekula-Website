@@ -104,7 +104,7 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-9 h-9 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors"
+            className="lg:hidden w-10 h-10 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors cursor-pointer"
             aria-label="Toggle navigation drawer"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -115,7 +115,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Full-Screen Void Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[60px] bg-void/98 backdrop-blur-2xl z-40 p-6 flex flex-col justify-between animate-in fade-in duration-200">
+        <div className="lg:hidden fixed inset-0 top-0 bg-void/98 backdrop-blur-2xl z-40 p-6 pt-24 pb-8 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
           <div className="space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-dashed border-border-cork">
               <span className="text-[10px] tracking-[0.25em] font-medium text-cream-muted">
@@ -131,7 +131,7 @@ export const Navbar: React.FC = () => {
                 <button
                   key={item.tab}
                   onClick={() => handleNavClick(item.tab)}
-                  className={`text-left text-lg sm:text-xl font-medium tracking-[0.1em] uppercase py-1.5 transition-colors flex items-center justify-between ${
+                  className={`text-left text-lg sm:text-xl font-medium tracking-[0.1em] uppercase py-2.5 min-h-[44px] transition-colors flex items-center justify-between cursor-pointer ${
                     activeTab === item.tab ? 'text-softblue' : 'text-cream hover:text-white'
                   }`}
                 >

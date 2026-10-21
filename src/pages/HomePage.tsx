@@ -47,14 +47,14 @@ export const HomePage: React.FC = () => {
           }}
         >
           <div className="flex items-center gap-4 sm:gap-7">
-            <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 shrink-0">
+            <div className="w-14 h-14 sm:w-24 sm:h-24 lg:w-36 lg:h-36 shrink-0">
               <img
                 src="/assets/rekula-logo-cream.png"
                 alt="Re:kula Logo"
                 className="w-full h-full object-contain filter drop-shadow-2xl"
               />
             </div>
-            <h1 className="font-serif text-[56px] sm:text-[92px] lg:text-[132px] font-medium tracking-tight text-cream leading-[0.88]">
+            <h1 className="font-serif text-[42px] sm:text-[76px] lg:text-[132px] font-medium tracking-tight text-cream leading-[0.88]">
               Re<span className="text-softblue">:</span>kula
             </h1>
           </div>
@@ -62,14 +62,14 @@ export const HomePage: React.FC = () => {
 
         {/* Core Value Proposition & Actions (Revealed in palm state) */}
         <div
-          className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-none transition-transform will-change-transform"
+          className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-none transition-transform will-change-transform overflow-y-auto lg:overflow-visible pt-24 pb-16 lg:py-0"
           style={{
             opacity: finalProgress,
             transform: `translateY(${finalTranslate}px)`,
             visibility: finalProgress <= 0 ? 'hidden' : 'visible',
           }}
         >
-          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto">
             
             {/* Left Column: Mission Headline & Curriculum */}
             <div className="lg:col-span-4 text-left space-y-4">
@@ -77,7 +77,7 @@ export const HomePage: React.FC = () => {
                 ACADEMIC SUPPORT & CONSULTING
               </span>
 
-              <h2 className="font-serif text-[34px] sm:text-[44px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+              <h2 className="font-serif text-[28px] sm:text-[42px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
                 YOUR ACADEMIC FUTURE IN <span className="text-softblue italic">TRUSTED HANDS.</span>
               </h2>
 
@@ -93,7 +93,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Center Column: Spatial Void for the Live 3D Hand & Cap */}
-            <div className="lg:col-span-4 h-[200px] sm:h-[300px] lg:h-[400px] flex items-center justify-center relative pointer-events-none" />
+            <div className="hidden lg:flex lg:col-span-4 lg:h-[400px] items-center justify-center relative pointer-events-none" />
 
             {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
             <div className="lg:col-span-4 text-left space-y-5">
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
                 OUR PROMISE
               </span>
 
-              <p className="text-[18px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
+              <p className="text-[17px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
                 Learning support that meets every learner where they are.
               </p>
 
@@ -109,7 +109,7 @@ export const HomePage: React.FC = () => {
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pointer-events-auto">
                 <button
                   onClick={() => openConsultationModal()}
-                  className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
                 >
                   <span>Request Consultation</span>
                   <ArrowUpRight className="w-4 h-4 text-void" />
@@ -117,7 +117,7 @@ export const HomePage: React.FC = () => {
 
                 <button
                   onClick={() => setActiveTab('services')}
-                  className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all text-center cursor-pointer"
+                  className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all text-center cursor-pointer w-full sm:w-auto"
                 >
                   Explore Services
                 </button>

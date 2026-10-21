@@ -226,7 +226,7 @@ export const CareersForm: React.FC = () => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. Peterson Mambondimumwe"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -240,7 +240,7 @@ export const CareersForm: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.co.za"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -254,7 +254,7 @@ export const CareersForm: React.FC = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="067 435 0849"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
 
@@ -268,7 +268,7 @@ export const CareersForm: React.FC = () => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="e.g. Pretoria / Hatfield / Centurion"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
         </div>
@@ -339,7 +339,7 @@ export const CareersForm: React.FC = () => {
               value={roleOther}
               onChange={(e) => setRoleOther(e.target.value)}
               placeholder="Please specify your role..."
-              className="mt-3 w-full px-4 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="mt-3 w-full px-4 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           )}
         </div>
@@ -401,7 +401,7 @@ export const CareersForm: React.FC = () => {
                       value={entry.subject}
                       onChange={(e) => updateSubjectRow(entry.id, 'subject', e.target.value)}
                       placeholder="e.g. Mathematics, Physical Sciences, English"
-                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
                     />
                   </div>
 
@@ -412,7 +412,7 @@ export const CareersForm: React.FC = () => {
                     <select
                       value={entry.highestGrade}
                       onChange={(e) => updateSubjectRow(entry.id, 'highestGrade', e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
                     >
                       <option value="Foundation Phase (Gr R–3)">Foundation Phase (Gr R–3)</option>
                       <option value="Intermediate Phase (Gr 4–6)">Intermediate Phase (Gr 4–6)</option>
@@ -558,7 +558,7 @@ export const CareersForm: React.FC = () => {
             value={highestQualification}
             onChange={(e) => setHighestQualification(e.target.value)}
             placeholder="e.g. B.Ed (UP, 2024) / BSc Mathematics (Wits, 2023)"
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
 
@@ -569,7 +569,7 @@ export const CareersForm: React.FC = () => {
           <select
             value={experienceYears}
             onChange={(e) => setExperienceYears(e.target.value)}
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
           >
             <option value="None yet">None yet (Eager to learn)</option>
             <option value="Under 1">Under 1 year</option>
@@ -655,7 +655,7 @@ export const CareersForm: React.FC = () => {
               value={studentInstitutionYear}
               onChange={(e) => setStudentInstitutionYear(e.target.value)}
               placeholder="e.g. 3rd Year B.Ed, University of Pretoria"
-              className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
         )}
@@ -669,7 +669,7 @@ export const CareersForm: React.FC = () => {
             value={remedialExperience}
             onChange={(e) => setRemedialExperience(e.target.value)}
             placeholder="e.g. 2 years remedial reading; Setswana literacy"
-            className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
       </div>
@@ -709,7 +709,7 @@ export const CareersForm: React.FC = () => {
           value={motivation}
           onChange={(e) => setMotivation(e.target.value)}
           placeholder="Share your teaching philosophy, passion for education, and what drew you to Re:kula..."
-          className="w-full px-4 py-3 text-xs sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+          className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
 

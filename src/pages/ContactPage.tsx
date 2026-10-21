@@ -134,7 +134,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* Selected Form Container */}
-        <div className="rounded-cards bg-surface/70 border border-border-cork p-6 sm:p-10 shadow-2xl">
+        <div className="rounded-cards bg-surface/70 border border-border-cork p-4 sm:p-10 shadow-2xl">
           {activeFormTab === 'consultation' && (
             <div className="space-y-6">
               <div className="space-y-1 pb-4 border-b border-dashed border-border-cork">

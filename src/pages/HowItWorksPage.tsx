@@ -83,7 +83,7 @@ export const HowItWorksPage: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search questions..."
-              className="w-full pl-9 pr-4 py-2 text-xs rounded-full bg-surface border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full pl-9 pr-4 py-2 text-base sm:text-xs rounded-full bg-surface border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
         </div>

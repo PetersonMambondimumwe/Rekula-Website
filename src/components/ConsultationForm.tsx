@@ -270,7 +270,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. Shawn Maluleke"
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
 
@@ -284,7 +284,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.co.za"
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
 
@@ -298,7 +298,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="e.g. 067 435 0849"
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
             <label className="flex items-center gap-2 mt-2 text-[11px] text-cream-muted cursor-pointer">
               <input
@@ -320,7 +320,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="e.g. Pretoria / Centurion"
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
         </div>
@@ -333,7 +333,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             <select
               value={preferredContact}
               onChange={(e) => setPreferredContact(e.target.value as any)}
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
             >
               <option value="WhatsApp">WhatsApp Message</option>
               <option value="Phone call">Phone Call</option>
@@ -348,7 +348,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             <select
               value={bestTime}
               onChange={(e) => setBestTime(e.target.value as any)}
-              className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+              className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
             >
               <option value="Morning">Morning (08:00 – 12:00)</option>
               <option value="Afternoon">Afternoon (12:00 – 17:00)</option>
@@ -384,7 +384,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 value={learnerFirstName}
                 onChange={(e) => setLearnerFirstName(e.target.value)}
                 placeholder="e.g. Sipho / Mia"
-                className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+                className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
               />
             </div>
 
@@ -395,7 +395,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               <select
                 value={ageGrade}
                 onChange={(e) => setAgeGrade(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+                className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
               >
                 <option value="Grade R–3 (Foundation)">Grade R–3 (Foundation Phase)</option>
                 <option value="Grade 4–7 (Intermediate)">Grade 4–7 (Intermediate Phase)</option>
@@ -413,7 +413,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               <select
                 value={curriculum}
                 onChange={(e) => setCurriculum(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+                className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
               >
                 <option value="CAPS">CAPS (National Curriculum)</option>
                 <option value="IEB">IEB (Independent Examinations Board)</option>
@@ -430,7 +430,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               <select
                 value={schoolingSituation}
                 onChange={(e) => setSchoolingSituation(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+                className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
               >
                 <option value="At a school">Attending school daily</option>
                 <option value="Homeschooled">Homeschooled</option>
@@ -510,7 +510,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             value={customSubject}
             onChange={(e) => setCustomSubject(e.target.value)}
             placeholder="Other: type custom subject (e.g. French, Technical Sciences)..."
-            className="w-full px-3.5 py-2 text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            className="w-full px-3.5 py-2 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
 
@@ -525,7 +525,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               value={missedSchoolDates}
               onChange={(e) => setMissedSchoolDates(e.target.value)}
               placeholder="e.g. Missed 3 weeks; returning 14 November"
-              className="w-full px-3.5 py-2 text-xs rounded-lg bg-surface border border-border-cork text-cream focus:outline-none"
+              className="w-full px-3.5 py-2 text-base sm:text-xs rounded-lg bg-surface border border-border-cork text-cream focus:outline-none"
             />
           </div>
         )}
