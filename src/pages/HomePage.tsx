@@ -16,14 +16,14 @@ export const HomePage: React.FC = () => {
     return v * v * (3 - 2 * v);
   };
 
-  // Interpolations matching the Capstone design system
-  const heroOpacity = 1 - smoothstep(0.06, 0.22, progress);
-  const heroTranslate = -smoothstep(0.06, 0.22, progress) * 32;
+  // Synchronized, silky-smooth transitions ("everything comes at once")
+  const heroOpacity = Math.max(0, 1 - smoothstep(0.0, 0.38, progress));
+  const heroTranslate = -smoothstep(0.0, 0.38, progress) * 28;
 
-  const hintOpacity = 1 - smoothstep(0.0, 0.08, progress);
+  const hintOpacity = Math.max(0, 1 - smoothstep(0.0, 0.15, progress));
 
-  const finalProgress = smoothstep(0.80, 0.96, progress);
-  const finalTranslate = (1 - finalProgress) * 24;
+  const finalProgress = smoothstep(0.20, 0.75, progress);
+  const finalTranslate = (1 - finalProgress) * 20;
 
   const handleScrollToReveal = () => {
     const trackEl = document.getElementById('rekula-track');
@@ -43,7 +43,7 @@ export const HomePage: React.FC = () => {
   };
 
   return (
-    <div id="rekula-track" className="relative w-full h-[400vh] bg-void select-none">
+    <div id="rekula-track" className="relative w-full h-[220vh] bg-void select-none">
       
       {/* ─────────────────────────────────────────────────────────────
           STAGE: STICKY 100VH VIEWPORT

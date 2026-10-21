@@ -39,7 +39,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
 
     // ─────────────────────────────────────────────────────────────
-    // 3. STUDIO LIGHTING (CLEAN & VIVID, ZERO HARSH ARTIFACTS)
+    // 3. STUDIO LIGHTING (VIVID, NATURAL, ZERO HARSH ARTIFACTS)
     // ─────────────────────────────────────────────────────────────
     const ambientLight = new THREE.AmbientLight(0xfff5eb, 1.4);
     scene.add(ambientLight);
@@ -57,14 +57,13 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     // ─────────────────────────────────────────────────────────────
     const textureLoader = new THREE.TextureLoader();
 
-    // 4A. Purified Graduation Cap (Guaranteed ZERO stray skin pixels)
+    // 4A. Purified Graduation Cap (ZERO stray skin pixels)
     const capTex = textureLoader.load('/assets/rekula-cap-crisp.png');
     capTex.colorSpace = THREE.SRGBColorSpace;
     capTex.generateMipmaps = true;
     capTex.minFilter = THREE.LinearMipmapLinearFilter;
     capTex.magFilter = THREE.LinearFilter;
 
-    // Sized comfortably to fit harmoniously within center viewport
     // Natural aspect ratio: 598 x 319 = 1.8746
     const capWidth = 2.85;
     const capHeight = capWidth / 1.8746; // 1.52
@@ -98,7 +97,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     const hand = new THREE.Mesh(handGeom, handMaterial);
     // Explicitly hidden at launch so no part can ever be seen at t=0
     hand.visible = false;
-    hand.position.set(0.1, -12.0, 0);
+    hand.position.set(0.12, -12.0, 0);
     scene.add(hand);
 
     // 4C. Soft Palm Contact Shadow (Fades in softly as cap hovers over palm)
@@ -150,7 +149,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     fit();
 
     // ─────────────────────────────────────────────────────────────
-    // 6. SCROLL INTERPOLATION & 3D INTERACTION
+    // 6. SILKY SMOOTH SCROLL TRACKING & INTERACTION
     // ─────────────────────────────────────────────────────────────
     let target = 0;
     let cur = 0;
@@ -162,18 +161,13 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     let targetDragRotY = 0;
     let targetDragRotX = 0;
 
-    const smoothstep = (a: number, b: number, x: number) => {
-      const v = Math.min(1, Math.max(0, (x - a) / (b - a)));
-      return v * v * (3 - 2 * v);
-    };
-
     const handleScroll = () => {
       const trackEl = document.getElementById('rekula-track');
       if (trackEl) {
         const rect = trackEl.getBoundingClientRect();
         const maxScroll = trackEl.offsetHeight - window.innerHeight;
         const currentScroll = -rect.top;
-        target = Math.min(1, Math.max(0, currentScroll / maxScroll));
+        target = Math.min(1, Math.max(0, currentScroll / (maxScroll || 1)));
       } else {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         target = Math.min(1, Math.max(0, window.scrollY / (maxScroll || 1)));
@@ -185,7 +179,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
 
     // Drag Interaction in Final State
     const onMouseDown = (e: MouseEvent) => {
-      if (cur > 0.72) {
+      if (cur > 0.6) {
         isDragging = true;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
@@ -212,7 +206,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     window.addEventListener('mouseup', onMouseUp);
 
     const onTouchStart = (e: TouchEvent) => {
-      if (cur > 0.72 && e.touches.length === 1) {
+      if (cur > 0.6 && e.touches.length === 1) {
         isDragging = true;
         dragStartX = e.touches[0].clientX;
         dragStartY = e.touches[0].clientY;
@@ -239,7 +233,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     window.addEventListener('touchend', onTouchEnd);
 
     // ─────────────────────────────────────────────────────────────
-    // 7. ANIMATION LOOP (CHOREOGRAPHED SCROLL PRESENTATION)
+    // 7. UNIFIED, SILKY ANIMATION LOOP ("EVERYTHING COMES AT ONCE")
     // ─────────────────────────────────────────────────────────────
     let animId: number;
     const clock = new THREE.Clock();
@@ -248,8 +242,8 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       animId = requestAnimationFrame(animate);
       const time = clock.getElapsedTime();
 
-      // Silky inertia smoothing
-      cur += (target - cur) * 0.08;
+      // Responsive silky inertia smoothing
+      cur += (target - cur) * 0.11;
       const t = cur;
 
       setScrollProgress(t);
@@ -257,70 +251,66 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
         onProgressChange(t);
       }
 
-      // Smoothstep interpolation intervals
-      const s1 = smoothstep(0.04, 0.35, t);
-      const s2 = smoothstep(0.35, 0.85, t);
+      // Single unified silky smooth progression curve
+      // Cubic ease for continuous, unbroken, simultaneous motion
+      const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
       // Drag inertia
       dragRotY += (targetDragRotY - dragRotY) * 0.08;
       dragRotX += (targetDragRotX - dragRotX) * 0.08;
 
       // ─────────────────────────────────────────────────────────
-      // 7A. CAP POSITIONING
-      // Launch (t = 0):
-      // - Centered comfortably with generous headroom (y = 0.15)
-      // - Desktop: placed in center-right showcase (x = 0.75)
-      // - Mobile: centered (x = 0)
-      // Scroll to Reveal (t -> 1):
-      // - Glides down smoothly to hover right above the palm (x = -0.22, y = 0.42)
+      // 7A. SYNCHRONIZED CAP MOTION
+      // Glides smoothly from launch showcase into palm position
       // ─────────────────────────────────────────────────────────
-      const capStartX = isMobile ? 0.0 : 0.78;
+      const capStartX = isMobile ? 0.0 : 0.72;
       const capFinalX = -0.22;
-      const capX = capStartX + (capFinalX - capStartX) * s2 + dragRotY * 0.35;
+      const capX = capStartX + (capFinalX - capStartX) * ease + dragRotY * 0.35;
 
       const capStartY = 0.15;
-      const capPeakY = 0.65;
       const capFinalY = 0.42;
       const capY =
         capStartY +
-        (capPeakY - capStartY) * s1 -
-        (capPeakY - capFinalY) * s2 +
-        Math.sin(time * 1.4) * 0.03 * (1 - s1 * 0.4);
+        (capFinalY - capStartY) * ease +
+        Math.sin(time * 1.4) * 0.025 * (1 - ease * 0.4);
 
       cap.position.set(capX, capY, 0.08);
 
       // Subtle 3D tilt
       cap.rotation.y = dragRotY * 0.45;
       cap.rotation.x = dragRotX * 0.35;
-      cap.rotation.z = Math.sin(time * 0.8) * 0.01 * (1 - s2);
+      cap.rotation.z = Math.sin(time * 0.8) * 0.01 * (1 - ease);
 
       // ─────────────────────────────────────────────────────────
-      // 7B. HAND POSITIONING & STRICT LAUNCH INVISIBILITY
-      // At launch (t < 0.14):
-      // - hand.visible = false, positioned far below at -12.0
-      // - ABSOLUTELY ZERO PART OF ANY FINGER IS VISIBLE
-      // When scrolling (t >= 0.14):
-      // - hand becomes visible and glides smoothly up into view
-      // - Settles right below cap (x = 0.12, y = -0.52)
+      // 7B. SYNCHRONIZED HAND MOTION
+      // - At launch (t = 0), strictly hidden so no finger is visible
+      // - The instant scroll begins (t > 0.01), hand glides smoothly
+      //   upward in unison with the cap, meeting at the same time!
       // ─────────────────────────────────────────────────────────
-      if (t < 0.14) {
+      if (t < 0.01) {
         hand.visible = false;
         hand.position.set(0.12, -12.0, 0);
+        contactShadow.material.opacity = 0;
       } else {
         hand.visible = true;
-        const handRise = smoothstep(0.16, 0.85, t);
+        const handStartY = -4.8;
+        const handFinalY = -0.52;
+        const handY =
+          handStartY +
+          (handFinalY - handStartY) * ease +
+          Math.sin(time * 1.1) * 0.015 * ease;
+
         const handStartX = 0.18;
         const handFinalX = 0.12;
-        const handX = handStartX + (handFinalX - handStartX) * handRise + dragRotY * 0.25;
+        const handX = handStartX + (handFinalX - handStartX) * ease + dragRotY * 0.25;
 
-        const handY = -5.8 + 5.28 * handRise + Math.sin(time * 1.1) * 0.015 * handRise;
         hand.position.set(handX, handY, 0.02);
 
         hand.rotation.y = dragRotY * 0.35;
         hand.rotation.x = dragRotX * 0.25;
 
-        // Contact shadow fades in as cap hovers over palm
-        contactShadow.material.opacity = smoothstep(0.68, 0.88, t) * 0.70;
+        // Contact shadow darkens concurrently as they meet
+        contactShadow.material.opacity = ease * 0.72;
         contactShadow.position.set(capX, handY + 0.52, 0.04);
       }
 
@@ -353,7 +343,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     <div
       ref={containerRef}
       className="absolute inset-0 w-full h-full pointer-events-auto"
-      title={scrollProgress > 0.72 ? 'Drag to rotate perspective' : undefined}
+      title={scrollProgress > 0.6 ? 'Drag to rotate perspective' : undefined}
     >
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
