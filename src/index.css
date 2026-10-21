@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  body {
+    @apply text-navy bg-white selection:bg-softblue selection:text-white;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Source Serif 4', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Custom Double-Bezel Card Utility */
+.bezel-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 0 1px rgba(20, 48, 74, 0.08), 0 4px 16px -2px rgba(20, 48, 74, 0.04), 0 12px 32px -8px rgba(20, 48, 74, 0.06);
+  transition: all 400ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.bezel-card:hover {
+  box-shadow: 0 0 0 1px rgba(76, 134, 168, 0.35), 0 8px 24px -4px rgba(20, 48, 74, 0.08), 0 24px 48px -8px rgba(20, 48, 74, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Glass Island Nav */
+.glass-island {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 48, 74, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(20, 48, 74, 0.08);
+}
+
+.glass-island-dark {
+  background: rgba(20, 48, 74, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle decorative pattern */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(20, 48, 74, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 48, 74, 0.03) 1px, transparent 1px);
+}
+
+/* Scrollbar refinement */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F3F7FA;
+}
+::-webkit-scrollbar-thumb {
+  background: #A3BDCD;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4C86A8;
+}
