@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { X, Sparkles } from 'lucide-react';
+import { X } from 'lucide-react';
 import { ConsultationForm } from './ConsultationForm';
 
 export const ConsultationModal: React.FC = () => {
@@ -42,7 +42,7 @@ export const ConsultationModal: React.FC = () => {
         {/* Modal Header */}
         <div className="space-y-2 mb-6 pr-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-void border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-            <Sparkles className="w-3 h-3" />
+            <span className="w-1.5 h-1.5 rounded-full bg-ember" />
             <span>CONFIDENTIAL ASSESSMENT · PRETORIA & ONLINE</span>
           </div>
           <h2 id="consultation-modal-title" className="font-serif text-2xl sm:text-3xl font-medium uppercase tracking-tight text-cream">

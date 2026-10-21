@@ -1,27 +1,20 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 interface RekulaCapstoneStageProps {
   onProgressChange?: (progress: number) => void;
-  replaySignal?: number;
 }
 
 export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
   onProgressChange,
-  replaySignal = 0,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [animationCompleted, setAnimationCompleted] = useState(false);
-
-  // References to communicate reset between React renders and Three.js loop
   const animStartTimeRef = useRef<number>(performance.now());
-  const resetTriggerRef = useRef<number>(replaySignal);
 
   useEffect(() => {
     animStartTimeRef.current = performance.now();
-    setAnimationCompleted(false);
-  }, [replaySignal]);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -159,73 +152,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     fit();
 
     // ─────────────────────────────────────────────────────────────
-    // 6. INTERACTIVE 3D PERSPECTIVE DRAG (ACTIVE ONCE SETTLED)
-    // ─────────────────────────────────────────────────────────────
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let dragRotY = 0;
-    let dragRotX = 0;
-    let targetDragRotY = 0;
-    let targetDragRotX = 0;
-    let curProgress = 0;
-
-    const onMouseDown = (e: MouseEvent) => {
-      if (curProgress > 0.6) {
-        isDragging = true;
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-      }
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        const deltaX = e.clientX - dragStartX;
-        const deltaY = e.clientY - dragStartY;
-        targetDragRotY += deltaX * 0.005;
-        targetDragRotX += deltaY * 0.003;
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-      }
-    };
-
-    const onMouseUp = () => {
-      isDragging = false;
-    };
-
-    container.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-
-    const onTouchStart = (e: TouchEvent) => {
-      if (curProgress > 0.6 && e.touches.length === 1) {
-        isDragging = true;
-        dragStartX = e.touches[0].clientX;
-        dragStartY = e.touches[0].clientY;
-      }
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (isDragging && e.touches.length === 1) {
-        const deltaX = e.touches[0].clientX - dragStartX;
-        const deltaY = e.touches[0].clientY - dragStartY;
-        targetDragRotY += deltaX * 0.005;
-        targetDragRotX += deltaY * 0.003;
-        dragStartX = e.touches[0].clientX;
-        dragStartY = e.touches[0].clientY;
-      }
-    };
-
-    const onTouchEnd = () => {
-      isDragging = false;
-    };
-
-    container.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('touchend', onTouchEnd);
-
-    // ─────────────────────────────────────────────────────────────
-    // 7. AUTOMATIC TIMED ANIMATION LOOP (MOVES ON ITS OWN ON OPEN)
+    // 6. AUTOMATIC TIMED ANIMATION LOOP (MOVES ON ITS OWN ON OPEN)
     // ─────────────────────────────────────────────────────────────
     let animId: number;
     const clock = new THREE.Clock();
@@ -246,44 +173,33 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
 
       // Cubic Ease-In-Out for natural, physical momentum
       const ease = rawT < 0.5 ? 4 * rawT * rawT * rawT : 1 - Math.pow(-2 * rawT + 2, 3) / 2;
-      curProgress = ease;
 
       if (onProgressChange) {
         onProgressChange(ease);
       }
 
-      if (rawT >= 1 && !animationCompleted) {
-        setAnimationCompleted(true);
-      }
-
-      // Drag inertia
-      dragRotY += (targetDragRotY - dragRotY) * 0.08;
-      dragRotX += (targetDragRotX - dragRotX) * 0.08;
-
       // ─────────────────────────────────────────────────────────
-      // 7A. SYNCHRONIZED CAP MOTION
+      // 6A. SYNCHRONIZED CAP MOTION
       // Glides smoothly from launch showcase into palm position
       // ─────────────────────────────────────────────────────────
       const capStartX = isMobile ? 0.0 : 0.72;
       const capFinalX = -0.22;
-      const capX = capStartX + (capFinalX - capStartX) * ease + dragRotY * 0.35;
+      const capX = capStartX + (capFinalX - capStartX) * ease;
 
       const capStartY = 0.15;
       const capFinalY = 0.42;
       const capY =
         capStartY +
         (capFinalY - capStartY) * ease +
-        Math.sin(time * 1.4) * 0.025 * (1 - ease * 0.4);
+        Math.sin(time * 1.4) * 0.02 * (1 - ease * 0.4);
 
       cap.position.set(capX, capY, 0.08);
 
-      // Subtle 3D tilt
-      cap.rotation.y = dragRotY * 0.45;
-      cap.rotation.x = dragRotX * 0.35;
+      // Subtle resting float (no mouse rotation)
       cap.rotation.z = Math.sin(time * 0.8) * 0.01 * (1 - ease);
 
       // ─────────────────────────────────────────────────────────
-      // 7B. SYNCHRONIZED HAND MOTION
+      // 6B. SYNCHRONIZED HAND MOTION
       // - At launch (ease = 0), strictly hidden so no finger is visible
       // - The instant transition begins (ease > 0.01), hand glides
       //   smoothly upward in unison with cap, meeting seamlessly!
@@ -299,16 +215,13 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
         const handY =
           handStartY +
           (handFinalY - handStartY) * ease +
-          Math.sin(time * 1.1) * 0.015 * ease;
+          Math.sin(time * 1.1) * 0.01 * ease;
 
         const handStartX = 0.18;
         const handFinalX = 0.12;
-        const handX = handStartX + (handFinalX - handStartX) * ease + dragRotY * 0.25;
+        const handX = handStartX + (handFinalX - handStartX) * ease;
 
         hand.position.set(handX, handY, 0.02);
-
-        hand.rotation.y = dragRotY * 0.35;
-        hand.rotation.x = dragRotX * 0.25;
 
         // Contact shadow darkens concurrently as they meet
         contactShadow.material.opacity = ease * 0.72;
@@ -321,17 +234,11 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     animate();
 
     // ─────────────────────────────────────────────────────────────
-    // 8. CLEANUP
+    // 7. CLEANUP
     // ─────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', fit);
-      container.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-      container.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
       capTex.dispose();
       handTex.dispose();
       shadowTex.dispose();
@@ -342,8 +249,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full pointer-events-auto"
-      title={animationCompleted ? 'Drag to rotate perspective' : undefined}
+      className="absolute inset-0 w-full h-full pointer-events-none select-none"
     >
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

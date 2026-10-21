@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ConsultationForm } from '../components/ConsultationForm';
 import { OrganizationForm, QuickContactForm } from '../components/OrganizationForm';
 import { siteSettings } from '../data/initialData';
-import { MessageSquare, Mail, MapPin, Sparkles, Building2, User, Send, ShieldCheck } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Building2, User, Send, ShieldCheck } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
   const [activeFormTab, setActiveFormTab] = useState<'consultation' | 'organization' | 'quick'>('consultation');
@@ -13,7 +13,7 @@ export const ContactPage: React.FC = () => {
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-          <Sparkles className="w-3 h-3 text-ember" />
+          <span className="w-1.5 h-1.5 rounded-full bg-ember" />
           <span>DIRECT ENQUIRIES · PRETORIA & ONLINE</span>
         </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">

@@ -23,7 +23,6 @@ export const Navbar: React.FC = () => {
 
   const navItems: { tab: NavigationTab; label: string }[] = [
     { tab: 'home', label: 'INTRO' },
-    { tab: 'about', label: 'PHILOSOPHY' },
     { tab: 'services', label: 'SERVICES' },
     { tab: 'how-it-works', label: 'HOW IT WORKS' },
     { tab: 'founder', label: 'FOUNDER' },
@@ -48,15 +47,15 @@ export const Navbar: React.FC = () => {
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3 group text-left focus:outline-none"
         >
-          <div className="w-8 h-8 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1 group-hover:border-softblue transition-colors overflow-hidden">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
             <img
               src="/assets/rekula-logo-cream.png"
               alt="Re:kula Logo"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain filter drop-shadow group-hover:scale-105 transition-transform"
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-sans text-[14px] sm:text-[15px] font-medium tracking-[0.06em] text-cream leading-none">
+            <span className="font-sans text-[15px] sm:text-[16px] font-medium tracking-[0.06em] text-cream leading-none">
               Re<span className="text-softblue">:</span>kula
             </span>
             <span className="text-[9px] font-medium tracking-[0.22em] text-cream-muted uppercase mt-1">

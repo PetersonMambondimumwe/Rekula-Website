@@ -1,20 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useApp } from '../context/AppContext';
 import { RekulaCapstoneStage } from '../components/RekulaCapstoneStage';
-import { ArrowUpRight, MessageSquare, RotateCcw } from 'lucide-react';
+import { ArrowUpRight, MessageSquare } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const { openConsultationModal, setActiveTab } = useApp();
   const [progress, setProgress] = useState(0);
-  const [replaySignal, setReplaySignal] = useState(0);
 
   const handleProgressChange = useCallback((p: number) => {
     setProgress(p);
   }, []);
-
-  const handleReplay = () => {
-    setReplaySignal((prev) => prev + 1);
-  };
 
   const smoothstep = (a: number, b: number, x: number) => {
     const v = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -36,12 +31,11 @@ export const HomePage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <RekulaCapstoneStage
         onProgressChange={handleProgressChange}
-        replaySignal={replaySignal}
       />
 
       {/* ─────────────────────────────────────────────────────────────
-          2. HERO TITLE (VISIBLE ON OPEN, FADES OUT AS ANIMATION GLIDES)
-          Zero cluttered small text on the top or right side
+          2. HERO BRAND (VISIBLE ON OPEN, FADES OUT AS ANIMATION GLIDES)
+          Business logo sits cleanly before the word Re:kula
           ───────────────────────────────────────────────────────────── */}
       <div
         className="absolute left-6 sm:left-12 top-28 sm:top-36 z-20 pointer-events-none transition-transform will-change-transform"
@@ -51,9 +45,18 @@ export const HomePage: React.FC = () => {
           visibility: heroOpacity <= 0 ? 'hidden' : 'visible',
         }}
       >
-        <h1 className="font-serif text-[60px] sm:text-[96px] lg:text-[136px] font-medium tracking-tight text-cream leading-[0.88]">
-          Re<span className="text-softblue">:</span>kula
-        </h1>
+        <div className="flex items-center gap-3 sm:gap-6">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 shrink-0">
+            <img
+              src="/assets/rekula-logo-cream.png"
+              alt="Re:kula Logo"
+              className="w-full h-full object-contain filter drop-shadow-xl"
+            />
+          </div>
+          <h1 className="font-serif text-[54px] sm:text-[88px] lg:text-[124px] font-medium tracking-tight text-cream leading-[0.88]">
+            Re<span className="text-softblue">:</span>kula
+          </h1>
+        </div>
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
@@ -92,13 +95,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Center Column: Spatial Void for the Live 3D Hand & Cap */}
-          <div className="lg:col-span-4 h-[200px] sm:h-[300px] lg:h-[400px] flex items-center justify-center relative pointer-events-none">
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-              <span className="text-[8px] font-mono uppercase tracking-[0.3em] text-cream-muted/60">
-                [ 3D ARTIFACT · DRAG TO ROTATE ]
-              </span>
-            </div>
-          </div>
+          <div className="lg:col-span-4 h-[200px] sm:h-[300px] lg:h-[400px] flex items-center justify-center relative pointer-events-none" />
 
           {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
           <div className="lg:col-span-4 text-left space-y-5">
@@ -145,25 +142,14 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          4. BOTTOM MINIMAL BAR (REPLAY OPTION & LOCATION)
+          4. BOTTOM MINIMAL BAR (NO REPLAY SEQUENCE TEXT)
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-20 w-full px-6 sm:px-12 pb-5 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-cream-muted pointer-events-none">
-        <div className="pointer-events-auto">
-          {finalProgress > 0.6 ? (
-            <button
-              onClick={handleReplay}
-              className="inline-flex items-center gap-1.5 text-softblue hover:text-white transition-colors cursor-pointer group"
-              title="Replay 3D Sequence"
-            >
-              <RotateCcw className="w-3 h-3 group-hover:-rotate-90 transition-transform" />
-              <span>REPLAY SEQUENCE</span>
-            </button>
-          ) : (
-            <span className="text-cream-muted">GROW AGAIN</span>
-          )}
+        <div>
+          <span>GROW AGAIN</span>
         </div>
 
-        <div className="flex items-center gap-3 pointer-events-auto">
+        <div className="flex items-center gap-3">
           <span>PRETORIA & GLOBAL ONLINE</span>
         </div>
       </div>

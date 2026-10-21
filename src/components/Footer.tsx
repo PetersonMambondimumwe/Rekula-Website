@@ -9,6 +9,7 @@ export const Footer: React.FC = () => {
 
   const handleNav = (tab: NavigationTab) => {
     setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -25,15 +26,15 @@ export const Footer: React.FC = () => {
           {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-surface border border-border-cork flex items-center justify-center p-1 overflow-hidden">
+              <div className="w-10 h-10 flex items-center justify-center shrink-0">
                 <img
                   src="/assets/rekula-logo-cream.png"
                   alt="Re:kula Logo"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain filter drop-shadow"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-sans text-base font-medium tracking-[0.06em] text-cream leading-none">
+                <span className="font-sans text-base sm:text-lg font-medium tracking-[0.06em] text-cream leading-none">
                   Re<span className="text-softblue">:</span>kula
                 </span>
                 <span className="text-[9px] font-medium tracking-[0.22em] text-cream-muted uppercase mt-1">

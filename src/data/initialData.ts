@@ -134,7 +134,7 @@ export const initialServices: Service[] = [
     result: 'A smoother transition, with the learner working comfortably at the standard and rhythm of their new class.',
     curricula: ['CAPS', 'IEB', 'Cambridge International'],
     targetAudiences: ['Relocating Families', 'Primary & High School'],
-    iconName: 'Sparkles',
+    iconName: 'Compass',
     status: 'published',
     order: 2,
   },

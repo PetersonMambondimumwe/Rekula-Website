@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { ArrowUpRight, Sparkles, Filter } from 'lucide-react';
+import { ArrowUpRight, Filter } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
   const { publishedServices, navigateToService, openConsultationModal } = useApp();
@@ -17,7 +17,7 @@ export const ServicesPage: React.FC = () => {
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-          <Sparkles className="w-3 h-3 text-ember" />
+          <span className="w-1.5 h-1.5 rounded-full bg-ember" />
           <span>TAILORED CURRICULA SUPPORT · CAPS · IEB · CAMBRIDGE</span>
         </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">

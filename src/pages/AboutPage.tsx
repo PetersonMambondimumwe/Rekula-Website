@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { differentiators, audienceList } from '../data/initialData';
-import { Sparkles, ArrowUpRight, BookOpen, GraduationCap, Trophy, Clock, Globe, Laptop, Users, HeartHandshake, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, BookOpen, GraduationCap, Trophy, Clock, Globe, Laptop, Users, HeartHandshake, ShieldCheck } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {
   const { openConsultationModal, setActiveTab } = useApp();
@@ -35,7 +35,7 @@ export const AboutPage: React.FC = () => {
       {/* 1. Header & Core Positioning Statement */}
       <section className="max-w-5xl space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
-          <Sparkles className="w-3 h-3 text-ember" />
+          <span className="w-1.5 h-1.5 rounded-full bg-ember" />
           <span>POSITIONING STATEMENT · FOUNDED 2023</span>
         </div>
 
