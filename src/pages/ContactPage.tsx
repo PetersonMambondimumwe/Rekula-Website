@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { useApp } from '../context/AppContext';
 import { ConsultationForm } from '../components/ConsultationForm';
 import { OrganizationForm, QuickContactForm } from '../components/OrganizationForm';
 import { siteSettings } from '../data/initialData';
-import { MessageSquare, Mail, MapPin, Sparkles, Building2, User, Send, Clock, ShieldCheck } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Sparkles, Building2, User, Send, ShieldCheck } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
   const [activeFormTab, setActiveFormTab] = useState<'consultation' | 'organization' | 'quick'>('consultation');
 
   return (
-    <div className="space-y-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-left text-navy">
+    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-16 text-left">
       
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-softblue-tint text-softblue text-xs font-semibold uppercase tracking-widest">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Connect With Re:kula</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
+          <Sparkles className="w-3 h-3 text-ember" />
+          <span>DIRECT ENQUIRIES · PRETORIA & ONLINE</span>
         </div>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-navy">
-          Get in Touch & Request a Consultation
+        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+          GET IN TOUCH & CONSULT.
         </h1>
-        <p className="text-base sm:text-lg text-slate-subtle leading-relaxed">
+        <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
           Tell us about the learner, their goals and their situation. We will take it from there. Every plan is bespoke, compassionate, and built around real life.
         </p>
       </section>
@@ -28,70 +27,64 @@ export const ContactPage: React.FC = () => {
       {/* Contact Quick Strip */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* WhatsApp direct card */}
+        {/* WhatsApp card */}
         <a
           href="https://wa.me/27674350849"
           target="_blank"
           rel="noopener noreferrer"
-          className="p-6 rounded-3xl bg-emerald-50 border border-emerald-200/80 shadow-xs hover:shadow-md transition-all group flex items-start gap-4"
+          className="rounded-cards bg-surface/50 border border-border-cork p-6 hover:border-emerald-500 transition-all flex items-start gap-4 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-            <MessageSquare className="w-6 h-6 fill-white/20" />
+          <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-emerald-400 flex items-center justify-center shrink-0 group-hover:border-emerald-400 transition-colors">
+            <MessageSquare className="w-4 h-4 fill-emerald-400/20" />
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">
-              Immediate Response
+            <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">
+              IMMEDIATE
             </span>
-            <h3 className="font-serif text-lg font-bold text-navy group-hover:text-emerald-800 transition-colors">
-              Chat on WhatsApp
+            <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">
+              WhatsApp Direct
             </h3>
-            <p className="text-xs text-slate-subtle">
+            <p className="text-xs text-cream-muted font-mono">
               {siteSettings.phoneDisplay}
-            </p>
-            <p className="text-[11px] text-emerald-700 font-medium pt-1">
-              Click to open WhatsApp chat &rarr;
             </p>
           </div>
         </a>
 
         {/* Email card */}
-        <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 shadow-xs flex items-start gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center shrink-0">
-            <Mail className="w-6 h-6 text-softblue-light" />
+        <div className="rounded-cards bg-surface/50 border border-border-cork p-6 flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-softblue flex items-center justify-center shrink-0">
+            <Mail className="w-4 h-4" />
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-subtle">
-              Official Email
+            <span className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+              CORRESPONDENCE
             </span>
-            <h3 className="font-serif text-lg font-bold text-navy">
-              Email Correspondence
+            <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">
+              Official Email
             </h3>
             <a
               href={`mailto:${siteSettings.displayEmail}`}
-              className="text-xs text-softblue hover:underline break-all font-medium block"
+              className="text-xs text-softblue hover:underline break-all font-mono"
             >
               {siteSettings.displayEmail}
             </a>
-            <p className="text-[11px] text-slate-subtle pt-1">
-              Inquiries reviewed daily by Shawn
-            </p>
           </div>
         </div>
 
         {/* Pretoria Base */}
-        <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 shadow-xs flex items-start gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-softblue text-white flex items-center justify-center shrink-0">
-            <MapPin className="w-6 h-6" />
+        <div className="rounded-cards bg-surface/50 border border-border-cork p-6 flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-ember flex items-center justify-center shrink-0">
+            <MapPin className="w-4 h-4" />
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-subtle">
-              Location & Delivery
+            <span className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+              LOCATION
             </span>
-            <h3 className="font-serif text-lg font-bold text-navy">
+            <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">
               Pretoria, South Africa
             </h3>
-            <p className="text-xs text-slate-subtle leading-tight">
-              In-person across Pretoria & Gauteng; online support nationwide & internationally.
+            <p className="text-xs text-cream-muted">
+              In-person across Pretoria; online nationwide & internationally.
             </p>
           </div>
         </div>
@@ -102,53 +95,53 @@ export const ContactPage: React.FC = () => {
       <section className="space-y-6">
         
         {/* Form Selector Tabs */}
-        <div className="flex flex-wrap gap-2 pb-2 border-b border-slate-100">
+        <div className="flex flex-wrap gap-2 pb-2 border-b border-dashed border-border-cork">
           <button
             onClick={() => setActiveFormTab('consultation')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeFormTab === 'consultation'
-                ? 'bg-navy text-white shadow-md'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'bg-cream text-void font-bold shadow-md'
+                : 'bg-surface border border-border-cork text-cream-muted hover:text-cream'
             }`}
           >
-            <User className="w-4 h-4" />
-            <span>Form 1: Request a Consultation (Learner / Parent)</span>
+            <User className="w-3.5 h-3.5" />
+            <span>Form 1: Consultation</span>
           </button>
 
           <button
             onClick={() => setActiveFormTab('organization')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeFormTab === 'organization'
-                ? 'bg-navy text-white shadow-md'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'bg-cream text-void font-bold shadow-md'
+                : 'bg-surface border border-border-cork text-cream-muted hover:text-cream'
             }`}
           >
-            <Building2 className="w-4 h-4" />
-            <span>Form 2: School, Club or Organisation</span>
+            <Building2 className="w-3.5 h-3.5" />
+            <span>Form 2: School / Organisation</span>
           </button>
 
           <button
             onClick={() => setActiveFormTab('quick')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeFormTab === 'quick'
-                ? 'bg-navy text-white shadow-md'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'bg-cream text-void font-bold shadow-md'
+                : 'bg-surface border border-border-cork text-cream-muted hover:text-cream'
             }`}
           >
-            <Send className="w-4 h-4" />
-            <span>Form 3: Quick Contact</span>
+            <Send className="w-3.5 h-3.5" />
+            <span>Form 3: Quick Message</span>
           </button>
         </div>
 
         {/* Selected Form Container */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-white border border-navy/10 shadow-lg">
+        <div className="rounded-cards bg-surface/70 border border-border-cork p-6 sm:p-10 shadow-2xl">
           {activeFormTab === 'consultation' && (
             <div className="space-y-6">
-              <div className="space-y-1 pb-4 border-b border-slate-100">
-                <h2 className="font-serif text-2xl font-bold text-navy">
+              <div className="space-y-1 pb-4 border-b border-dashed border-border-cork">
+                <h2 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
                   Request a Consultation
                 </h2>
-                <p className="text-xs text-slate-subtle">
+                <p className="text-xs text-cream-muted">
                   Complete this form to receive a tailored academic roadmap. Every learner’s plan is unique—no packages or rate cards.
                 </p>
               </div>
@@ -158,11 +151,11 @@ export const ContactPage: React.FC = () => {
 
           {activeFormTab === 'organization' && (
             <div className="space-y-6">
-              <div className="space-y-1 pb-4 border-b border-slate-100">
-                <h2 className="font-serif text-2xl font-bold text-navy">
+              <div className="space-y-1 pb-4 border-b border-dashed border-border-cork">
+                <h2 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
                   Institutional & School Enquiries
                 </h2>
-                <p className="text-xs text-slate-subtle">
+                <p className="text-xs text-cream-muted">
                   For schools, sports clubs, homeschool co-ops, and academies seeking workshop-style exam preparation or structured bridging.
                 </p>
               </div>
@@ -172,11 +165,11 @@ export const ContactPage: React.FC = () => {
 
           {activeFormTab === 'quick' && (
             <div className="space-y-6 max-w-xl mx-auto">
-              <div className="space-y-1 pb-4 border-b border-slate-100 text-center">
-                <h2 className="font-serif text-2xl font-bold text-navy">
+              <div className="space-y-1 pb-4 border-b border-dashed border-border-cork text-center">
+                <h2 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
                   Quick Message
                 </h2>
-                <p className="text-xs text-slate-subtle">
+                <p className="text-xs text-cream-muted">
                   Have a quick question? Leave us a message and we will respond promptly.
                 </p>
               </div>
@@ -188,12 +181,12 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Pricing Policy Card */}
-      <section className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-subtle space-y-1.5">
-        <p className="font-bold text-navy flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-softblue" /> Note on Tuition Pricing:
+      <section className="rounded-cards bg-surface/40 border border-dashed border-border-cork p-6 text-xs text-cream-muted space-y-1.5 font-mono">
+        <p className="font-medium text-cream uppercase tracking-wider flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-softblue" /> NOTE ON TUITION PRICING:
         </p>
         <p>
-          Every learner’s plan is tailored to their specific curriculum, subject combination, diagnostic needs, and timetable. Therefore, we do not publish fixed rate cards or packages. Options and fees are discussed transparently and privately during your consultation.
+          Every learner’s plan is tailored to their specific curriculum, diagnostic needs, and timetable. We do not publish fixed rate cards or packages. Options and fees are discussed transparently and privately during your consultation.
         </p>
       </section>
 

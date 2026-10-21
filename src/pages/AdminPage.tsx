@@ -1,24 +1,15 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Service, Testimonial, FAQItem, FormSubmission } from '../types';
+import { FormSubmission } from '../types';
 import {
   Shield,
   Download,
   Plus,
   Trash2,
-  Edit2,
   Eye,
   EyeOff,
-  CheckCircle2,
-  Star,
-  FileSpreadsheet,
   RefreshCw,
-  FolderOpen,
-  Sparkles,
-  Search,
-  Check,
   X,
-  FileText,
 } from 'lucide-react';
 
 export const AdminPage: React.FC = () => {
@@ -33,9 +24,6 @@ export const AdminPage: React.FC = () => {
     toggleFeaturedTestimonial,
     deleteTestimonial,
     faqs,
-    addFAQ,
-    updateFAQ,
-    deleteFAQ,
     submissions,
     updateSubmissionStatus,
     deleteSubmission,
@@ -47,7 +35,7 @@ export const AdminPage: React.FC = () => {
   const [submissionFilter, setSubmissionFilter] = useState<string>('all');
   const [inspectSubmission, setInspectSubmission] = useState<FormSubmission | null>(null);
 
-  // New Service Modal / Form state
+  // New Service state
   const [isAddingService, setIsAddingService] = useState(false);
   const [newSrvTitle, setNewSrvTitle] = useState('');
   const [newSrvSlug, setNewSrvSlug] = useState('');
@@ -55,7 +43,6 @@ export const AdminPage: React.FC = () => {
   const [newSrvWho, setNewSrvWho] = useState('');
   const [newSrvWhat, setNewSrvWhat] = useState('');
   const [newSrvResult, setNewSrvResult] = useState('');
-  const [newSrvCurricula, setNewSrvCurricula] = useState<string[]>(['CAPS', 'IEB']);
   const [newSrvStatus, setNewSrvStatus] = useState<'published' | 'draft'>('published');
 
   // New Testimonial state
@@ -64,7 +51,6 @@ export const AdminPage: React.FC = () => {
   const [testAuthor, setTestAuthor] = useState('');
   const [testRole, setTestRole] = useState('Parent of a Grade 8 learner');
   const [testService, setTestService] = useState('Curriculum Bridging');
-  const [testRating, setTestRating] = useState(5);
 
   const handleCreateService = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +64,7 @@ export const AdminPage: React.FC = () => {
       whoItIsFor: newSrvWho || 'Learners needing focused academic guidance.',
       whatWeDo: newSrvWhat || 'Personalised diagnostic and teaching sessions.',
       result: newSrvResult || 'Renewed confidence and steady academic progress.',
-      curricula: newSrvCurricula,
+      curricula: ['CAPS', 'IEB', 'Cambridge International'],
       targetAudiences: ['General Learners'],
       iconName: 'BookOpen',
       status: newSrvStatus,
@@ -103,7 +89,7 @@ export const AdminPage: React.FC = () => {
       authorDisplayName: testAuthor,
       authorRole: testRole,
       serviceTag: testService,
-      rating: testRating,
+      rating: 5,
     });
 
     setIsAddingTestimonial(false);
@@ -117,94 +103,94 @@ export const AdminPage: React.FC = () => {
   });
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-left text-navy">
+    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-10 text-left">
       
       {/* Header */}
-      <section className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+      <section className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-dashed border-border-cork">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-softblue-tint text-softblue text-xs font-semibold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
             <Shield className="w-3.5 h-3.5" />
-            <span>Founder Portal</span>
+            <span>FOUNDER CMS STUDIO</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-navy mt-1">
-            Re:kula Management Studio
+          <h1 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream mt-1">
+            RE:KULA STUDIO PORTAL.
           </h1>
-          <p className="text-xs sm:text-sm text-slate-subtle">
-            Manage services, approve community reflections, review form submissions, and export data.
+          <p className="text-xs text-cream-muted font-mono">
+            Manage services, review verified testimonials, track inquiries, and export data.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={exportSubmissionsToCSV}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors"
+            className="rounded-buttons-pill bg-cream text-void hover:bg-white px-5 py-2.5 text-xs font-medium uppercase tracking-wider inline-flex items-center gap-2 shadow-sm"
           >
             <Download className="w-4 h-4" />
-            <span>Export Submissions (CSV)</span>
+            <span>Export CSV</span>
           </button>
 
           <button
             onClick={resetAllDataToDefault}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs transition-colors"
-            title="Reset to default seed data"
+            className="rounded-buttons-outlined border border-border-cork text-cream-muted hover:text-white px-4 py-2.5 text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5"
+            title="Restore default draft state"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            <span>Restore Defaults</span>
+            <span>Reset</span>
           </button>
         </div>
       </section>
 
       {/* Metrics Banner */}
       <section className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-          <p className="text-[11px] font-semibold text-slate-subtle uppercase tracking-wider">
+        <div className="p-4 rounded-cards bg-surface/50 border border-border-cork">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
             Total Inquiries
           </p>
-          <p className="font-serif text-2xl font-bold text-navy mt-1">
+          <p className="font-serif text-2xl font-medium text-cream mt-1">
             {submissions.length}
           </p>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-          <p className="text-[11px] font-semibold text-slate-subtle uppercase tracking-wider">
+        <div className="p-4 rounded-cards bg-surface/50 border border-border-cork">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
             Active Services
           </p>
-          <p className="font-serif text-2xl font-bold text-navy mt-1">
+          <p className="font-serif text-2xl font-medium text-cream mt-1">
             {services.filter((s) => s.status === 'published').length} / {services.length}
           </p>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-          <p className="text-[11px] font-semibold text-slate-subtle uppercase tracking-wider">
+        <div className="p-4 rounded-cards bg-surface/50 border border-border-cork">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
             Approved Stories
           </p>
-          <p className="font-serif text-2xl font-bold text-navy mt-1">
+          <p className="font-serif text-2xl font-medium text-cream mt-1">
             {testimonials.filter((t) => t.isApproved).length}
           </p>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-          <p className="text-[11px] font-semibold text-slate-subtle uppercase tracking-wider">
-            Knowledge Base FAQs
+        <div className="p-4 rounded-cards bg-surface/50 border border-border-cork">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+            FAQ Entries
           </p>
-          <p className="font-serif text-2xl font-bold text-navy mt-1">
+          <p className="font-serif text-2xl font-medium text-cream mt-1">
             {faqs.length}
           </p>
         </div>
       </section>
 
       {/* Main Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-dashed border-border-cork pb-2">
         {[
-          { id: 'submissions', label: `Inquiries & Submissions (${submissions.length})` },
+          { id: 'submissions', label: `Inquiries (${submissions.length})` },
           { id: 'services', label: `Services Manager (${services.length})` },
-          { id: 'testimonials', label: `Testimonials & Consent (${testimonials.length})` },
-          { id: 'faqs', label: `FAQ Manager (${faqs.length})` },
+          { id: 'testimonials', label: `Testimonials (${testimonials.length})` },
+          { id: 'faqs', label: `Knowledge Base (${faqs.length})` },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors ${
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-colors ${
               activeTab === tab.id
-                ? 'bg-navy text-white shadow-sm'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-cream text-void font-bold shadow-sm'
+                : 'text-cream-muted hover:text-white'
             }`}
           >
             {tab.label}
@@ -217,23 +203,23 @@ export const AdminPage: React.FC = () => {
         <section className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-1.5 text-xs">
-              <span className="font-semibold text-slate-subtle mr-2">Filter form:</span>
+              <span className="font-mono text-cream-muted uppercase text-[10px] mr-2">Filter form:</span>
               {[
-                { id: 'all', label: 'All Forms' },
-                { id: 'consultation', label: 'Form 1: Consultation' },
-                { id: 'organization', label: 'Form 2: School/Org' },
-                { id: 'quick-contact', label: 'Form 3: Quick' },
-                { id: 'careers', label: 'Form 4: Careers' },
-                { id: 'volunteer', label: 'Form 5: Volunteer' },
-                { id: 'testimonial', label: 'Form 6: Story' },
+                { id: 'all', label: 'All' },
+                { id: 'consultation', label: 'Consultation' },
+                { id: 'organization', label: 'School/Org' },
+                { id: 'quick-contact', label: 'Quick' },
+                { id: 'careers', label: 'Careers' },
+                { id: 'volunteer', label: 'Volunteer' },
+                { id: 'testimonial', label: 'Story' },
               ].map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setSubmissionFilter(f.id)}
-                  className={`px-3 py-1.5 rounded-full transition-colors ${
+                  className={`px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-wider transition-colors ${
                     submissionFilter === f.id
-                      ? 'bg-softblue text-white font-medium'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-softblue text-white'
+                      : 'bg-surface border border-border-cork text-cream-muted hover:text-cream'
                   }`}
                 >
                   {f.label}
@@ -241,55 +227,51 @@ export const AdminPage: React.FC = () => {
               ))}
             </div>
 
-            <span className="text-xs text-slate-subtle">
-              Showing {filteredSubmissions.length} submissions
+            <span className="text-xs font-mono text-cream-muted">
+              {filteredSubmissions.length} records
             </span>
           </div>
 
           {filteredSubmissions.length === 0 ? (
-            <div className="p-12 text-center bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-subtle">
-              No submissions found for this filter. Test submit any form on the site to see real-time updates!
+            <div className="p-12 text-center rounded-cards bg-surface/30 border border-border-cork text-xs text-cream-muted">
+              No submissions found for this filter.
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
+            <div className="overflow-x-auto rounded-cards border border-border-cork bg-surface/40">
               <table className="w-full text-xs text-left">
-                <thead className="bg-slate-50 text-slate-subtle uppercase tracking-wider font-semibold border-b border-slate-200">
+                <thead className="bg-void text-cream-muted uppercase tracking-wider font-mono text-[10px] border-b border-border-cork">
                   <tr>
-                    <th className="p-3.5">Date / Time</th>
+                    <th className="p-3.5">Date</th>
                     <th className="p-3.5">Form</th>
                     <th className="p-3.5">Name</th>
-                    <th className="p-3.5">Email / Phone</th>
-                    <th className="p-3.5">Location</th>
+                    <th className="p-3.5">Contact</th>
                     <th className="p-3.5">Status</th>
-                    <th className="p-3.5 text-right">Actions</th>
+                    <th className="p-3.5 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-border-cork">
                   {filteredSubmissions.map((sub) => (
-                    <tr key={sub.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="p-3.5 whitespace-nowrap text-slate-subtle">
+                    <tr key={sub.id} className="hover:bg-surface/70 transition-colors">
+                      <td className="p-3.5 whitespace-nowrap text-cream-muted font-mono text-[11px]">
                         {sub.createdAt}
                       </td>
                       <td className="p-3.5 whitespace-nowrap">
-                        <span className="px-2 py-0.5 rounded-full bg-softblue-tint text-navy font-semibold text-[10px] uppercase">
+                        <span className="px-2 py-0.5 rounded-full bg-void border border-border-cork text-softblue text-[9px] font-mono uppercase">
                           {sub.formType}
                         </span>
                       </td>
-                      <td className="p-3.5 font-bold text-navy">
+                      <td className="p-3.5 font-medium text-cream">
                         {sub.fullName}
                       </td>
-                      <td className="p-3.5 text-slate-subtle">
+                      <td className="p-3.5 text-cream-muted">
                         <div>{sub.email}</div>
-                        {sub.phone && <div className="text-[11px] font-medium text-emerald-700">{sub.phone}</div>}
-                      </td>
-                      <td className="p-3.5 text-slate-subtle">
-                        {sub.location || '—'}
+                        {sub.phone && <div className="text-[11px] font-mono text-emerald-400">{sub.phone}</div>}
                       </td>
                       <td className="p-3.5 whitespace-nowrap">
                         <select
                           value={sub.status}
                           onChange={(e) => updateSubmissionStatus(sub.id, e.target.value as any)}
-                          className="px-2 py-1 rounded-lg border border-slate-200 text-xs bg-white font-medium text-navy"
+                          className="px-2 py-1 rounded bg-void border border-border-cork text-xs text-cream font-mono"
                         >
                           <option value="new">New</option>
                           <option value="in-review">In Review</option>
@@ -300,14 +282,13 @@ export const AdminPage: React.FC = () => {
                       <td className="p-3.5 text-right whitespace-nowrap space-x-2">
                         <button
                           onClick={() => setInspectSubmission(sub)}
-                          className="text-softblue hover:underline font-medium"
+                          className="text-softblue hover:underline font-mono text-xs"
                         >
                           Inspect
                         </button>
                         <button
                           onClick={() => deleteSubmission(sub.id)}
-                          className="text-red-500 hover:text-red-700"
-                          title="Delete submission"
+                          className="text-red-400 hover:text-red-300"
                         >
                           <Trash2 className="w-3.5 h-3.5 inline" />
                         </button>
@@ -325,21 +306,16 @@ export const AdminPage: React.FC = () => {
       {activeTab === 'services' && (
         <section className="space-y-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-navy">
-                Services Directory & Curricula
-              </h2>
-              <p className="text-xs text-slate-subtle">
-                Add, rename, draft, or hide services. Changes automatically propagate to all forms and navigation dropdowns.
-              </p>
-            </div>
+            <h2 className="font-serif text-xl font-medium uppercase tracking-tight text-cream">
+              Services Directory & Curricula
+            </h2>
 
             <button
               onClick={() => setIsAddingService(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-white text-xs font-semibold hover:bg-navy-800 transition-colors shadow-xs"
+              className="rounded-buttons-pill bg-cream text-void hover:bg-white px-4 py-2 text-xs font-medium uppercase tracking-wider inline-flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Add New Service</span>
+              <span>Add Service</span>
             </button>
           </div>
 
@@ -347,43 +323,32 @@ export const AdminPage: React.FC = () => {
             {services.map((srv) => (
               <div
                 key={srv.id}
-                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-4"
+                className="p-5 rounded-cards bg-surface/50 border border-border-cork flex flex-col justify-between space-y-4"
               >
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-softblue-tint text-navy">
-                      {srv.curricula.join(' • ')}
-                    </span>
-                    <span
-                      className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
-                        srv.status === 'published'
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
-                      }`}
-                    >
+                  <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest">
+                    <span className="text-softblue">{srv.curricula.join(' · ')}</span>
+                    <span className={srv.status === 'published' ? 'text-emerald-400' : 'text-amber-400'}>
                       {srv.status}
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-lg font-bold text-navy">
+                  <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">
                     {srv.title}
                   </h3>
-                  <p className="text-xs text-softblue font-medium">
-                    {srv.tagline}
-                  </p>
-                  <p className="text-xs text-slate-subtle line-clamp-2">
+                  <p className="text-xs text-cream-muted line-clamp-2">
                     {srv.whatWeDo}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div className="pt-3 border-t border-dashed border-border-cork flex items-center justify-between text-xs">
                   <button
                     onClick={() =>
                       updateService(srv.id, {
                         status: srv.status === 'published' ? 'draft' : 'published',
                       })
                     }
-                    className="inline-flex items-center gap-1 text-slate-600 hover:text-navy font-medium"
+                    className="inline-flex items-center gap-1 text-cream-muted hover:text-white font-mono text-[11px] uppercase tracking-wider"
                   >
                     {srv.status === 'published' ? (
                       <>
@@ -398,8 +363,7 @@ export const AdminPage: React.FC = () => {
 
                   <button
                     onClick={() => deleteService(srv.id)}
-                    className="text-red-500 hover:text-red-700"
-                    title="Delete service"
+                    className="text-red-400 hover:text-red-300"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -408,98 +372,54 @@ export const AdminPage: React.FC = () => {
             ))}
           </div>
 
-          {/* New Service Form Drawer / Box */}
           {isAddingService && (
-            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-200 space-y-4 animate-in fade-in">
+            <div className="p-6 rounded-cards bg-surface border border-border-cork space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-serif text-lg font-bold text-navy">
-                  Add New Academic Service
+                <h3 className="font-serif text-lg uppercase tracking-tight font-medium text-cream">
+                  Add Academic Service
                 </h3>
-                <button
-                  onClick={() => setIsAddingService(false)}
-                  className="text-xs text-slate-400 hover:text-navy"
-                >
+                <button onClick={() => setIsAddingService(false)} className="text-xs text-cream-muted">
                   Cancel
                 </button>
               </div>
 
-              <form onSubmit={handleCreateService} className="space-y-4 text-xs">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-semibold mb-1">Service Title *</label>
-                    <input
-                      type="text"
-                      required
-                      value={newSrvTitle}
-                      onChange={(e) => setNewSrvTitle(e.target.value)}
-                      placeholder="e.g. Remedial Numeracy Support"
-                      className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-semibold mb-1">Tagline</label>
-                    <input
-                      type="text"
-                      value={newSrvTagline}
-                      onChange={(e) => setNewSrvTagline(e.target.value)}
-                      placeholder="e.g. Building number sense without fear"
-                      className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                    />
-                  </div>
-                </div>
-
+              <form onSubmit={handleCreateService} className="space-y-3 text-xs">
                 <div>
-                  <label className="block font-semibold mb-1">Who It Is For</label>
-                  <textarea
-                    rows={2}
-                    value={newSrvWho}
-                    onChange={(e) => setNewSrvWho(e.target.value)}
-                    placeholder="Audience profile..."
-                    className="w-full p-2 rounded-xl border border-slate-200 bg-white"
+                  <label className="block mb-1 text-cream uppercase font-mono text-[10px]">Title *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newSrvTitle}
+                    onChange={(e) => setNewSrvTitle(e.target.value)}
+                    placeholder="Service title..."
+                    className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
                   />
                 </div>
-
                 <div>
-                  <label className="block font-semibold mb-1">What We Do</label>
+                  <label className="block mb-1 text-cream uppercase font-mono text-[10px]">What We Do</label>
                   <textarea
                     rows={2}
                     value={newSrvWhat}
                     onChange={(e) => setNewSrvWhat(e.target.value)}
-                    placeholder="Pedagogical action..."
-                    className="w-full p-2 rounded-xl border border-slate-200 bg-white"
+                    placeholder="Syllabus explanation..."
+                    className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
                   />
                 </div>
-
                 <div>
-                  <label className="block font-semibold mb-1">The Result</label>
+                  <label className="block mb-1 text-cream uppercase font-mono text-[10px]">Result</label>
                   <input
                     type="text"
                     value={newSrvResult}
                     onChange={(e) => setNewSrvResult(e.target.value)}
                     placeholder="Target outcome..."
-                    className="w-full p-2 rounded-xl border border-slate-200 bg-white"
+                    className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
                   />
                 </div>
-
-                <div className="flex gap-4">
-                  <div>
-                    <label className="block font-semibold mb-1">Status</label>
-                    <select
-                      value={newSrvStatus}
-                      onChange={(e) => setNewSrvStatus(e.target.value as any)}
-                      className="p-2 rounded-xl border border-slate-200 bg-white"
-                    >
-                      <option value="published">Published</option>
-                      <option value="draft">Draft / Hidden</option>
-                    </select>
-                  </div>
-                </div>
-
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-full bg-navy text-white font-semibold hover:bg-navy-800 shadow-sm"
+                  className="rounded-buttons-pill bg-cream text-void px-6 py-2.5 text-xs uppercase font-medium tracking-wider"
                 >
-                  Save Service to CMS
+                  Save Service
                 </button>
               </form>
             </div>
@@ -511,18 +431,13 @@ export const AdminPage: React.FC = () => {
       {activeTab === 'testimonials' && (
         <section className="space-y-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-navy">
-                Testimonial Approvals & Moderation
-              </h2>
-              <p className="text-xs text-slate-subtle">
-                Per strict brief rules: Nothing publishes automatically. Only real reflections with verified consent appear on the website.
-              </p>
-            </div>
+            <h2 className="font-serif text-xl font-medium uppercase tracking-tight text-cream">
+              Testimonials Moderation
+            </h2>
 
             <button
               onClick={() => setIsAddingTestimonial(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-white text-xs font-semibold hover:bg-navy-800 transition-colors shadow-xs"
+              className="rounded-buttons-pill bg-cream text-void hover:bg-white px-4 py-2 text-xs font-medium uppercase tracking-wider inline-flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Record Verified Story</span>
@@ -533,61 +448,44 @@ export const AdminPage: React.FC = () => {
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start justify-between gap-4 text-xs"
+                className="p-5 rounded-cards bg-surface/50 border border-border-cork flex flex-col sm:flex-row items-start justify-between gap-4 text-xs"
               >
                 <div className="space-y-2 max-w-2xl">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                        t.isApproved
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
-                      }`}
-                    >
-                      {t.isApproved ? 'Approved & Public' : 'Pending Verification'}
+                  <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
+                    <span className={t.isApproved ? 'text-emerald-400' : 'text-amber-400'}>
+                      {t.isApproved ? 'Approved' : 'Pending Consent Verification'}
                     </span>
-                    {t.isFeatured && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-softblue text-white">
-                        Featured on Home
-                      </span>
-                    )}
-                    <span className="text-slate-subtle">
-                      • {t.serviceTag}
-                    </span>
+                    {t.isFeatured && <span className="text-softblue">• Featured</span>}
+                    <span className="text-cream-muted">• {t.serviceTag}</span>
                   </div>
 
-                  <p className="font-serif text-sm italic text-navy leading-relaxed">
+                  <p className="font-serif text-sm italic text-cream leading-relaxed">
                     “{t.quote}”
                   </p>
 
-                  <p className="font-bold text-navy">
-                    {t.authorDisplayName} <span className="text-slate-subtle font-normal">({t.authorRole})</span>
+                  <p className="font-medium text-cream">
+                    {t.authorDisplayName} <span className="text-cream-muted font-normal">({t.authorRole})</span>
                   </p>
                 </div>
 
                 <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0">
                   <button
                     onClick={() => approveTestimonial(t.id, !t.isApproved)}
-                    className={`px-3 py-1.5 rounded-full font-semibold transition-colors ${
-                      t.isApproved
-                        ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                        : 'bg-emerald-600 text-white hover:bg-emerald-700'
-                    }`}
+                    className="px-3 py-1.5 rounded-full bg-void border border-border-cork text-cream hover:border-cream text-[10px] uppercase font-mono tracking-wider"
                   >
-                    {t.isApproved ? 'Unpublish' : 'Approve & Publish'}
+                    {t.isApproved ? 'Unpublish' : 'Approve'}
                   </button>
 
                   <button
                     onClick={() => toggleFeaturedTestimonial(t.id)}
-                    className="text-softblue hover:underline"
+                    className="text-softblue text-[11px] font-mono hover:underline"
                   >
-                    {t.isFeatured ? 'Unfeature on Home' : 'Feature on Home'}
+                    {t.isFeatured ? 'Unfeature' : 'Feature on Home'}
                   </button>
 
                   <button
                     onClick={() => deleteTestimonial(t.id)}
-                    className="text-red-500 hover:text-red-700 p-1"
-                    title="Delete"
+                    className="text-red-400 hover:text-red-300 p-1"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -596,75 +494,41 @@ export const AdminPage: React.FC = () => {
             ))}
           </div>
 
-          {/* New Testimonial Form */}
           {isAddingTestimonial && (
-            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-200 space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between">
-                <h3 className="font-serif text-lg font-bold text-navy">
-                  Add Consent-Verified Testimonial
-                </h3>
-                <button
-                  onClick={() => setIsAddingTestimonial(false)}
-                  className="text-xs text-slate-400 hover:text-navy"
-                >
-                  Cancel
-                </button>
+            <div className="p-6 rounded-cards bg-surface border border-border-cork space-y-3 text-xs">
+              <h3 className="font-serif text-base uppercase font-medium text-cream">Add Consent-Verified Story</h3>
+              <textarea
+                rows={3}
+                required
+                value={testQuote}
+                onChange={(e) => setTestQuote(e.target.value)}
+                placeholder="Enter verified reflection..."
+                className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  required
+                  value={testAuthor}
+                  onChange={(e) => setTestAuthor(e.target.value)}
+                  placeholder="Display name (e.g. Anonymous Parent)..."
+                  className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
+                />
+                <input
+                  type="text"
+                  value={testRole}
+                  onChange={(e) => setTestRole(e.target.value)}
+                  placeholder="Descriptor (e.g. Cambridge AS Parent)..."
+                  className="w-full p-2.5 rounded bg-void border border-border-cork text-cream"
+                />
               </div>
-
-              <form onSubmit={handleCreateTestimonial} className="space-y-4 text-xs">
-                <div>
-                  <label className="block font-semibold mb-1">Quote *</label>
-                  <textarea
-                    rows={3}
-                    required
-                    value={testQuote}
-                    onChange={(e) => setTestQuote(e.target.value)}
-                    placeholder="Enter the author's verified feedback..."
-                    className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block font-semibold mb-1">Display Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={testAuthor}
-                      onChange={(e) => setTestAuthor(e.target.value)}
-                      placeholder="e.g. Anonymous Parent"
-                      className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-semibold mb-1">Role / Descriptor</label>
-                    <input
-                      type="text"
-                      value={testRole}
-                      onChange={(e) => setTestRole(e.target.value)}
-                      placeholder="e.g. Parent of Grade 10 Cambridge learner"
-                      className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-semibold mb-1">Service Tag</label>
-                    <input
-                      type="text"
-                      value={testService}
-                      onChange={(e) => setTestService(e.target.value)}
-                      placeholder="e.g. Personalised Tutoring"
-                      className="w-full p-2 rounded-xl border border-slate-200 bg-white"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full bg-navy text-white font-semibold hover:bg-navy-800 shadow-sm"
-                >
-                  Save Testimonial
-                </button>
-              </form>
+              <button
+                type="button"
+                onClick={handleCreateTestimonial}
+                className="rounded-buttons-pill bg-cream text-void px-6 py-2.5 text-xs uppercase font-medium tracking-wider"
+              >
+                Save
+              </button>
             </div>
           )}
         </section>
@@ -672,87 +536,35 @@ export const AdminPage: React.FC = () => {
 
       {/* 4. FAQS TAB */}
       {activeTab === 'faqs' && (
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-navy">
-                Knowledge Base & FAQ Management
-              </h2>
-              <p className="text-xs text-slate-subtle">
-                Keep answers clear and aligned with the zero-pricing rule.
-              </p>
-            </div>
-          </div>
-
+        <section className="space-y-4">
+          <h2 className="font-serif text-xl font-medium uppercase tracking-tight text-cream">
+            FAQ Knowledge Base
+          </h2>
           <div className="space-y-3">
             {faqs.map((faq) => (
-              <div
-                key={faq.id}
-                className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2 text-xs"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-navy text-sm">
-                    {faq.question}
-                  </span>
-                  <span className="text-[10px] uppercase font-semibold text-softblue px-2 py-0.5 rounded-full bg-softblue-tint">
-                    {faq.category}
-                  </span>
-                </div>
-                <p className="text-slate-subtle leading-relaxed">
-                  {faq.answer}
-                </p>
+              <div key={faq.id} className="p-4 rounded-cards bg-surface/40 border border-border-cork text-xs space-y-1.5">
+                <span className="font-medium text-cream text-sm">{faq.question}</span>
+                <p className="text-cream-muted leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* Detail Inspection Modal for Form Submissions */}
+      {/* Inspection Modal */}
       {inspectSubmission && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-in fade-in">
-          <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto space-y-5 text-xs text-navy">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-void/85 backdrop-blur-md">
+          <div className="relative w-full max-w-2xl rounded-cards bg-surface border border-border-cork p-6 sm:p-8 space-y-4 text-xs text-cream max-h-[85vh] overflow-y-auto">
             <button
               onClick={() => setInspectSubmission(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center"
+              className="absolute top-5 right-5 w-7 h-7 rounded-full bg-void border border-border-cork text-cream-muted flex items-center justify-center"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
-
-            <div>
-              <span className="px-2.5 py-1 rounded-full bg-softblue-tint text-navy font-bold text-[10px] uppercase">
-                {inspectSubmission.formType}
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-navy mt-1">
-                {inspectSubmission.fullName}
-              </h3>
-              <p className="text-slate-subtle">
-                Submitted on {inspectSubmission.createdAt} • Status: <span className="font-bold uppercase text-softblue">{inspectSubmission.status}</span>
-              </p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <p><strong>Email:</strong> {inspectSubmission.email}</p>
-              <p><strong>Phone:</strong> {inspectSubmission.phone || 'N/A'}</p>
-              <p><strong>WhatsApp Consent:</strong> {inspectSubmission.whatsappConsent ? 'Yes' : 'No'}</p>
-              <p><strong>Preferred Contact:</strong> {inspectSubmission.preferredContact || 'N/A'}</p>
-              <p><strong>Best Time:</strong> {inspectSubmission.bestTime || 'N/A'}</p>
-              <p><strong>Location:</strong> {inspectSubmission.location || 'N/A'}</p>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-navy mb-2">Form Data Payload:</h4>
-              <div className="p-4 rounded-2xl bg-navy-950 text-white font-mono text-[11px] overflow-x-auto max-h-60">
-                <pre>{JSON.stringify(inspectSubmission.data, null, 2)}</pre>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
-              <button
-                onClick={() => setInspectSubmission(null)}
-                className="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium"
-              >
-                Close
-              </button>
+            <h3 className="font-serif text-xl uppercase font-medium text-cream">{inspectSubmission.fullName}</h3>
+            <p className="text-cream-muted font-mono">{inspectSubmission.createdAt} · {inspectSubmission.email}</p>
+            <div className="p-4 rounded bg-void border border-border-cork font-mono text-[11px] overflow-x-auto">
+              <pre>{JSON.stringify(inspectSubmission.data, null, 2)}</pre>
             </div>
           </div>
         </div>

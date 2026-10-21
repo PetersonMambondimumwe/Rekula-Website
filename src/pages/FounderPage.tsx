@@ -1,24 +1,24 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Sparkles, Award, GraduationCap, CheckCircle2, BookOpen, Heart, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { Sparkles, Award, GraduationCap, ArrowUpRight, MessageSquare } from 'lucide-react';
 
 export const FounderPage: React.FC = () => {
-  const { openConsultationModal, setActiveTab } = useApp();
+  const { openConsultationModal } = useApp();
 
   return (
-    <div className="space-y-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-left text-navy">
+    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-16 text-left">
       
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-softblue-tint text-softblue text-xs font-semibold uppercase tracking-widest">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Leadership & Pedagogy</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
+          <Sparkles className="w-3 h-3 text-ember" />
+          <span>LEADERSHIP & PEDAGOGICAL CONVICTION</span>
         </div>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-navy">
-          Meet the Founder
+        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+          MEET THE FOUNDER.
         </h1>
-        <p className="text-base sm:text-lg text-slate-subtle leading-relaxed">
-          Led by an accomplished educator and academic consultant whose career is dedicated to unlocking the highest potential in every learner.
+        <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
+          Led by an accomplished educator and academic success consultant whose career is dedicated to unlocking the highest potential in every learner.
         </p>
       </section>
 
@@ -27,38 +27,38 @@ export const FounderPage: React.FC = () => {
         
         {/* Founder Portrait Card */}
         <div className="md:col-span-5 space-y-4">
-          <div className="p-3 rounded-3xl bg-navy/5 ring-1 ring-navy/10 shadow-xl">
-            <div className="rounded-2xl overflow-hidden aspect-[3/4] bg-navy-950 relative">
+          <div className="rounded-cards bg-surface border border-border-cork p-2 shadow-2xl">
+            <div className="rounded-lg overflow-hidden aspect-[3/4] bg-void relative">
               <img
                 src="/assets/shawn-maluleke.png"
                 alt="Shawn Maluleke, Founder of Re:kula"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[0.9]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="font-serif text-xl font-bold">Shawn Maluleke</p>
-                <p className="text-xs text-softblue-light">Founder & Lead Educator</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-70" />
+              <div className="absolute bottom-4 left-4 right-4 text-cream">
+                <p className="font-serif text-lg uppercase tracking-wider font-medium">Shawn Maluleke</p>
+                <p className="text-[10px] text-cream-muted uppercase font-mono tracking-widest mt-0.5">Founder & Lead Educator</p>
               </div>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
-            <p className="font-bold text-navy flex items-center gap-1.5">
-              <GraduationCap className="w-4 h-4 text-softblue" /> University of Pretoria Alumni
+          <div className="rounded-cards bg-surface/50 border border-border-cork p-5 space-y-2 text-xs">
+            <p className="font-medium text-cream uppercase tracking-wider flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-softblue" /> University of Pretoria Alumna
             </p>
-            <p className="text-slate-subtle">
-              B.Ed (22 Distinctions) • B.Ed Hons (Cum Laude) • M.Ed Candidate
+            <p className="text-cream-muted font-mono text-[11px]">
+              B.Ed (22 Distinctions) · B.Ed Hons (Cum Laude) · M.Ed Candidate
             </p>
           </div>
         </div>
 
         {/* Bio Copy strictly from brief */}
-        <div className="md:col-span-7 space-y-6 text-sm sm:text-base leading-relaxed text-navy">
-          <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-softblue">
-              Educational Visionary
+        <div className="md:col-span-7 space-y-6 text-sm sm:text-base leading-relaxed text-cream-muted">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-ember block">
+              FOUNDER PROFILE
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream">
               Shawn Maluleke
             </h2>
           </div>
@@ -77,30 +77,30 @@ export const FounderPage: React.FC = () => {
 
           {/* Academic Honors Badges */}
           <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-2xl bg-softblue-tint/50 border border-softblue/30 space-y-1">
-              <span className="text-xs font-bold text-navy flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-softblue" /> Dell Young Leader
+            <div className="p-4 rounded-cards bg-surface/40 border border-border-cork space-y-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-cream flex items-center gap-2 font-medium">
+                <Award className="w-4 h-4 text-ember" /> Dell Young Leader
               </span>
-              <p className="text-[11px] text-slate-subtle">
-                Recognised for exceptional leadership, perseverance, and academic impact.
+              <p className="text-[11px] text-cream-muted">
+                Recognised for exceptional academic perseverance and educational leadership.
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-softblue-tint/50 border border-softblue/30 space-y-1">
-              <span className="text-xs font-bold text-navy flex items-center gap-1.5">
+            <div className="p-4 rounded-cards bg-surface/40 border border-border-cork space-y-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-cream flex items-center gap-2 font-medium">
                 <Award className="w-4 h-4 text-softblue" /> Golden Key Society
               </span>
-              <p className="text-[11px] text-slate-subtle">
+              <p className="text-[11px] text-cream-muted">
                 Member of the international collegiate honour society for top academic achievers.
               </p>
             </div>
           </div>
 
           {/* Direct Actions */}
-          <div className="pt-4 flex flex-wrap gap-3">
+          <div className="pt-4 flex flex-wrap gap-4">
             <button
               onClick={() => openConsultationModal()}
-              className="px-6 py-3 rounded-full bg-navy hover:bg-navy-800 text-white text-xs sm:text-sm font-semibold transition-all shadow-md inline-flex items-center gap-2"
+              className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2"
             >
               <span>Consult with Shawn</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -110,48 +110,15 @@ export const FounderPage: React.FC = () => {
               href="https://wa.me/27674350849"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs sm:text-sm font-semibold hover:bg-emerald-100 transition-colors inline-flex items-center gap-2"
+              className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              <MessageSquare className="w-4 h-4 text-emerald-400" />
               <span>Direct WhatsApp</span>
             </a>
           </div>
 
         </div>
 
-      </section>
-
-      {/* Shawn's Pedagogical Framework */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200/80 space-y-6">
-        <h3 className="font-serif text-2xl font-bold text-navy">
-          Shawn’s Pedagogical Approach
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-subtle leading-relaxed">
-          <div className="space-y-2">
-            <h4 className="font-bold text-navy text-sm sm:text-base">
-              1. Non-Judgemental Diagnostic
-            </h4>
-            <p>
-              Before prescribing a study plan, we understand the emotional and contextual reasons for any learning gap. No learner is ever judged for falling behind.
-            </p>
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-bold text-navy text-sm sm:text-base">
-              2. Teacher Collaboration
-            </h4>
-            <p>
-              We liaise with class teachers and curriculum heads so that our tutoring directly reinforces upcoming tests, assignments, and exam formats.
-            </p>
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-bold text-navy text-sm sm:text-base">
-              3. Confidence through Mastery
-            </h4>
-            <p>
-              True academic growth happens when a learner experiences small, repeatable wins that rebuild their self-belief and academic independence.
-            </p>
-          </div>
-        </div>
       </section>
 
     </div>

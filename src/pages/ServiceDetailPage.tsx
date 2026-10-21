@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { ArrowLeft, ArrowUpRight, CheckCircle2, Sparkles, ShieldCheck, Calendar, Users, MessageSquare } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, MessageSquare, Check } from 'lucide-react';
 
 export const ServiceDetailPage: React.FC = () => {
   const {
@@ -16,11 +16,11 @@ export const ServiceDetailPage: React.FC = () => {
 
   if (!currentService) {
     return (
-      <div className="py-20 text-center space-y-4">
-        <p className="text-sm text-slate-subtle">Service not found.</p>
+      <div className="py-28 text-center space-y-4 bg-void text-cream">
+        <p className="text-sm text-cream-muted">Service blueprint not found.</p>
         <button
           onClick={() => setActiveTab('services')}
-          className="text-xs text-softblue underline"
+          className="text-xs text-softblue underline font-mono uppercase"
         >
           Return to services hub
         </button>
@@ -31,59 +31,49 @@ export const ServiceDetailPage: React.FC = () => {
   const otherServices = publishedServices.filter((s) => s.id !== currentService.id);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 text-left text-navy">
+    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-12 text-left">
       
       {/* Back link */}
       <div>
         <button
           onClick={() => setActiveTab('services')}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-softblue hover:text-navy transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-cream-muted hover:text-white transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to all services
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to Services Hub
         </button>
       </div>
 
       {/* Hero Header */}
-      <section className="space-y-4 pb-8 border-b border-slate-100">
-        <div className="flex flex-wrap items-center gap-2">
-          {currentService.curricula.map((c) => (
-            <span
-              key={c}
-              className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-softblue-tint text-navy"
-            >
-              {c}
-            </span>
-          ))}
-          <span className="text-xs font-semibold text-slate-subtle">
-            • Online & In-person available
-          </span>
+      <section className="space-y-4 pb-8 border-b border-dashed border-border-cork">
+        <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+          <span className="text-ember">{currentService.curricula.join(' · ')}</span>
+          <span>•</span>
+          <span>PRETORIA ON-SITE & GLOBAL ONLINE</span>
         </div>
 
-        <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-navy">
+        <h1 className="font-serif text-[36px] sm:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           {currentService.title}
         </h1>
-        <p className="font-serif text-lg sm:text-xl text-softblue italic">
+        <p className="font-serif text-lg sm:text-xl text-cream-muted italic">
           {currentService.tagline}
         </p>
 
-        <div className="pt-2 flex flex-wrap gap-3">
+        <div className="pt-4 flex flex-wrap gap-4">
           <button
             onClick={() => openConsultationModal(currentService.title)}
-            className="group inline-flex items-center gap-3 bg-navy hover:bg-navy-800 text-white rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md active:scale-[0.98]"
+            className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md active:scale-[0.98] inline-flex items-center gap-2"
           >
             <span>Request {currentService.title} Consultation</span>
-            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-softblue">
-              <ArrowUpRight className="w-3.5 h-3.5 text-white" />
-            </div>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
 
           <a
             href={`https://wa.me/27674350849?text=${encodeURIComponent(`Hello Shawn, I would like to ask about ${currentService.title}.`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs sm:text-sm font-semibold hover:bg-emerald-100 transition-colors"
+            className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"
           >
-            <MessageSquare className="w-4 h-4 text-emerald-600" />
+            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
             <span>Chat on WhatsApp</span>
           </a>
         </div>
@@ -97,20 +87,20 @@ export const ServiceDetailPage: React.FC = () => {
           
           {/* Who it is for */}
           <section className="space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-softblue">
-              Who It Is For
+            <h2 className="text-[10px] font-mono uppercase tracking-[0.25em] text-ember">
+              WHO IT IS FOR
             </h2>
-            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 text-sm leading-relaxed text-navy">
+            <div className="rounded-cards bg-surface/50 border border-border-cork p-6 text-sm leading-relaxed text-cream-muted">
               {currentService.whoItIsFor}
             </div>
           </section>
 
           {/* What we do */}
           <section className="space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-softblue">
-              What We Do
+            <h2 className="text-[10px] font-mono uppercase tracking-[0.25em] text-softblue">
+              WHAT WE DO
             </h2>
-            <div className="p-6 rounded-3xl bg-white border border-navy/10 text-sm sm:text-base leading-relaxed text-navy shadow-sm">
+            <div className="rounded-cards bg-surface/70 border border-border-cork p-6 text-sm sm:text-base leading-relaxed text-cream">
               {currentService.whatWeDo}
             </div>
           </section>
@@ -118,19 +108,19 @@ export const ServiceDetailPage: React.FC = () => {
           {/* How it works */}
           {currentService.howItWorks && currentService.howItWorks.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-softblue">
-                How It Works Step-by-Step
+              <h2 className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted">
+                HOW IT WORKS STEP-BY-STEP
               </h2>
               <div className="space-y-3">
                 {currentService.howItWorks.map((step, idx) => (
                   <div
                     key={idx}
-                    className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-start gap-4"
+                    className="rounded-cards bg-surface/40 border border-border-cork p-5 flex items-start gap-4"
                   >
-                    <span className="w-7 h-7 rounded-full bg-softblue-tint text-softblue font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                      {idx + 1}
+                    <span className="font-mono text-xs font-bold text-softblue shrink-0 mt-0.5">
+                      0{idx + 1}
                     </span>
-                    <p className="text-xs sm:text-sm text-navy/90 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
                       {step}
                     </p>
                   </div>
@@ -140,14 +130,14 @@ export const ServiceDetailPage: React.FC = () => {
           )}
 
           {/* The Result */}
-          <section className="p-6 sm:p-8 rounded-3xl bg-navy text-white space-y-2 shadow-lg">
-            <span className="text-xs font-bold uppercase tracking-widest text-softblue-light">
-              The Measurable Outcome
+          <section className="rounded-cards bg-surface border border-border-cork p-7 sm:p-8 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-ember">
+              THE MEASURABLE OUTCOME
             </span>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold">
+            <h3 className="font-serif text-xl sm:text-2xl font-medium uppercase tracking-tight text-cream">
               The Result
             </h3>
-            <p className="text-sm sm:text-base text-white/90 leading-relaxed italic">
+            <p className="text-sm sm:text-base text-cream-muted leading-relaxed italic">
               “{currentService.result}”
             </p>
           </section>
@@ -156,50 +146,43 @@ export const ServiceDetailPage: React.FC = () => {
 
         {/* Right Sidebar: Details & Consultation prompt */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="p-6 rounded-3xl bg-softblue-tint/50 border border-softblue/30 space-y-4">
-            <h3 className="font-serif text-lg font-bold text-navy">
+          <div className="rounded-cards bg-surface/60 border border-border-cork p-6 space-y-4 text-xs">
+            <h3 className="font-serif text-base uppercase tracking-wider font-medium text-cream">
               Bespoke Academic Plan
             </h3>
-            <p className="text-xs text-slate-subtle leading-relaxed">
-              Every learner’s plan is tailored around their exact commitments, teachers, and syllabus. We discuss options and arrangements privately during consultation.
+            <p className="text-cream-muted leading-relaxed">
+              Every learner’s plan is tailored around their exact commitments, teachers, and syllabus. We discuss options privately during consultation.
             </p>
 
-            <div className="space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-navy">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Coordinated with class teachers</span>
-              </div>
-              <div className="flex items-center gap-2 text-navy">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Flexible timetables for athletes</span>
-              </div>
-              <div className="flex items-center gap-2 text-navy">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Pretoria on-site or online nationwide</span>
-              </div>
+            <div className="dashed-divider" />
+
+            <div className="space-y-2 font-mono text-[11px] text-cream-muted">
+              <p>* CO-ORDINATED WITH CLASSROOM TEACHERS</p>
+              <p>* FLEXIBLE SCHEDULES FOR ATHLETES & RELOCATION</p>
+              <p>* NO FIXED PACKAGES OR HIDDEN RATE CARDS</p>
             </div>
 
             <button
               onClick={() => openConsultationModal(currentService.title)}
-              className="w-full py-3 rounded-full bg-navy hover:bg-navy-800 text-white text-xs font-semibold transition-colors shadow-sm"
+              className="w-full rounded-buttons-pill bg-cream text-void hover:bg-white py-3 text-xs font-medium uppercase tracking-widest transition-all"
             >
-              Request a Consultation
+              Request Consultation
             </button>
           </div>
 
           {/* Other Services */}
-          <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-subtle">
-              Other Services
+          <div className="rounded-cards bg-surface/40 border border-border-cork p-6 space-y-3">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-cream-muted">
+              OTHER SERVICES
             </h4>
             <div className="space-y-1.5">
               {otherServices.slice(0, 4).map((s) => (
                 <button
                   key={s.id}
                   onClick={() => navigateToService(s.slug)}
-                  className="w-full text-left py-2 px-3 rounded-xl hover:bg-white text-xs font-medium text-navy transition-colors flex items-center justify-between group"
+                  className="w-full text-left py-2 px-3 rounded-lg hover:bg-surface text-xs font-medium text-cream-muted hover:text-white transition-colors flex items-center justify-between group"
                 >
-                  <span className="truncate">{s.title}</span>
+                  <span className="truncate uppercase">{s.title}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               ))}
