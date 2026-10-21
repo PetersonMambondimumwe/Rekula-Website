@@ -45,14 +45,14 @@ export const Navbar: React.FC = () => {
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3.5 group text-left focus:outline-none"
         >
-          <div className="h-10 sm:h-12 w-auto flex items-center justify-center shrink-0">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shrink-0">
             <img
               src="/assets/rekula-logo-cream.png"
               alt="Re:kula Logo"
-              className="h-full w-auto object-contain filter drop-shadow group-hover:scale-105 transition-transform"
+              className="w-full h-full object-contain filter drop-shadow group-hover:scale-105 transition-transform"
             />
           </div>
-          <span className="font-sans text-[18px] sm:text-[21px] font-medium tracking-[0.04em] text-cream leading-none">
+          <span className="font-sans text-[20px] sm:text-[25px] font-medium tracking-[0.04em] text-cream leading-none">
             Re<span className="text-softblue">:</span>kula
           </span>
         </button>

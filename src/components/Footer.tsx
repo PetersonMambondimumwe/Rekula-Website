@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
                 <img
                   src="/assets/rekula-logo-cream.png"
                   alt="Re:kula Logo"
