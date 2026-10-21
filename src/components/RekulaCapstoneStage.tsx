@@ -42,14 +42,14 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
 
     // ─────────────────────────────────────────────────────────────
-    // 3. STUDIO LIGHTING (Cinematic Darkroom with Warm Key & Cool Rim)
+    // 3. STUDIO LIGHTING (Cinematic Darkroom Setup)
     // ─────────────────────────────────────────────────────────────
-    // Soft warm ambient base
-    const ambientLight = new THREE.AmbientLight(0xffdfbe, 0.65);
+    // Ambient light with warm undertone
+    const ambientLight = new THREE.AmbientLight(0xffdfbe, 0.72);
     scene.add(ambientLight);
 
-    // Warm Directional Key Light (casts realistic soft shadows)
-    const keyLight = new THREE.DirectionalLight(0xffedd7, 2.6);
+    // Key Directional Light (Warm Cream Key)
+    const keyLight = new THREE.DirectionalLight(0xffedd7, 2.8);
     keyLight.position.set(4.5, 6.5, 3.5);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.set(2048, 2048);
@@ -64,24 +64,22 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     scene.add(keyLight);
 
     // Dual-tone Hemisphere Light
-    const hemiLight = new THREE.HemisphereLight(0xffe2c4, 0x140a04, 0.7);
+    const hemiLight = new THREE.HemisphereLight(0xffe2c4, 0x140a04, 0.75);
     scene.add(hemiLight);
 
-    // Ember Orange Accent Rim Light (grazes the silhouettes)
-    const rimLight = new THREE.PointLight(0xdc5000, 32, 16);
+    // Razor-Sharp Ember Rim Light (grazes silhouettes)
+    const rimLight = new THREE.PointLight(0xdc5000, 36, 16);
     rimLight.position.set(-3.5, 2.2, -3.2);
     scene.add(rimLight);
 
-    // Re:kula Soft Blue Fill Light (brand identity shadow tone)
-    const fillLight = new THREE.PointLight(0x5086a8, 14, 16);
+    // Re:kula Soft Blue Fill Light
+    const fillLight = new THREE.PointLight(0x5086a8, 16, 16);
     fillLight.position.set(-2.2, 1.2, 5.0);
     scene.add(fillLight);
 
     // ─────────────────────────────────────────────────────────────
-    // 4. PROCEDURAL HIGH-RESOLUTION TEXTURES
+    // 4. PROCEDURAL HIGH-RESOLUTION WOOL FELT TEXTURE
     // ─────────────────────────────────────────────────────────────
-
-    // 4A. Felt Cloth Texture Generator (1024x1024)
     const createFeltTexture = () => {
       const cv = document.createElement('canvas');
       cv.width = 1024;
@@ -124,94 +122,15 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
       tex.repeat.set(3, 3);
-      if ('colorSpace' in tex) {
-        tex.colorSpace = THREE.SRGBColorSpace;
-      }
-      return tex;
-    };
-
-    // 4B. Human Skin Texture Generator (1024x1024)
-    // Includes epidermal stippling, dermatoglyphic micro-ridges, palmar crease lines, and vascular radial warmth
-    const createSkinTexture = () => {
-      const cv = document.createElement('canvas');
-      cv.width = 1024;
-      cv.height = 1024;
-      const ctx = cv.getContext('2d');
-      if (!ctx) return new THREE.Texture();
-
-      // Warm natural skin tone foundation
-      ctx.fillStyle = '#deb496';
-      ctx.fillRect(0, 0, 1024, 1024);
-
-      // Micro-pores and cellular stippling
-      const imgData = ctx.getImageData(0, 0, 1024, 1024);
-      const data = imgData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const noise = (Math.random() - 0.5) * 22;
-        data[i] = Math.min(255, Math.max(0, data[i] + noise));
-        data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise * 0.9));
-        data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise * 0.7));
-      }
-      ctx.putImageData(imgData, 0, 0);
-
-      // Vascular warmth in palmar pads and fingertips (Rosy hemoglobin flush)
-      for (let i = 0; i < 48; i++) {
-        const x = Math.random() * 1024;
-        const y = Math.random() * 1024;
-        const r = 40 + Math.random() * 120;
-        const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-        grad.addColorStop(0, 'rgba(215, 105, 80, 0.12)');
-        grad.addColorStop(0.5, 'rgba(210, 115, 90, 0.05)');
-        grad.addColorStop(1, 'rgba(210, 115, 90, 0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Palmar flexion creases and dermatoglyphic lines
-      ctx.strokeStyle = 'rgba(135, 62, 42, 0.22)';
-      ctx.lineWidth = 1.6;
-      for (let i = 0; i < 350; i++) {
-        ctx.beginPath();
-        const ax = Math.random() * 1024;
-        const ay = Math.random() * 1024;
-        ctx.moveTo(ax, ay);
-        ctx.lineTo(ax + (Math.random() - 0.5) * 45, ay + (Math.random() - 0.5) * 12);
-        ctx.stroke();
-      }
-
-      // Major Hand Creases (Thenar, Head, and Heart flexion lines)
-      ctx.strokeStyle = 'rgba(115, 48, 30, 0.28)';
-      ctx.lineWidth = 2.4;
-      ctx.beginPath();
-      ctx.moveTo(150, 480);
-      ctx.bezierCurveTo(350, 520, 650, 680, 880, 850);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(220, 400);
-      ctx.bezierCurveTo(450, 430, 720, 520, 950, 620);
-      ctx.stroke();
-
-      const tex = new THREE.CanvasTexture(cv);
-      tex.wrapS = THREE.RepeatWrapping;
-      tex.wrapT = THREE.RepeatWrapping;
-      tex.repeat.set(2, 2);
-      if ('colorSpace' in tex) {
-        tex.colorSpace = THREE.SRGBColorSpace;
-      }
+      tex.colorSpace = THREE.SRGBColorSpace;
       return tex;
     };
 
     const feltTexture = createFeltTexture();
-    const skinTexture = createSkinTexture();
 
     // ─────────────────────────────────────────────────────────────
-    // 5. MASTER MATERIALS
+    // 5. MASTER MATERIALS FOR CAPSTONE ARTIFACT
     // ─────────────────────────────────────────────────────────────
-
-    // Mortarboard Felt Material
     const feltMaterial = new THREE.MeshStandardMaterial({
       color: 0x111622,
       map: feltTexture,
@@ -221,33 +140,6 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       metalness: 0.02,
     });
 
-    // Human Skin Material (Physical Material with Subsurface Scattering Glow)
-    const skinMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      map: skinTexture,
-      bumpMap: skinTexture,
-      bumpScale: 0.42,
-      roughness: 0.52,
-      metalness: 0.0,
-      clearcoat: 0.16,
-      clearcoatRoughness: 0.38,
-      emissive: 0x481508,
-      emissiveIntensity: 0.32,
-      reflectivity: 0.5,
-    });
-
-    // Translucent Fingernail Keratin Material
-    const nailMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xf5cfc4,
-      roughness: 0.16,
-      metalness: 0.0,
-      clearcoat: 0.88,
-      clearcoatRoughness: 0.12,
-      transmission: 0.14,
-      ior: 1.48,
-    });
-
-    // Metallic Gold Tassel & Fitting Material
     const goldMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xf0c464,
       roughness: 0.24,
@@ -256,21 +148,10 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       clearcoatRoughness: 0.2,
     });
 
-    // Silk Tassel Threads
     const tasselSilkMaterial = new THREE.MeshStandardMaterial({
       color: 0xe8be5c,
       roughness: 0.38,
       metalness: 0.55,
-    });
-
-    // Academic Gown Sleeve Material (Deep Midnight Wool)
-    const sleeveMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0c1119,
-      map: feltTexture,
-      bumpMap: feltTexture,
-      bumpScale: 1.1,
-      roughness: 0.98,
-      metalness: 0.0,
     });
 
     // ─────────────────────────────────────────────────────────────
@@ -333,7 +214,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     buttonMesh.castShadow = true;
     cap.add(buttonMesh);
 
-    // 6D. Golden Silk Tassel Cord (Catmull-Rom Curve Draping Across the Board)
+    // 6D. Golden Silk Tassel Cord
     const cordCurve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(0, 0.08, 0),
       new THREE.Vector3(0.45, 0.075, 0.45),
@@ -346,7 +227,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     cordMesh.castShadow = true;
     cap.add(cordMesh);
 
-    // Gold Tassel Ferrule / Ring & Knot
+    // Gold Tassel Ferrule & Knot
     const ferruleSphere = new THREE.Mesh(new THREE.SphereGeometry(0.048, 16, 16), goldMaterial);
     ferruleSphere.position.set(1.0, -0.26, 1.0);
     cap.add(ferruleSphere);
@@ -363,7 +244,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     charmMesh.rotation.y = 0.3;
     cap.add(charmMesh);
 
-    // 6E. Full Silk Tassel Skirt (60+ Individual Golden Strands)
+    // 6E. Full Silk Tassel Skirt (65 Individual Golden Threads)
     const tasselThreadsGroup = new THREE.Group();
     tasselThreadsGroup.position.set(1.0, -0.40, 1.0);
     cap.add(tasselThreadsGroup);
@@ -395,171 +276,67 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     scene.add(cap);
 
     // ─────────────────────────────────────────────────────────────
-    // 7. REALISTIC HUMAN HAND & ACADEMIC GOWN SLEEVE
+    // 7. REAL PHOTOGRAPHIC HUMAN HAND & PALM CONTACT SHADOW
     // ─────────────────────────────────────────────────────────────
     const hand = new THREE.Group();
 
-    // Finger Segment Builder
-    const createFingerSegment = (
-      parent: THREE.Group,
-      length: number,
-      rBottom: number,
-      rTop: number,
-      isDistal: boolean
-    ) => {
-      const segGroup = new THREE.Group();
-      parent.add(segGroup);
+    // 7A. Load Clean High-Res De-fringed Real Hand Texture
+    const textureLoader = new THREE.TextureLoader();
+    const handTexture = textureLoader.load('/assets/rekula-hand-real.png');
+    handTexture.colorSpace = THREE.SRGBColorSpace;
+    handTexture.generateMipmaps = true;
+    handTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    handTexture.magFilter = THREE.LinearFilter;
 
-      // Phalanx Cylinder
-      const cyGeom = new THREE.CylinderGeometry(rTop, rBottom, length, 24);
-      cyGeom.rotateX(-Math.PI / 2);
-      cyGeom.translate(0, 0, -length / 2);
-      const cyMesh = new THREE.Mesh(cyGeom, skinMaterial);
-      cyMesh.castShadow = true;
-      cyMesh.receiveShadow = true;
-      segGroup.add(cyMesh);
+    // Aspect ratio: 1304 x 1120 = 1.1643
+    const handWidth = 5.4;
+    const handHeight = handWidth / (1304 / 1120); // 4.638
+    const handGeom = new THREE.PlaneGeometry(handWidth, handHeight);
 
-      // Knuckle Joint Sphere (Condyle)
-      const jointGeom = new THREE.SphereGeometry(rBottom * 1.06, 20, 16);
-      jointGeom.scale(1, 0.94, 1);
-      const jointMesh = new THREE.Mesh(jointGeom, skinMaterial);
-      jointMesh.castShadow = true;
-      jointMesh.receiveShadow = true;
-      segGroup.add(jointMesh);
-
-      // Fingertip Pulp Pad & Fingernail (Only on Distal Phalanx)
-      if (isDistal) {
-        const tipPadGeom = new THREE.SphereGeometry(rTop, 20, 16);
-        const tipPadMesh = new THREE.Mesh(tipPadGeom, skinMaterial);
-        tipPadMesh.position.z = -length;
-        tipPadMesh.castShadow = true;
-        tipPadMesh.receiveShadow = true;
-        segGroup.add(tipPadMesh);
-
-        // Realistic Curved Fingernail Plate
-        const nailGeom = new THREE.SphereGeometry(1, 18, 14);
-        nailGeom.scale(rTop * 0.74, rTop * 0.22, rTop * 1.02);
-        const nailMesh = new THREE.Mesh(nailGeom, nailMaterial);
-        nailMesh.position.set(0, rTop * 0.78, -length + rTop * 0.12);
-        nailMesh.rotation.x = 0.14;
-        nailMesh.castShadow = true;
-        segGroup.add(nailMesh);
-      }
-
-      return segGroup;
-    };
-
-    // Finger Chain Builder
-    const buildFinger = (
-      x: number,
-      z: number,
-      lengths: [number, number, number],
-      baseRadius: number,
-      curls: [number, number, number],
-      yaw: number,
-      y: number = 0
-    ) => {
-      let currentAnchor = new THREE.Group();
-      currentAnchor.position.set(x, y, z);
-      currentAnchor.rotation.y = yaw;
-      hand.add(currentAnchor);
-
-      lengths.forEach((len, idx) => {
-        const taper = 1 - idx * 0.13;
-        const isLast = idx === lengths.length - 1;
-        const seg = createFingerSegment(
-          currentAnchor,
-          len,
-          baseRadius * taper,
-          baseRadius * (taper - 0.13),
-          isLast
-        );
-        seg.rotation.x = curls[idx];
-
-        const nextAnchor = new THREE.Group();
-        nextAnchor.position.z = -len;
-        seg.add(nextAnchor);
-        currentAnchor = nextAnchor;
-      });
-    };
-
-    // 7A. Anatomically Contoured Palm
-    const palmGeom = new THREE.SphereGeometry(1, 48, 36);
-    palmGeom.scale(0.92, 0.22, 1.04);
-    const palmMesh = new THREE.Mesh(palmGeom, skinMaterial);
-    palmMesh.position.z = 0.25;
-    palmMesh.castShadow = true;
-    palmMesh.receiveShadow = true;
-    hand.add(palmMesh);
-
-    // Thenar Eminence (Thumb Base Mound)
-    const thenarGeom = new THREE.SphereGeometry(1, 28, 20);
-    thenarGeom.scale(0.44, 0.22, 0.58);
-    const thenarMesh = new THREE.Mesh(thenarGeom, skinMaterial);
-    thenarMesh.position.set(-0.52, 0.08, 0.52);
-    thenarMesh.rotation.y = 0.48;
-    thenarMesh.castShadow = true;
-    thenarMesh.receiveShadow = true;
-    hand.add(thenarMesh);
-
-    // Hypothenar Eminence (Pinky Lateral Cushion)
-    const hypothenarGeom = new THREE.SphereGeometry(1, 28, 20);
-    hypothenarGeom.scale(0.30, 0.16, 0.64);
-    const hypothenarMesh = new THREE.Mesh(hypothenarGeom, skinMaterial);
-    hypothenarMesh.position.set(0.62, 0.06, 0.42);
-    hypothenarMesh.castShadow = true;
-    hypothenarMesh.receiveShadow = true;
-    hand.add(hypothenarMesh);
-
-    // 7B. Forearm & Carpal Bones
-    const wristGeom = new THREE.CylinderGeometry(0.52, 0.58, 3.2, 32);
-    wristGeom.rotateX(Math.PI / 2);
-    wristGeom.translate(0, 0, 2.2);
-    const wristMesh = new THREE.Mesh(wristGeom, skinMaterial);
-    wristMesh.scale.y = 0.72; // natural flattened anatomical wrist
-    wristMesh.castShadow = true;
-    wristMesh.receiveShadow = true;
-    hand.add(wristMesh);
-
-    // 7C. Academic Gown Sleeve Cuff (Midnight Navy Wool Fabric with Gold Accent Trim)
-    const sleeveGeom = new THREE.CylinderGeometry(0.76, 0.84, 2.8, 40);
-    sleeveGeom.rotateX(Math.PI / 2);
-    sleeveGeom.translate(0, 0, 3.55);
-    const sleeveMesh = new THREE.Mesh(sleeveGeom, sleeveMaterial);
-    sleeveMesh.castShadow = true;
-    sleeveMesh.receiveShadow = true;
-    hand.add(sleeveMesh);
-
-    // Gold Trim Ring around the Sleeve Cuff Rim
-    const cuffGoldRing = new THREE.TorusGeometry(0.76, 0.016, 16, 64);
-    cuffGoldRing.rotateX(Math.PI / 2);
-    cuffGoldRing.translate(0, 0, 2.15);
-    const cuffRingMesh = new THREE.Mesh(cuffGoldRing, goldMaterial);
-    hand.add(cuffRingMesh);
-
-    // 7D. Build the 4 Primary Fingers (Natural Anatomical Curl & Lengths)
-    // Index Finger
-    buildFinger(-0.60, -0.70, [0.62, 0.40, 0.30], 0.165, [0.14, 0.36, 0.30], -0.07, 0.0);
-    // Middle Finger (Longest)
-    buildFinger(-0.20, -0.70, [0.68, 0.44, 0.33], 0.170, [0.14, 0.36, 0.30], -0.02, 0.0);
-    // Ring Finger
-    buildFinger(0.20, -0.70, [0.62, 0.42, 0.31], 0.160, [0.14, 0.36, 0.30], 0.03, 0.0);
-    // Pinky Finger
-    buildFinger(0.58, -0.70, [0.50, 0.30, 0.26], 0.135, [0.14, 0.36, 0.30], 0.10, 0.0);
-
-    // 7E. Thumb (Opposable Angled Forward & Curled Inward)
-    buildFinger(-0.78, 0.40, [0.50, 0.42, 0.32], 0.200, [0.06, 0.20, 0.26], 0.85, 0.02);
-
-    // Set initial hand position waiting below viewport
-    hand.position.set(0, -4.5, 0);
-    hand.rotation.x = -0.08;
-
-    hand.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        child.receiveShadow = true;
-      }
+    const handMaterial = new THREE.MeshStandardMaterial({
+      map: handTexture,
+      transparent: true,
+      roughness: 0.65,
+      metalness: 0.05,
+      side: THREE.DoubleSide,
+      depthWrite: false,
     });
 
+    const handMesh = new THREE.Mesh(handGeom, handMaterial);
+    // Position the real hand so the palm hollow is aligned right under the cap landing point
+    handMesh.position.set(0.68, -0.42, 0);
+    hand.add(handMesh);
+
+    // 7B. Organic Palm Contact Shadow (Darkens realistically as cap lands in the palm)
+    const shadowCanvas = document.createElement('canvas');
+    shadowCanvas.width = 256;
+    shadowCanvas.height = 256;
+    const sCtx = shadowCanvas.getContext('2d');
+    if (sCtx) {
+      const sGrad = sCtx.createRadialGradient(128, 128, 12, 128, 128, 120);
+      sGrad.addColorStop(0, 'rgba(8, 4, 2, 0.85)');
+      sGrad.addColorStop(0.4, 'rgba(12, 6, 3, 0.45)');
+      sGrad.addColorStop(1, 'rgba(12, 6, 3, 0.0)');
+      sCtx.fillStyle = sGrad;
+      sCtx.fillRect(0, 0, 256, 256);
+    }
+    const palmShadowTex = new THREE.CanvasTexture(shadowCanvas);
+    palmShadowTex.colorSpace = THREE.SRGBColorSpace;
+
+    const palmShadowMaterial = new THREE.MeshBasicMaterial({
+      map: palmShadowTex,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false,
+    });
+    const palmShadowGeom = new THREE.PlaneGeometry(1.5, 1.5);
+    const palmShadowMesh = new THREE.Mesh(palmShadowGeom, palmShadowMaterial);
+    // Located right in the cup of the palm:
+    palmShadowMesh.position.set(-0.16, -0.16, 0.04);
+    hand.add(palmShadowMesh);
+
+    // Set initial hand position waiting below the frame
+    hand.position.set(0, -5.2, 0);
     scene.add(hand);
 
     // ─────────────────────────────────────────────────────────────
@@ -580,14 +357,17 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     fit();
 
     // ─────────────────────────────────────────────────────────────
-    // 9. SILKY SCROLL PROGRESSION & INTERACTION
+    // 9. SILKY SCROLL PROGRESSION & 3D INTERACTION
     // ─────────────────────────────────────────────────────────────
     let target = 0;
     let cur = 0;
     let isDragging = false;
     let dragStartX = 0;
+    let dragStartY = 0;
     let dragRotY = 0;
+    let dragRotX = 0;
     let targetDragRotY = 0;
+    let targetDragRotX = 0;
 
     const smoothstep = (a: number, b: number, x: number) => {
       const v = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -595,7 +375,6 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     };
 
     const handleScroll = () => {
-      // Find parent track element or use window scroll
       const trackEl = document.getElementById('rekula-track');
       if (trackEl) {
         const rect = trackEl.getBoundingClientRect();
@@ -613,17 +392,21 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
 
     // Interactive Drag to Rotate in Final Reveal State
     const onMouseDown = (e: MouseEvent) => {
-      if (cur > 0.75) {
+      if (cur > 0.72) {
         isDragging = true;
         dragStartX = e.clientX;
+        dragStartY = e.clientY;
       }
     };
 
     const onMouseMove = (e: MouseEvent) => {
       if (isDragging) {
-        const delta = e.clientX - dragStartX;
-        targetDragRotY += delta * 0.005;
+        const deltaX = e.clientX - dragStartX;
+        const deltaY = e.clientY - dragStartY;
+        targetDragRotY += deltaX * 0.005;
+        targetDragRotX += deltaY * 0.003;
         dragStartX = e.clientX;
+        dragStartY = e.clientY;
       }
     };
 
@@ -637,17 +420,21 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
 
     // Touch support for mobile dragging
     const onTouchStart = (e: TouchEvent) => {
-      if (cur > 0.75 && e.touches.length === 1) {
+      if (cur > 0.72 && e.touches.length === 1) {
         isDragging = true;
         dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
       }
     };
 
     const onTouchMove = (e: TouchEvent) => {
       if (isDragging && e.touches.length === 1) {
-        const delta = e.touches[0].clientX - dragStartX;
-        targetDragRotY += delta * 0.005;
+        const deltaX = e.touches[0].clientX - dragStartX;
+        const deltaY = e.touches[0].clientY - dragStartY;
+        targetDragRotY += deltaX * 0.005;
+        targetDragRotX += deltaY * 0.003;
         dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
       }
     };
 
@@ -679,37 +466,46 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
         onProgressChange(t);
       }
 
-      // Smoothstep interpolation intervals exactly from Capstone
+      // Smoothstep interpolation intervals
       const s1 = smoothstep(0.05, 0.38, t);
       const s2 = smoothstep(0.38, 0.86, t);
       const sh = smoothstep(0.10, 0.86, t);
 
-      // 10A. Cap Trajectory (Float -> Arc -> Soft Landing into Palm)
-      cap.position.set(
-        2.4 * s1 - 2.4 * s2,
-        0.2 + 3.2 * s1 - 3.15 * s2 + Math.sin(time * 1.2) * 0.06 * (1 - s1) * (1 - s2),
-        -0.1 * s2
-      );
+      // Drag Inertia Lerp
+      dragRotY += (targetDragRotY - dragRotY) * 0.08;
+      dragRotX += (targetDragRotX - dragRotX) * 0.08;
 
-      // Scale from Showcase Proportions (1.5x) to Life-size Hand Fit (0.75x)
-      const capScale = 1.5 - 0.75 * sh;
+      // 10A. Cap Trajectory:
+      // Starts floating in top spotlight, arcs across, and lands directly in the cupped palm
+      const capX = 1.9 * s1 - 2.05 * s2;
+      const capY = 0.2 + 2.6 * s1 - 2.92 * s2 + Math.sin(time * 1.2) * 0.05 * (1 - s1) * (1 - s2);
+      const capZ = 0.35 * s2;
+      cap.position.set(capX, capY, capZ);
+
+      // Scale from Showcase Proportions (1.5x) to Palm Fit (0.74x)
+      const capScale = 1.5 - 0.76 * sh;
       cap.scale.setScalar(capScale);
 
-      // Multi-Axis Tumbling & Presentation Rotation
+      // Tumbling Rotation & Presentation Pitch
       cap.rotation.set(
-        0.38 * (1 - sh) + 0.04,
-        time * 0.35 * (1 - sh) + (s1 + s2) * Math.PI * 3.2 + 0.5 * sh + dragRotY,
+        0.38 * (1 - sh) + 0.06 + dragRotX * 0.4,
+        time * 0.35 * (1 - sh) + (s1 + s2) * Math.PI * 3.2 + 0.38 * sh + dragRotY,
         Math.sin(time * 0.8) * 0.05 * (1 - sh)
       );
 
-      // 10B. Hand Rising & Receiving Cap
-      hand.position.y = -4.6 + 4.2 * smoothstep(0.30, 0.78, t);
-      hand.rotation.y = Math.sin(time * 0.6) * 0.05 * smoothstep(0.70, 1.0, t) + dragRotY;
+      // 10B. Real Human Hand Rising to Cradle Cap
+      const handRise = smoothstep(0.28, 0.82, t);
+      hand.position.y = -5.0 + 4.5 * handRise + Math.sin(time * 1.1) * 0.03 * handRise;
+      hand.position.x = 0.12 * handRise;
 
-      // Drag Inertia Lerp
-      dragRotY += (targetDragRotY - dragRotY) * 0.08;
+      // Subtle lifelike 3D parallax tilt on the hand
+      hand.rotation.y = Math.sin(time * 0.5) * 0.03 * smoothstep(0.70, 1.0, t) + dragRotY * 0.8;
+      hand.rotation.x = -0.04 + dragRotX * 0.6;
 
-      // Subtle silk tassel wind drift
+      // 10C. Palm Contact Shadow Opacity (Grows as Cap Enters Palm)
+      palmShadowMaterial.opacity = smoothstep(0.65, 0.85, t) * 0.78;
+
+      // Silk tassel wind drift
       tasselThreadsGroup.rotation.z = Math.sin(time * 1.8) * 0.05 * (1 - s2);
 
       renderer.render(scene, camera);
@@ -731,7 +527,8 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onTouchEnd);
       feltTexture.dispose();
-      skinTexture.dispose();
+      handTexture.dispose();
+      palmShadowTex.dispose();
       renderer.dispose();
     };
   }, [onProgressChange]);
@@ -740,7 +537,7 @@ export const RekulaCapstoneStage: React.FC<RekulaCapstoneStageProps> = ({
     <div
       ref={containerRef}
       className="absolute inset-0 w-full h-full pointer-events-auto"
-      title={scrollProgress > 0.75 ? 'Drag to rotate the graduation cap & hand' : undefined}
+      title={scrollProgress > 0.72 ? 'Drag to rotate the graduation cap & hand' : undefined}
     >
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
