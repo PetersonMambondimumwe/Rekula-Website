@@ -25,7 +25,12 @@ function getResendClient() {
 }
 
 function getSender() {
-  return process.env.RESEND_FROM_EMAIL || DEFAULT_FROM;
+  const custom = (process.env.RESEND_FROM_EMAIL || '').trim();
+  if (!custom) return DEFAULT_FROM;
+  if (!custom.includes('<')) {
+    return `Re:kula Academic Support <${custom}>`;
+  }
+  return custom;
 }
 
 function getAdminRecipient() {
