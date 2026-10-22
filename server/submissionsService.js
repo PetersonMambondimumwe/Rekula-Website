@@ -112,6 +112,8 @@ export async function handleFormSubmission(formType, data, meta = {}) {
         const preferredContact = data.preferredContact || 'WhatsApp';
         const bestTime = data.bestTime || 'Afternoon';
         const whatsappConsent = data.whatsappConsent !== false;
+        const attachmentName = data.attachmentName || null;
+        const attachmentUrl = data.attachmentUrl || null;
 
         const consultInsert = await sql.query(
           `INSERT INTO consultation_enquiries (
@@ -120,10 +122,10 @@ export async function handleFormSubmission(formType, data, meta = {}) {
             schooling_situation, curriculum, current_school, selected_services,
             main_reasons, missed_school_dates, workshop_group_type, workshop_learner_count,
             workshop_exam_date, workshop_venue, learning_mode, when_to_start,
-            availabilities, notes, heard_about, guardian_confirmed
+            availabilities, notes, heard_about, guardian_confirmed, attachment_name, attachment_url
           ) VALUES (
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15,
-            $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27
+            $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29
           ) RETURNING id;`,
           [
             submissionId,
@@ -152,11 +154,21 @@ export async function handleFormSubmission(formType, data, meta = {}) {
             availabilities,
             notes,
             heardAbout,
-            guardianConfirmed
+            guardianConfirmed,
+            attachmentName,
+            attachmentUrl
           ]
         );
 
         const consultationId = consultInsert[0].id;
+
+        if (attachmentUrl) {
+          await sql.query(
+            `INSERT INTO submission_attachments (submission_id, file_name, file_url, mime_type, storage_provider)
+             VALUES ($1, $2, $3, $4, $5);`,
+            [submissionId, attachmentName || 'Attachment', attachmentUrl, data.attachmentMime || 'application/pdf', 'seaweedfs']
+          );
+        }
 
         // Insert individual subjects
         if (Array.isArray(data.subjects) && data.subjects.length > 0) {
@@ -237,14 +249,16 @@ export async function handleFormSubmission(formType, data, meta = {}) {
         const weeklyAvailabilityHours = String(data.weeklyAvailabilityHours || '10-20');
         const teachingPhilosophy = (data.teachingPhilosophy || '').trim();
         const whatsappConsent = data.whatsappConsent !== false;
+        const cvFileName = data.cvFileName || null;
+        const cvUrl = data.cvUrl || null;
 
         const eduInsert = await sql.query(
           `INSERT INTO educator_applications (
             submission_id, name, email, phone, whatsapp_consent, city_province,
             highest_qualification, institution, graduation_year, sace_status,
             sace_number, teaching_experience_years, tutoring_mode,
-            weekly_availability_hours, teaching_philosophy
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+            weekly_availability_hours, teaching_philosophy, cv_file_name, cv_url
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
           RETURNING id;`,
           [
             submissionId,
@@ -261,11 +275,21 @@ export async function handleFormSubmission(formType, data, meta = {}) {
             teachingExperienceYears,
             tutoringMode,
             weeklyAvailabilityHours,
-            teachingPhilosophy
+            teachingPhilosophy,
+            cvFileName,
+            cvUrl
           ]
         );
 
         const eduId = eduInsert[0].id;
+
+        if (cvUrl) {
+          await sql.query(
+            `INSERT INTO submission_attachments (submission_id, file_name, file_url, mime_type, storage_provider)
+             VALUES ($1, $2, $3, $4, $5);`,
+            [submissionId, cvFileName || 'Curriculum_Vitae.pdf', cvUrl, 'application/pdf', 'seaweedfs']
+          );
+        }
 
         if (Array.isArray(data.subjects)) {
           for (const s of data.subjects) {
@@ -292,12 +316,15 @@ export async function handleFormSubmission(formType, data, meta = {}) {
         const volunteerMotivation = (data.volunteerMotivation || '').trim();
         const weeklyHours = String(data.weeklyHours || '2-4 hours');
         const mode = data.mode || 'Online';
+        const cvFileName = data.cvFileName || null;
+        const cvUrl = data.cvUrl || null;
 
         const volInsert = await sql.query(
           `INSERT INTO volunteer_applications (
             submission_id, name, email, phone, city_province,
-            current_occupation, volunteer_motivation, weekly_hours, mode
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            current_occupation, volunteer_motivation, weekly_hours, mode,
+            cv_file_name, cv_url
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
           RETURNING id;`,
           [
             submissionId,
@@ -308,11 +335,21 @@ export async function handleFormSubmission(formType, data, meta = {}) {
             currentOccupation,
             volunteerMotivation,
             weeklyHours,
-            mode
+            mode,
+            cvFileName,
+            cvUrl
           ]
         );
 
         const volId = volInsert[0].id;
+
+        if (cvUrl) {
+          await sql.query(
+            `INSERT INTO submission_attachments (submission_id, file_name, file_url, mime_type, storage_provider)
+             VALUES ($1, $2, $3, $4, $5);`,
+            [submissionId, cvFileName || 'Volunteer_CV.pdf', cvUrl, 'application/pdf', 'seaweedfs']
+          );
+        }
 
         if (Array.isArray(data.subjects)) {
           for (const s of data.subjects) {
@@ -362,6 +399,27 @@ export async function handleFormSubmission(formType, data, meta = {}) {
           ]
         );
         break;
+      }
+    }
+
+    // Record any additional uploaded attachments linked to SeaweedFS
+    if (Array.isArray(data.attachments)) {
+      for (const att of data.attachments) {
+        if (att && att.url) {
+          await sql.query(
+            `INSERT INTO submission_attachments (
+              submission_id, file_name, file_url, file_size, mime_type, storage_provider
+            ) VALUES ($1, $2, $3, $4, $5, $6);`,
+            [
+              submissionId,
+              att.fileName || 'attachment',
+              att.url,
+              att.fileSize || null,
+              att.mimeType || 'application/octet-stream',
+              'seaweedfs'
+            ]
+          );
+        }
       }
     }
 

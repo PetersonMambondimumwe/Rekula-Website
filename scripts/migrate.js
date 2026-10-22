@@ -183,7 +183,28 @@ async function runMigration() {
     `CREATE INDEX IF NOT EXISTS idx_quick_sub_id ON quick_messages(submission_id);`,
     `CREATE INDEX IF NOT EXISTS idx_educator_sub_id ON educator_applications(submission_id);`,
     `CREATE INDEX IF NOT EXISTS idx_volunteer_sub_id ON volunteer_applications(submission_id);`,
-    `CREATE INDEX IF NOT EXISTS idx_testimonials_approved ON testimonials(is_approved, is_featured);`
+    `CREATE INDEX IF NOT EXISTS idx_testimonials_approved ON testimonials(is_approved, is_featured);`,
+
+    // 12. Add SeaweedFS storage references to application & enquiry tables
+    `ALTER TABLE educator_applications ADD COLUMN IF NOT EXISTS cv_file_name VARCHAR(255);`,
+    `ALTER TABLE educator_applications ADD COLUMN IF NOT EXISTS cv_url TEXT;`,
+    `ALTER TABLE volunteer_applications ADD COLUMN IF NOT EXISTS cv_file_name VARCHAR(255);`,
+    `ALTER TABLE volunteer_applications ADD COLUMN IF NOT EXISTS cv_url TEXT;`,
+    `ALTER TABLE consultation_enquiries ADD COLUMN IF NOT EXISTS attachment_name VARCHAR(255);`,
+    `ALTER TABLE consultation_enquiries ADD COLUMN IF NOT EXISTS attachment_url TEXT;`,
+
+    // 13. Submission Attachments table
+    `CREATE TABLE IF NOT EXISTS submission_attachments (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      submission_id UUID REFERENCES submissions(id) ON DELETE CASCADE,
+      file_name VARCHAR(255) NOT NULL,
+      file_url TEXT NOT NULL,
+      file_size BIGINT,
+      mime_type VARCHAR(100),
+      storage_provider VARCHAR(50) DEFAULT 'seaweedfs',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );`,
+    `CREATE INDEX IF NOT EXISTS idx_attachments_sub_id ON submission_attachments(submission_id);`
   ];
 
   for (let i = 0; i < statements.length; i++) {

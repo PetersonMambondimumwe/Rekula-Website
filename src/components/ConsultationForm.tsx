@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { commonSubjects } from '../data/initialData';
-import { CheckCircle2, Send, AlertCircle, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Send, AlertCircle, ShieldCheck, Upload, FileText } from 'lucide-react';
+import { uploadFileToSeaweed } from '../utils/fileUpload';
 
 interface ConsultationFormProps {
   onSuccess?: () => void;
@@ -60,6 +61,9 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
   const [availabilities, setAvailabilities] = useState<string[]>(['Weekday afternoons']);
   const [notes, setNotes] = useState('');
   const [heardAbout, setHeardAbout] = useState('Referral');
+  const [attachmentFileName, setAttachmentFileName] = useState('');
+  const [attachmentUrl, setAttachmentUrl] = useState('');
+  const [isUploadingAttachment, setIsUploadingAttachment] = useState(false);
 
   // Consents
   const [consentAgreed, setConsentAgreed] = useState(false);
@@ -96,12 +100,38 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
     );
   };
 
+  const handleAttachmentUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      if (file.size > 15 * 1024 * 1024) {
+        setErrorMsg('Document size exceeds the 15MB limit.');
+        return;
+      }
+      setAttachmentFileName(file.name);
+      setErrorMsg('');
+      setIsUploadingAttachment(true);
+      try {
+        const uploadResult = await uploadFileToSeaweed(file, 'consultations');
+        setAttachmentUrl(uploadResult.url);
+      } catch (err: any) {
+        console.error('SeaweedFS consultation upload error:', err);
+        setErrorMsg(err.message || 'Could not upload document to SeaweedFS storage. Please try again.');
+      } finally {
+        setIsUploadingAttachment(false);
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return; // bot detected
 
     if (!fullName || !email || !phone) {
       setErrorMsg('Please complete your name, email and contact phone number.');
+      return;
+    }
+    if (isUploadingAttachment) {
+      setErrorMsg('Please wait until your document finishes uploading to storage.');
       return;
     }
     if (!consentAgreed) {
@@ -155,6 +185,8 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
       notes,
       heardAbout,
       guardianConfirmed: guardianAgreed,
+      attachmentName: attachmentFileName || undefined,
+      attachmentUrl: attachmentUrl || undefined,
     };
 
     setIsSubmitting(true);
@@ -554,6 +586,37 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             />
           </div>
         )}
+
+        {/* Optional Academic Documents / Report Card Upload */}
+        <div className="p-4 bg-void/60 rounded-cards border-2 border-dashed border-border-cork hover:border-border-driftwood transition-colors text-center cursor-pointer">
+          <label className="cursor-pointer block">
+            <Upload className="w-6 h-6 text-softblue mx-auto mb-1.5" />
+            <span className="text-xs font-mono uppercase tracking-wider text-cream block font-medium">
+              Upload Report Card, Test Paper or Diagnostic Document (Optional)
+            </span>
+            <span className="text-[11px] text-cream-muted block mt-1">
+              PDF or images (PNG, JPG), max 15MB. Stored securely on private storage.
+            </span>
+            <input
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg,.doc,.docx"
+              onChange={handleAttachmentUpload}
+              className="hidden"
+            />
+          </label>
+          {isUploadingAttachment && (
+            <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
+              <span className="w-3.5 h-3.5 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
+              <span>Uploading to SeaweedFS storage...</span>
+            </div>
+          )}
+          {!isUploadingAttachment && attachmentUrl && (
+            <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Stored on SeaweedFS: {attachmentFileName}</span>
+            </div>
+          )}
+        </div>
 
         {/* POPIA & Guardian Consent */}
         <div className="space-y-2.5 pt-3 border-t border-dashed border-border-cork text-xs">

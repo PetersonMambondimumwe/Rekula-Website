@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { HeartHandshake, Plus, Trash2, Upload, AlertCircle, FileText } from 'lucide-react';
+import { HeartHandshake, Plus, Trash2, Upload, AlertCircle, FileText, CheckCircle2 } from 'lucide-react';
+import { uploadFileToSeaweed } from '../utils/fileUpload';
 
 interface VolunteerSubjectEntry {
   id: string;
@@ -44,6 +45,8 @@ export const VolunteerForm: React.FC = () => {
   const [availabilities, setAvailabilities] = useState<string[]>(['Weekday afternoons']);
   const [whyVolunteer, setWhyVolunteer] = useState('');
   const [cvFileName, setCvFileName] = useState('');
+  const [cvUrl, setCvUrl] = useState('');
+  const [isUploadingCv, setIsUploadingCv] = useState(false);
   const [consent, setConsent] = useState(false);
 
   const addSubjectRow = () => {
@@ -94,15 +97,26 @@ export const VolunteerForm: React.FC = () => {
     );
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        setErrorMsg('CV file size exceeds 5MB limit.');
+      if (file.size > 15 * 1024 * 1024) {
+        setErrorMsg('CV file size exceeds the 15MB limit.');
         return;
       }
       setCvFileName(file.name);
       setErrorMsg('');
+      setIsUploadingCv(true);
+
+      try {
+        const uploadResult = await uploadFileToSeaweed(file, 'volunteers');
+        setCvUrl(uploadResult.url);
+      } catch (err: any) {
+        console.error('SeaweedFS volunteer CV upload error:', err);
+        setErrorMsg(err.message || 'Could not upload document to SeaweedFS storage. Please try again.');
+      } finally {
+        setIsUploadingCv(false);
+      }
     }
   };
 
@@ -114,6 +128,12 @@ export const VolunteerForm: React.FC = () => {
       setErrorMsg('Please complete your name, email, phone and qualification/study details.');
       return;
     }
+
+    if (isUploadingCv) {
+      setErrorMsg('Please wait until your CV document finishes uploading to storage.');
+      return;
+    }
+
     if (!consent) {
       setErrorMsg('Please tick the consent box to proceed.');
       return;
@@ -140,6 +160,7 @@ export const VolunteerForm: React.FC = () => {
       availabilities,
       whyVolunteer,
       cvFileName: cvFileName || 'Not provided (optional)',
+      cvUrl: cvUrl || undefined,
     });
     setIsSubmitting(false);
 
@@ -579,19 +600,31 @@ export const VolunteerForm: React.FC = () => {
             Upload Your CV (Optional)
           </span>
           <span className="text-[11px] text-cream-muted block mt-1">
-            PDF or Word documents, max 5MB.
+            PDF, Word (.docx) or image format, max 15MB.
           </span>
           <input
             type="file"
-            accept=".pdf,.doc,.docx"
+            accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
             onChange={handleFileUpload}
             className="hidden"
           />
         </label>
-        {cvFileName && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300">
-            <FileText className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Attached: {cvFileName}</span>
+        {isUploadingCv && (
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
+            <span className="w-3.5 h-3.5 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
+            <span>Uploading securely to SeaweedFS storage...</span>
+          </div>
+        )}
+        {!isUploadingCv && cvUrl && (
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Stored on SeaweedFS: {cvFileName}</span>
+          </div>
+        )}
+        {!isUploadingCv && !cvUrl && cvFileName && (
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-border-cork rounded-full text-xs text-cream-muted font-medium">
+            <FileText className="w-3.5 h-3.5 text-softblue" />
+            <span>Selected: {cvFileName}</span>
           </div>
         )}
       </div>

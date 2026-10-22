@@ -563,6 +563,23 @@ export const AdminPage: React.FC = () => {
             </button>
             <h3 className="font-serif text-xl uppercase font-medium text-cream">{inspectSubmission.fullName}</h3>
             <p className="text-cream-muted font-mono">{inspectSubmission.createdAt} · {inspectSubmission.email}</p>
+
+            {(inspectSubmission.data?.cvUrl || inspectSubmission.data?.attachmentUrl) && (
+              <div className="p-3 bg-void/80 rounded border border-softblue/30 flex items-center justify-between">
+                <span className="font-mono text-[11px] text-cream-muted truncate max-w-xs">
+                  SeaweedFS Stored Document: {inspectSubmission.data.cvFileName || inspectSubmission.data.attachmentName || 'Attachment'}
+                </span>
+                <a
+                  href={inspectSubmission.data.cvUrl || inspectSubmission.data.attachmentUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-1 rounded bg-softblue text-white text-[10px] font-mono uppercase tracking-wider hover:bg-softblue/80 transition-colors shrink-0"
+                >
+                  View on SeaweedFS
+                </a>
+              </div>
+            )}
+
             <div className="p-4 rounded bg-void border border-border-cork font-mono text-[11px] overflow-x-auto">
               <pre>{JSON.stringify(inspectSubmission.data, null, 2)}</pre>
             </div>
