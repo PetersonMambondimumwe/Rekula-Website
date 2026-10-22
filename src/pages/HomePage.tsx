@@ -128,9 +128,9 @@ export const HomePage: React.FC = () => {
                   href="https://wa.me/27674350849"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-emerald-400 hover:underline font-mono inline-flex items-center gap-1.5 uppercase tracking-wider cursor-pointer"
+                  className="text-xs text-white hover:underline font-mono inline-flex items-center gap-1.5 uppercase tracking-wider cursor-pointer"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <MessageSquare className="w-3.5 h-3.5 text-softblue" />
                   <span>Chat on WhatsApp: +27 67 435 0849</span>
                 </a>
               </div>

@@ -23,14 +23,14 @@ export const FloatingWhatsApp: React.FC = () => {
           <div className="flex items-center justify-between pb-3 border-b border-dashed border-border-cork">
             <div className="flex items-center gap-2.5">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full overflow-hidden bg-void border border-emerald-500">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-void border border-softblue">
                   <img
                     src="/assets/shawn-maluleke.png"
                     alt="Lead Educator"
                     className="w-full h-full object-cover object-top filter contrast-[1.05]"
                   />
                 </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-void rounded-full"></span>
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-softblue border border-void rounded-full"></span>
               </div>
               <div>
                 <h4 className="text-xs font-serif uppercase tracking-wider font-medium text-cream">Lead Educator</h4>
@@ -65,7 +65,7 @@ export const FloatingWhatsApp: React.FC = () => {
             />
             <button
               type="submit"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-full text-xs font-semibold flex items-center gap-1 transition-all"
+              className="bg-softblue hover:bg-softblue/80 text-white px-3.5 py-2 rounded-full text-xs font-semibold flex items-center gap-1 transition-all"
             >
               <Send className="w-3 h-3" />
             </button>
@@ -76,7 +76,7 @@ export const FloatingWhatsApp: React.FC = () => {
               href="https://wa.me/27674350849"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-emerald-400 hover:underline font-mono uppercase tracking-wider"
+              className="text-[10px] text-softblue hover:underline font-mono uppercase tracking-wider"
             >
               Open WhatsApp Direct ({siteSettings.phoneDisplay})
             </a>
@@ -91,8 +91,8 @@ export const FloatingWhatsApp: React.FC = () => {
         aria-label="Open WhatsApp conversation"
       >
         <div className="relative">
-          <MessageSquare className="w-4 h-4 text-emerald-400" />
-          <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
+          <MessageSquare className="w-4 h-4 text-softblue" />
+          <span className="absolute -top-1 -right-1 w-2 h-2 bg-softblue rounded-full animate-ping" />
         </div>
         <span className="text-xs font-medium uppercase tracking-wider pr-1">
           WhatsApp Direct

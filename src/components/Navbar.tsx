@@ -86,10 +86,10 @@ export const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Direct WhatsApp"
-            className="w-9 h-9 rounded-full bg-surface border border-border-cork text-emerald-400 hover:border-emerald-500 flex items-center justify-center transition-all duration-300 hover:scale-105"
+            className="w-9 h-9 rounded-full bg-surface border border-border-cork text-softblue hover:border-softblue flex items-center justify-center transition-all duration-300 hover:scale-105"
             title="Chat on WhatsApp (+27 67 435 0849)"
           >
-            <MessageSquare className="w-4 h-4 fill-emerald-400/20" />
+            <MessageSquare className="w-4 h-4 text-softblue fill-softblue/20" />
           </a>
 
           {/* Primary Consultation Pill CTA */}

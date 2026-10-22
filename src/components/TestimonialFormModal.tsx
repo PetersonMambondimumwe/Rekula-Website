@@ -100,7 +100,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
 
         {submitted ? (
           <div className="text-center py-10 space-y-4">
-            <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 bg-softblue/15 text-softblue rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="font-serif text-2xl font-bold text-navy">

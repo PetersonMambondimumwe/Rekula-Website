@@ -88,7 +88,7 @@ export const OrganizationForm: React.FC = () => {
   if (submitted) {
     return (
       <div className="text-center py-12 px-6 rounded-cards bg-surface border border-border-cork text-cream space-y-4 animate-in fade-in">
-        <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-14 h-14 bg-softblue/10 border border-softblue/30 text-softblue rounded-full flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-8 h-8" />
         </div>
         <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
@@ -485,7 +485,7 @@ export const QuickContactForm: React.FC = () => {
   if (submitted) {
     return (
       <div className="text-center py-10 px-6 rounded-cards bg-surface border border-border-cork text-cream space-y-4 animate-in fade-in">
-        <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 bg-softblue/10 border border-softblue/30 text-softblue rounded-full flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-7 h-7" />
         </div>
         <h4 className="font-serif text-xl font-medium uppercase tracking-tight text-cream">Message Received</h4>

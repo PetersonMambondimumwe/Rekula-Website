@@ -32,13 +32,13 @@ export const ContactPage: React.FC = () => {
           href="https://wa.me/27674350849"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-cards bg-surface/50 border border-border-cork p-6 hover:border-emerald-500 transition-all flex items-start gap-4 group"
+          className="rounded-cards bg-surface/50 border border-border-cork p-6 hover:border-softblue transition-all flex items-start gap-4 group"
         >
-          <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-emerald-400 flex items-center justify-center shrink-0 group-hover:border-emerald-400 transition-colors">
-            <MessageSquare className="w-4 h-4 fill-emerald-400/20" />
+          <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-softblue flex items-center justify-center shrink-0 group-hover:border-softblue transition-colors">
+            <MessageSquare className="w-4 h-4 fill-softblue/20" />
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-softblue">
               IMMEDIATE
             </span>
             <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">

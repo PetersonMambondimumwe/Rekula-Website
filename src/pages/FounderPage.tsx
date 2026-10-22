@@ -112,7 +112,7 @@ export const FounderPage: React.FC = () => {
               rel="noopener noreferrer"
               className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
+              <MessageSquare className="w-4 h-4 text-softblue" />
               <span>Direct WhatsApp</span>
             </a>
           </div>

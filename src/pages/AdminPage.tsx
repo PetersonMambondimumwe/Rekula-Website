@@ -265,7 +265,7 @@ export const AdminPage: React.FC = () => {
                       </td>
                       <td className="p-3.5 text-cream-muted">
                         <div>{sub.email}</div>
-                        {sub.phone && <div className="text-[11px] font-mono text-emerald-400">{sub.phone}</div>}
+                        {sub.phone && <div className="text-[11px] font-mono text-softblue">{sub.phone}</div>}
                       </td>
                       <td className="p-3.5 whitespace-nowrap">
                         <select
@@ -328,7 +328,7 @@ export const AdminPage: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest">
                     <span className="text-softblue">{srv.curricula.join(' · ')}</span>
-                    <span className={srv.status === 'published' ? 'text-emerald-400' : 'text-amber-400'}>
+                    <span className={srv.status === 'published' ? 'text-softblue' : 'text-amber-400'}>
                       {srv.status}
                     </span>
                   </div>
@@ -452,7 +452,7 @@ export const AdminPage: React.FC = () => {
               >
                 <div className="space-y-2 max-w-2xl">
                   <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
-                    <span className={t.isApproved ? 'text-emerald-400' : 'text-amber-400'}>
+                    <span className={t.isApproved ? 'text-softblue' : 'text-amber-400'}>
                       {t.isApproved ? 'Approved' : 'Pending Consent Verification'}
                     </span>
                     {t.isFeatured && <span className="text-softblue">• Featured</span>}

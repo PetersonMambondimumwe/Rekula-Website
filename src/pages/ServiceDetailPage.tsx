@@ -73,7 +73,7 @@ export const ServiceDetailPage: React.FC = () => {
             rel="noopener noreferrer"
             className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+            <MessageSquare className="w-3.5 h-3.5 text-softblue" />
             <span>Chat on WhatsApp</span>
           </a>
         </div>

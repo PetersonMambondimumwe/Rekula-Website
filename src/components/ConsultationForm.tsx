@@ -207,7 +207,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
   if (submitted) {
     return (
       <div className="text-center py-12 px-6 rounded-cards bg-surface border border-border-cork space-y-5 animate-in fade-in duration-300">
-        <div className="w-14 h-14 bg-void border border-emerald-500 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-14 h-14 bg-void border border-softblue text-softblue rounded-full flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-8 h-8" />
         </div>
         <div className="space-y-2">
@@ -611,8 +611,8 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             </div>
           )}
           {!isUploadingAttachment && attachmentUrl && (
-            <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
+              <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
               <span>Stored on SeaweedFS: {attachmentFileName}</span>
             </div>
           )}

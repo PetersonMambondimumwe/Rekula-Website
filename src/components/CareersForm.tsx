@@ -726,8 +726,8 @@ export const CareersForm: React.FC = () => {
           </div>
         )}
         {!isUploadingCv && cvUrl && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
+            <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
             <span>Stored on SeaweedFS: {cvFileName}</span>
           </div>
         )}

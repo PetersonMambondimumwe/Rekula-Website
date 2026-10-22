@@ -174,7 +174,7 @@ export const VolunteerForm: React.FC = () => {
   if (submitted) {
     return (
       <div className="text-center py-12 px-6 bg-surface rounded-cards border border-border-cork space-y-4 animate-in fade-in">
-        <div className="w-14 h-14 bg-emerald-950/60 text-emerald-400 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-14 h-14 bg-softblue/10 text-softblue border border-softblue/40 rounded-full flex items-center justify-center mx-auto">
           <HeartHandshake className="w-7 h-7" />
         </div>
         <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
@@ -616,8 +616,8 @@ export const VolunteerForm: React.FC = () => {
           </div>
         )}
         {!isUploadingCv && cvUrl && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-emerald-500/40 rounded-full text-xs text-emerald-300 font-medium">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
+            <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
             <span>Stored on SeaweedFS: {cvFileName}</span>
           </div>
         )}

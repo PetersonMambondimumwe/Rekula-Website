@@ -181,7 +181,7 @@ export const HowItWorksPage: React.FC = () => {
             rel="noopener noreferrer"
             className="rounded-buttons-outlined border border-cream text-cream hover:bg-void px-6 py-3 text-xs font-medium uppercase tracking-widest transition-all inline-flex items-center gap-1.5"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+            <MessageSquare className="w-3.5 h-3.5 text-softblue" />
             <span>WhatsApp Lead Educator</span>
           </a>
         </div>
