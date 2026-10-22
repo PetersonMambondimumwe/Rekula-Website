@@ -471,135 +471,138 @@ function buildAdminNotification(formType, data, submissionId) {
 }
 
 /**
+ * Helper to extract first name for the user confirmation email template
+ */
+function extractFirstName(rawName) {
+  if (!rawName) return 'there';
+  const cleaned = String(rawName).trim();
+  if (!cleaned) return 'there';
+  const parts = cleaned.split(/\s+/);
+  const titles = ['mr', 'mr.', 'mrs', 'mrs.', 'ms', 'ms.', 'dr', 'dr.', 'prof', 'prof.'];
+  if (parts.length > 1 && titles.includes(parts[0].toLowerCase())) {
+    return parts.slice(0, 2).join(' ');
+  }
+  return parts[0] || 'there';
+}
+
+/**
+ * Renders the user-facing form submission confirmation template with the business logo
+ */
+function renderUserConfirmationEmail(firstName) {
+  const safeName = escapeHtml(firstName);
+  const logoUrl = 'https://raw.githubusercontent.com/PetersonMambondimumwe/Rekula-Website/main/public/assets/rekula-logo-navy.png';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We’ve received your submission – Re:kula</title>
+</head>
+<body style="margin:0;padding:0;background-color:#EAF5FD;font-family:Arial,Helvetica,sans-serif;">
+  <!-- Preheader (inbox preview text) -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+    Thanks for reaching out. Our team will get back to you within 48 hours.
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EAF5FD;">
+    <tr>
+      <td align="center" style="padding:32px 12px;">
+
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background-color:#FFFFFF;border-radius:16px;overflow:hidden;">
+
+          <!-- Header -->
+          <tr>
+            <td align="center" style="background-color:#BFE3F8;padding:36px 24px;">
+              <a href="https://re-luka-webiste.vercel.app/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:inline-block;">
+                <img src="${logoUrl}" alt="Re:kula" width="68" height="85" style="display:block;margin:0 auto 12px auto;width:68px;height:auto;border:0;outline:none;" />
+              </a>
+              <div style="font-size:30px;font-weight:bold;color:#1F3A52;letter-spacing:0.5px;">Re:kula</div>
+              <div style="font-size:13px;color:#3E6A8A;letter-spacing:2px;text-transform:uppercase;margin-top:6px;">Grow Again</div>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px 40px 16px 40px;">
+              <h1 style="margin:0 0 16px 0;font-size:24px;line-height:32px;color:#1F3A52;">
+                Thank you, ${safeName}!
+              </h1>
+              <p style="margin:0 0 16px 0;font-size:16px;line-height:26px;color:#4A5F72;">
+                We’ve received your submission and we’re so glad you reached out to Re:kula.
+              </p>
+              <p style="margin:0;font-size:16px;line-height:26px;color:#4A5F72;">
+                Our team will review your details and <strong style="color:#1F3A52;">get back to you within 48 hours.</strong>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Highlight box -->
+          <tr>
+            <td style="padding:16px 40px 8px 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EAF5FD;border-left:4px solid #6BB8E8;border-radius:8px;">
+                <tr>
+                  <td style="padding:18px 20px;">
+                    <div style="font-size:13px;font-weight:bold;color:#3E6A8A;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">What happens next</div>
+                    <div style="font-size:15px;line-height:24px;color:#4A5F72;">
+                      A member of our team will read your submission and contact you using the details you provided.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Button -->
+          <tr>
+            <td align="center" style="padding:28px 40px 12px 40px;">
+              <a href="https://re-luka-webiste.vercel.app/" style="display:inline-block;background-color:#6BB8E8;color:#FFFFFF;font-size:16px;font-weight:bold;text-decoration:none;padding:14px 32px;border-radius:999px;">
+                Visit our website
+              </a>
+            </td>
+          </tr>
+
+          <!-- Sign-off -->
+          <tr>
+            <td style="padding:20px 40px 40px 40px;">
+              <p style="margin:0;font-size:16px;line-height:26px;color:#4A5F72;">
+                Warm regards,<br>
+                <strong style="color:#1F3A52;">The Re:kula Team</strong>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="background-color:#F4FAFE;padding:20px 24px;border-top:1px solid #D6EAF7;">
+              <p style="margin:0;font-size:12px;line-height:18px;color:#7A90A3;">
+                You’re receiving this email because you submitted a form on our website.<br>
+                &copy; Re:kula. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
  * Generate Submitter Confirmation / Receipt Email Content
  */
 function buildSubmitterReceipt(formType, data, submissionId) {
-  const contactName = data.fullName || data.contactPerson || data.name || data.authorDisplayName || 'there';
-  const email = data.email || data.authorEmail;
-
+  const email = (data.email || data.authorEmail || '').trim();
   if (!email) return null;
 
-  let subject = 'We have received your enquiry: Re:kula Academic Support';
-  let badge = 'ENQUIRY CONFIRMED';
-  let title = `Hello ${contactName}, thank you for reaching out`;
-  let messageBody = '';
+  const rawName = data.fullName || data.contactPerson || data.name || data.authorDisplayName || '';
+  const firstName = extractFirstName(rawName);
 
-  switch (formType) {
-    case 'consultation': {
-      subject = 'Your Learning Support Enquiry: Re:kula Academic Support';
-      badge = 'CONSULTATION RECEIVED';
-      title = `Thank you ${contactName}, your enquiry is received`;
-      messageBody = `
-        <p>Thank you for getting in touch with <strong>Re:kula Academic Support</strong>. We know that reaching out for learning assistance is an important step, and we treat every learner's journey with dedicated attention.</p>
-        <div class="card">
-          <p style="margin-top: 0;"><strong>Enquiry Reference:</strong> ${escapeHtml(submissionId)}</p>
-          <p><strong>What happens next:</strong></p>
-          <ol style="margin-bottom: 0; padding-left: 20px;">
-            <li style="margin-bottom: 8px;">Our <strong>Lead Educator</strong> will carefully review the academic background, grade level and subjects you indicated.</li>
-            <li style="margin-bottom: 8px;">We will contact you via your preferred communication method (${escapeHtml(data.preferredContact || 'WhatsApp')}) within 24 to 48 hours.</li>
-            <li>We will schedule a personalized diagnostic consultation to map out a structured learning path.</li>
-          </ol>
-        </div>
-        <p>If you have urgent questions or upcoming test deadlines, feel free to reach out to us directly on WhatsApp:</p>
-      `;
-      break;
-    }
-
-    case 'organization': {
-      subject = 'School & Organisation Partnership Enquiry: Re:kula';
-      badge = 'PARTNERSHIP ENQUIRY';
-      title = `Thank you ${contactName}, we have received your enquiry`;
-      messageBody = `
-        <p>Thank you for considering <strong>Re:kula Academic Support</strong> as a learning partner for ${escapeHtml(data.orgName || 'your institution')}.</p>
-        <div class="card">
-          <p style="margin-top: 0;"><strong>Enquiry Reference:</strong> ${escapeHtml(submissionId)}</p>
-          <p style="margin-bottom: 0;">Our Lead Educator will review your requirements regarding learner cohorts, curriculum needs and timeline, then reach out to schedule an exploratory discussion.</p>
-        </div>
-        <p>For urgent scheduling or immediate inquiries, you can also reach our team directly on WhatsApp:</p>
-      `;
-      break;
-    }
-
-    case 'quick-contact': {
-      subject = 'We received your message: Re:kula Academic Support';
-      badge = 'MESSAGE RECEIVED';
-      title = `Thank you ${contactName}, message received`;
-      messageBody = `
-        <p>Thank you for contacting <strong>Re:kula Academic Support</strong>. We have securely received your message regarding <em>"${escapeHtml(data.subject || 'General Inquiry')}"</em>.</p>
-        <div class="card">
-          <p style="margin-top: 0; margin-bottom: 0;">Our Lead Educator reviews all messages and will respond to you promptly via email or phone.</p>
-        </div>
-        <p>If your matter is time-sensitive, feel free to connect directly via WhatsApp:</p>
-      `;
-      break;
-    }
-
-    case 'careers': {
-      subject = 'Educator Application Received: Re:kula Academic Support';
-      badge = 'APPLICATION RECEIVED';
-      title = `Thank you ${contactName}, application received`;
-      messageBody = `
-        <p>Thank you for your interest in joining the <strong>Re:kula Academic Support</strong> educator network.</p>
-        <div class="card">
-          <p style="margin-top: 0;"><strong>Application Reference:</strong> ${escapeHtml(submissionId)}</p>
-          <p style="margin-bottom: 0;">We hold our educators to high standards of subject mastery, pedagogical empathy and communicative clarity. Our academic review team will review your qualifications, teaching philosophy and experience. Should your profile align with our current learner demand, we will be in touch to schedule an interview.</p>
-        </div>
-        <p>We appreciate your dedication to quality education.</p>
-      `;
-      break;
-    }
-
-    case 'volunteer': {
-      subject = 'Volunteer Application Received: Re:kula Academic Support';
-      badge = 'APPLICATION RECEIVED';
-      title = `Thank you ${contactName}, application received`;
-      messageBody = `
-        <p>Thank you for offering your time and knowledge to support learners across South Africa through <strong>Re:kula</strong>.</p>
-        <div class="card">
-          <p style="margin-top: 0;"><strong>Application Reference:</strong> ${escapeHtml(submissionId)}</p>
-          <p style="margin-bottom: 0;">Our team will review your availability and subject preferences. When a matching community initiative or learner cohort opens up, we will contact you with next steps.</p>
-        </div>
-      `;
-      break;
-    }
-
-    case 'testimonial': {
-      subject = 'Thank you for your feedback: Re:kula Academic Support';
-      badge = 'FEEDBACK RECEIVED';
-      title = `Thank you ${contactName} for sharing your experience`;
-      messageBody = `
-        <p>Thank you for taking the time to share your feedback about <strong>Re:kula Academic Support</strong>. Honest feedback helps us continually refine our academic guidance and support more learners effectively.</p>
-        <div class="card">
-          <p style="margin-top: 0; margin-bottom: 0;">Your testimonial has been submitted for review and will be added to our community testimonials upon verification.</p>
-        </div>
-      `;
-      break;
-    }
-
-    default: {
-      messageBody = `
-        <p>Thank you for reaching out to <strong>Re:kula Academic Support</strong>. We have received your submission (Ref: ${escapeHtml(submissionId)}) and will be in touch shortly.</p>
-      `;
-    }
-  }
-
-  const html = renderEmailShell({
-    title,
-    badge,
-    contentHtml: `
-      ${messageBody}
-      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 237, 215, 0.08);">
-        <p style="margin: 0; font-size: 14px; color: rgba(255, 237, 215, 0.8);">
-          Warm regards,<br>
-          <strong style="color: #ffedd7;">Lead Educator &amp; The Re:kula Team</strong><br>
-          <span style="font-size: 12px; color: rgba(255, 237, 215, 0.5);">Re:kula Academic Support • South Africa</span>
-        </p>
-      </div>
-    `,
-    ctaText: 'Chat on WhatsApp',
-    ctaUrl: WHATSAPP_LINK,
-    isReceipt: true
-  });
+  const subject = 'We’ve received your submission – Re:kula';
+  const html = renderUserConfirmationEmail(firstName);
 
   return { to: email, subject, html };
 }
