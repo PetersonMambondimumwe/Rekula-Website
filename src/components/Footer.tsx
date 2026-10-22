@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
                 <li key={service.id}>
                   <button
                     onClick={() => navigateToService(service.slug)}
-                    className="hover:text-white transition-colors text-left uppercase tracking-wider"
+                    className="hover:text-white transition-colors text-left tracking-wide"
                   >
                     {service.title}
                   </button>
@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => handleNav('services')}
-                  className="text-softblue hover:underline text-[11px] uppercase tracking-wider flex items-center gap-1 mt-2"
+                  className="text-softblue hover:underline text-[11px] tracking-wide flex items-center gap-1 mt-2"
                 >
                   All Services Hub &rarr;
                 </button>
@@ -100,7 +100,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button onClick={() => handleNav('founder')} className="hover:text-white transition-colors">
-                  Meet Our Lead Educator
+                  Meet Our Team
                 </button>
               </li>
               <li>
@@ -144,12 +144,12 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <MessageSquare className="w-3.5 h-3.5 text-softblue shrink-0" />
                 <a
                   href="https://wa.me/27674350849"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 hover:underline font-mono"
+                  className="text-white hover:underline font-mono"
                 >
                   +27 67 435 0849
                 </a>
@@ -171,19 +171,20 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar: System legal & studio credit */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
           <div>
-            &copy; {new Date().getFullYear()} Re:kula (Pty) Ltd · GROW AGAIN · ALL RIGHTS RESERVED
+            <span className="normal-case">&copy; {new Date().getFullYear()} Re:kula (Pty) Ltd</span> · GROW AGAIN · ALL RIGHTS RESERVED
           </div>
 
           <div className="flex items-center gap-6">
-            <span>NO PRICING DISPLAYED · TAILORED ASSESSMENTS ONLY</span>
+
             
             <button
               onClick={() => handleNav('admin')}
-              className="hover:text-white transition-colors flex items-center gap-1.5 opacity-60 hover:opacity-100"
-              title="Founder CMS Studio"
+              className="hover:text-white transition-colors flex items-center p-1 opacity-40 hover:opacity-100"
+              title="Portal"
+              aria-label="Portal"
             >
               <Lock className="w-3 h-3 text-softblue" />
-              <span>FOUNDER PORTAL</span>
+
             </button>
           </div>
         </div>
