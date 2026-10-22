@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { MessageSquare, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { NavigationTab } from '../types';
 
 export const Navbar: React.FC = () => {
@@ -80,17 +80,6 @@ export const Navbar: React.FC = () => {
 
         {/* Right Action: Pill Button (Filled) strictly from ORYZO */}
         <div className="flex items-center gap-3">
-          {/* WhatsApp Direct Icon */}
-          <a
-            href="https://wa.me/27674350849"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Direct WhatsApp"
-            className="w-9 h-9 rounded-full bg-surface border border-border-cork text-softblue hover:border-softblue flex items-center justify-center transition-all duration-300 hover:scale-105"
-            title="Chat on WhatsApp (+27 67 435 0849)"
-          >
-            <MessageSquare className="w-4 h-4 text-softblue fill-softblue/20" />
-          </a>
 
           {/* Primary Consultation Pill CTA */}
           <button
@@ -104,10 +93,10 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-10 h-10 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors cursor-pointer"
+            className="lg:hidden w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors cursor-pointer"
             aria-label="Toggle navigation drawer"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
           </button>
         </div>
 
