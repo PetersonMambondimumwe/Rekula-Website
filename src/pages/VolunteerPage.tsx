@@ -28,7 +28,7 @@ export const VolunteerPage: React.FC = () => {
           </div>
           <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">Community Impact</h3>
           <p className="text-xs text-cream-muted leading-relaxed">
-            Directly help learners who lack resources to access subject tutoring, revision materials, and exam techniques.
+            Directly help learners who lack resources to access subject tutoring, revision materials and exam techniques.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export const VolunteerPage: React.FC = () => {
             Volunteer Application Form
           </h2>
           <p className="text-xs text-cream-muted mt-1">
-            Tell us about your background, subjects you can tutor, and your weekly availability.
+            Tell us about your background, subjects you can tutor and your weekly availability.
           </p>
         </div>
 

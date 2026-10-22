@@ -13,6 +13,7 @@ export const VolunteerForm: React.FC = () => {
   const { addSubmission, setActiveTab } = useApp();
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [honeypot, setHoneypot] = useState('');
 
@@ -105,12 +106,12 @@ export const VolunteerForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return;
 
     if (!fullName || !email || !phone || !qualificationOrStudy) {
-      setErrorMsg('Please complete your name, email, phone, and qualification/study details.');
+      setErrorMsg('Please complete your name, email, phone and qualification/study details.');
       return;
     }
     if (!consent) {
@@ -121,7 +122,9 @@ export const VolunteerForm: React.FC = () => {
     const compiledLanguages = [...languages];
     if (otherLanguage.trim()) compiledLanguages.push(otherLanguage.trim());
 
-    addSubmission('volunteer', {
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const res = await addSubmission('volunteer', {
       fullName,
       email,
       phone,
@@ -138,8 +141,13 @@ export const VolunteerForm: React.FC = () => {
       whyVolunteer,
       cvFileName: cvFileName || 'Not provided (optional)',
     });
+    setIsSubmitting(false);
 
-    setSubmitted(true);
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(res.error || 'Failed to submit application. Please try again.');
+    }
   };
 
   if (submitted) {
@@ -195,14 +203,14 @@ export const VolunteerForm: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Full Name <span className="text-ember">*</span>
+              Your Name <span className="text-ember">*</span>
             </label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Peterson Mambondimumwe"
+              placeholder="e.g. Peterson"
               className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
@@ -308,7 +316,7 @@ export const VolunteerForm: React.FC = () => {
               Subjects You Can Volunteer to Tutor <span className="text-ember">*</span>
             </label>
             <span className="text-[11px] text-cream-muted mt-0.5 block">
-              Add the subjects, grade phases, and curricula you feel confident supporting.
+              Add the subjects, grade phases and curricula you feel confident supporting.
             </span>
           </div>
           <button
@@ -615,10 +623,20 @@ export const VolunteerForm: React.FC = () => {
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <HeartHandshake className="w-4 h-4 text-void" />
-          <span>Submit Volunteer Application</span>
+          {isSubmitting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SAVING VOLUNTEER APPLICATION...</span>
+            </>
+          ) : (
+            <>
+              <HeartHandshake className="w-4 h-4 text-void" />
+              <span>Submit Volunteer Application</span>
+            </>
+          )}
         </button>
       </div>
     </form>

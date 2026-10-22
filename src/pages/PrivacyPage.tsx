@@ -39,7 +39,7 @@ export const PrivacyPage: React.FC = () => {
             1. Commitment to Information Security
           </h2>
           <p>
-            Re:kula (Pty) Ltd ("Re:kula", "we", "us", or "our"), founded in South Africa, respects the constitutional right to privacy and is strictly committed to protecting the personal information of our learners, parents, guardians, job applicants, and volunteers in accordance with the Protection of Personal Information Act, 4 of 2013 (POPIA).
+            Re:kula (Pty) Ltd ("Re:kula", "we", "us" or "our"), founded in South Africa, respects the constitutional right to privacy and is strictly committed to protecting the personal information of our learners, parents, guardians, job applicants and volunteers in accordance with the Protection of Personal Information Act, 4 of 2013 (POPIA).
           </p>
         </section>
 
@@ -51,10 +51,10 @@ export const PrivacyPage: React.FC = () => {
             Because our educational services actively support children, we enforce rigorous child protection and data minimization protocols:
           </p>
           <ul className="list-disc pl-5 space-y-1">
-            <li>We only collect the learner’s first name on public consultation forms—never their surname or national identity number.</li>
+            <li>We only collect the learner’s first name on public consultation forms (never surnames or national identity numbers).</li>
             <li>We require verified parent or legal guardian consent prior to providing any academic services or tutoring.</li>
-            <li>We never publish photographs, full names, or identifying details of learners under 18 anywhere on our website or marketing.</li>
-            <li>All educators, tutors, and volunteers complete child protection and background clearance prior to onboarding.</li>
+            <li>We never publish photographs, names or identifying details of learners under 18 anywhere on our website or marketing.</li>
+            <li>All educators, tutors and volunteers complete child protection and background clearance prior to onboarding.</li>
           </ul>
         </section>
 
@@ -63,12 +63,12 @@ export const PrivacyPage: React.FC = () => {
             3. Information We Collect
           </h2>
           <p>
-            When you complete our consultation, career, volunteer, or contact forms, we may collect:
+            When you complete our consultation, career, volunteer or contact forms, we may collect:
           </p>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Contact details: Parent/guardian or adult learner name, email address, phone/WhatsApp number, city/province.</li>
-            <li>Educational context: Learner grade or stage, school name (optional), curriculum (CAPS, IEB, Cambridge), subject needs, and timetable availability.</li>
-            <li>Educator & Volunteer applicants: Qualification history, SACE/HPCSA registration numbers where applicable, curriculum familiarity, and uploaded CV files.</li>
+            <li>Contact details: Parent/guardian or adult learner name (no surname required on public forms), email address, phone/WhatsApp number, city/province.</li>
+            <li>Educational context: Learner grade or stage, school name (optional), curriculum (CAPS, IEB, Cambridge), subject needs and timetable availability.</li>
+            <li>Educator & Volunteer applicants: Qualification history, SACE/HPCSA registration numbers where applicable, curriculum familiarity and uploaded CV files.</li>
           </ul>
         </section>
 

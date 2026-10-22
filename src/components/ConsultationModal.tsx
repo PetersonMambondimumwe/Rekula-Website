@@ -49,7 +49,7 @@ export const ConsultationModal: React.FC = () => {
             LET’S BUILD A PLAN AROUND YOUR LEARNER.
           </h2>
           <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
-            Tell us about your learner, their curriculum, and what support is needed. Our Lead Educator and our leadership team will respond with a tailored roadmap.
+            Tell us about your learner, their curriculum and what support is needed. Our Lead Educator and our leadership team will respond with a tailored roadmap.
           </p>
           <div className="dashed-divider mt-4" />
         </div>

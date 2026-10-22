@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs sm:text-[13px] text-cream-muted max-w-sm leading-relaxed">
-              The academic partner for learners of every age whose education needs a different kind of support. Whatever the reason a learner has fallen behind, we close the gap, build confidence, and help them grow again.
+              The academic partner for learners of every age whose education needs a different kind of support. Whatever the reason a learner has fallen behind, we close the gap, build confidence and help them grow again.
             </p>
 
             <div className="pt-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted space-y-1">

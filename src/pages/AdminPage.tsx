@@ -116,7 +116,7 @@ export const AdminPage: React.FC = () => {
             Re:kula Studio Portal.
           </h1>
           <p className="text-xs text-cream-muted font-mono">
-            Manage services, review verified testimonials, track inquiries, and export data.
+            Manage services, review verified testimonials, track inquiries and export data.
           </p>
         </div>
 

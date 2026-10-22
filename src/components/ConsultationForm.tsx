@@ -16,6 +16,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
   const { publishedServices, addSubmission, setActiveTab } = useApp();
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   // Honeypot spam field
@@ -95,12 +96,12 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return; // bot detected
 
     if (!fullName || !email || !phone) {
-      setErrorMsg('Please complete your name, email, and contact phone number.');
+      setErrorMsg('Please complete your name, email and contact phone number.');
       return;
     }
     if (!consentAgreed) {
@@ -156,10 +157,18 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
       guardianConfirmed: guardianAgreed,
     };
 
-    addSubmission('consultation', payload);
-    setSubmitted(true);
-    if (onSuccess) {
-      setTimeout(() => onSuccess(), 2500);
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const result = await addSubmission('consultation', payload);
+    setIsSubmitting(false);
+
+    if (result.success) {
+      setSubmitted(true);
+      if (onSuccess) {
+        setTimeout(() => onSuccess(), 2500);
+      }
+    } else {
+      setErrorMsg(result.error || 'Failed to submit enquiry. Please try again.');
     }
   };
 
@@ -268,14 +277,14 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-medium text-cream mb-1.5 uppercase tracking-wider">
-              Your Full Name <span className="text-ember">*</span>
+              Your Name <span className="text-ember">*</span>
             </label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Peterson Mambondimumwe"
+              placeholder="e.g. Peterson"
               className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
@@ -589,9 +598,17 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full rounded-buttons-pill bg-cream text-void hover:bg-white font-medium py-3.5 px-6 text-xs sm:text-sm uppercase tracking-[0.14em] shadow-xl transition-all"
+          disabled={isSubmitting}
+          className="w-full rounded-buttons-pill bg-cream text-void hover:bg-white font-medium py-3.5 px-6 text-xs sm:text-sm uppercase tracking-[0.14em] shadow-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2"
         >
-          Submit Consultation Request
+          {isSubmitting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SAVING ENQUIRY TO SECURE DATABASE...</span>
+            </>
+          ) : (
+            <span>SUBMIT CONSULTATION REQUEST</span>
+          )}
         </button>
         <p className="text-center text-[10px] text-cream-muted/60 uppercase tracking-widest mt-2 font-mono">
           NO PRICING DISPLAYED · CONFIDENTIAL · INDIVIDUALIZED ROADMAP

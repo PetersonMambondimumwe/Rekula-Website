@@ -7,6 +7,7 @@ export const OrganizationForm: React.FC = () => {
   const { publishedServices, addSubmission, setActiveTab } = useApp();
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [honeypot, setHoneypot] = useState('');
 
@@ -43,7 +44,7 @@ export const OrganizationForm: React.FC = () => {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return;
     if (!orgName || !contactPerson || !email || !phone) {
@@ -58,22 +59,30 @@ export const OrganizationForm: React.FC = () => {
     const compiledSubjects = [...selectedSubjects];
     if (customSubject.trim()) compiledSubjects.push(customSubject.trim());
 
-    addSubmission('organization', {
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const res = await addSubmission('organization', {
       orgName,
       orgType,
       contactPerson,
       contactRole,
       email,
       phone,
-      learnerCount,
+      approxLearners: learnerCount,
+      gradePhases: curricula,
       curricula,
       subjects: compiledSubjects,
-      selectedServices,
+      serviceNeeded: selectedServices[0],
       learningMode,
-      needsDescription,
+      message: needsDescription,
     });
+    setIsSubmitting(false);
 
-    setSubmitted(true);
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(res.error || 'Failed to submit enquiry. Please try again.');
+    }
   };
 
   if (submitted) {
@@ -169,7 +178,7 @@ export const OrganizationForm: React.FC = () => {
               required
               value={contactPerson}
               onChange={(e) => setContactPerson(e.target.value)}
-              placeholder="e.g. Mr. David Ndlovu"
+              placeholder="e.g. David"
               className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
@@ -378,7 +387,7 @@ export const OrganizationForm: React.FC = () => {
             rows={4}
             value={needsDescription}
             onChange={(e) => setNeedsDescription(e.target.value)}
-            placeholder="Detail specific cohorts, dates of upcoming exams, or particular timetable constraints..."
+            placeholder="Detail specific cohorts, dates of upcoming exams or particular timetable constraints..."
             className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
           />
         </div>
@@ -411,10 +420,20 @@ export const OrganizationForm: React.FC = () => {
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <Building2 className="w-4 h-4 text-void" />
-          <span>Submit Institutional Enquiry</span>
+          {isSubmitting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SAVING INSTITUTIONAL ENQUIRY...</span>
+            </>
+          ) : (
+            <>
+              <Building2 className="w-4 h-4 text-void" />
+              <span>Submit Institutional Enquiry</span>
+            </>
+          )}
         </button>
       </div>
     </form>
@@ -431,12 +450,13 @@ export const QuickContactForm: React.FC = () => {
   const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) {
-      setErrorMsg('Please complete your name, email, and message.');
+      setErrorMsg('Please complete your name, email and message.');
       return;
     }
     if (!consent) {
@@ -444,15 +464,22 @@ export const QuickContactForm: React.FC = () => {
       return;
     }
 
-    addSubmission('quick-contact', {
-      fullName: name,
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const res = await addSubmission('quick-contact', {
+      name,
       email,
       phone,
-      interest,
+      subject: interest,
       message,
     });
+    setIsSubmitting(false);
 
-    setSubmitted(true);
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(res.error || 'Failed to send message. Please try again.');
+    }
   };
 
   if (submitted) {
@@ -495,7 +522,7 @@ export const QuickContactForm: React.FC = () => {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. Peterson Mambondimumwe"
+          placeholder="e.g. Peterson"
           className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
@@ -590,10 +617,20 @@ export const QuickContactForm: React.FC = () => {
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full sm:w-auto px-8 py-3 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <Send className="w-3.5 h-3.5 text-void" />
-          <span>Send Quick Message</span>
+          {isSubmitting ? (
+            <>
+              <span className="w-3.5 h-3.5 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SENDING MESSAGE...</span>
+            </>
+          ) : (
+            <>
+              <Send className="w-3.5 h-3.5 text-void" />
+              <span>Send Quick Message</span>
+            </>
+          )}
         </button>
       </div>
     </form>

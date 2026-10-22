@@ -51,7 +51,7 @@ export const FloatingWhatsApp: React.FC = () => {
               Hello. Welcome to Re:kula.
             </p>
             <p className="mt-1 text-[11px]">
-              Have a question regarding curriculum bridging, tutoring, exam prep, or volunteering? Send a direct WhatsApp message to our Lead Educator.
+              Have a question regarding curriculum bridging, tutoring, exam prep or volunteering? Send a direct WhatsApp message to our Lead Educator.
             </p>
           </div>
 

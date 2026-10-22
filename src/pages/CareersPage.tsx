@@ -68,7 +68,7 @@ export const CareersPage: React.FC = () => {
             Educator Application Form
           </h2>
           <p className="text-xs text-cream-muted mt-1">
-            Complete the form below and tell us about yourself. We keep every application on file and will be in touch when matching tutoring, mentoring, or workshop opportunities arise.
+            Complete the form below and tell us about yourself. We keep every application on file and will be in touch when matching tutoring, mentoring or workshop opportunities arise.
           </p>
         </div>
 

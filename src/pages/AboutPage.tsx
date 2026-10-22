@@ -44,7 +44,7 @@ export const AboutPage: React.FC = () => {
         </h1>
 
         <p className="text-[20px] sm:text-[26px] font-normal leading-[1.28] text-cream-muted max-w-3xl">
-          Whatever the reason a learner has fallen behind, we close the gap, build confidence, and help them grow again.
+          Whatever the reason a learner has fallen behind, we close the gap, build confidence and help them grow again.
         </p>
 
         <div className="dashed-divider pt-2" />
@@ -70,15 +70,15 @@ export const AboutPage: React.FC = () => {
           </p>
 
           <p>
-            So we began to bridge the curriculum, staying in contact with teachers to close the gap, and we helped learners integrate into the South African curriculum (CAPS and IEB) as well as the Cambridge International Curriculum.
+            So we began to bridge the curriculum, staying in contact with teachers to close the gap and we helped learners integrate into the South African curriculum (CAPS and IEB) as well as the Cambridge International Curriculum.
           </p>
 
           <p>
-            More recently, we added academic success consulting, supporting homeschooled and online learners, including those with professional-level sporting commitments. We also support early readers, and adults who want a second chance at matric.
+            More recently, we added academic success consulting, supporting homeschooled and online learners, including those with professional-level sporting commitments. We also support early readers and adults who want a second chance at matric.
           </p>
 
           <p className="font-serif text-lg text-cream italic pt-2">
-            “Whatever the reason a learner needs us, our approach stays the same: meet them where they are, and help them grow again.”
+            “Whatever the reason a learner needs us, our approach stays the same: meet them where they are and help them grow again.”
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export const AboutPage: React.FC = () => {
             Who We Help
           </h2>
           <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
-            Every learner’s circumstance is respected. We present every group with equal dignity and focus—whether you are returning from competition, learning to read, or conquering matric as an adult.
+            Every learner’s circumstance is respected. We present every group with equal dignity and focus, whether you are returning from competition, learning to read or conquering matric as an adult.
           </p>
         </div>
 

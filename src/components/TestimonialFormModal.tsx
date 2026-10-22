@@ -23,6 +23,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
   const [guardianConsent, setGuardianConsent] = useState(false);
   const [popiaConsent, setPopiaConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   if (!isOpen) return null;
@@ -30,10 +31,10 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
   const charCount = quote.length;
   const isMinorLearner = authorType === 'Learner (under 18)';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !quote.trim()) {
-      setErrorMsg('Please complete your name, email, and testimonial.');
+      setErrorMsg('Please complete your name, email and testimonial.');
       return;
     }
     if (!publishPermission || !popiaConsent) {
@@ -63,7 +64,9 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
       computedDisplayName = `${authorType} (${resolvedGradeStage})`;
     }
 
-    addTestimonial({
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const res = await addTestimonial({
       quote: quote.trim(),
       authorDisplayName: computedDisplayName,
       authorRole: `${authorType} • ${resolvedGradeStage}`,
@@ -72,12 +75,17 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
       authorEmail: email,
       isAnonymous: nameDisplayOption === 'Anonymous',
     });
+    setIsSubmitting(false);
 
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2500);
+    if (res.success) {
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        onClose();
+      }, 2500);
+    } else {
+      setErrorMsg(res.error || 'Failed to submit testimonial. Please try again.');
+    }
   };
 
   return (
@@ -126,14 +134,14 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold text-navy mb-1">
-                  Your Full Name <span className="text-red-500">*</span>
+                  Your Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Peterson Mambondimumwe"
+                  placeholder="e.g. Peterson"
                   className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
                 />
                 <span className="text-[10px] text-slate-subtle">
@@ -239,7 +247,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                 maxLength={650}
                 value={quote}
                 onChange={(e) => setQuote(e.target.value)}
-                placeholder="What was the situation before Re:kula, and what difference did the support make?"
+                placeholder="What was the situation before Re:kula and what difference did the support make?"
                 className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
               />
             </div>
@@ -275,7 +283,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   { id: 'Anonymous', label: 'Anonymous (e.g. Parent of a Grade 8 learner)' },
                   { id: 'First name only', label: 'First name only (e.g. Peterson)' },
                   { id: 'First name and last initial', label: 'First name & initial (e.g. Peterson M.)' },
-                  { id: 'Full name', label: 'Full name (e.g. Peterson Mambondimumwe)' },
+                  { id: 'Full name', label: 'Name (e.g. Peterson)' },
                 ].map((item) => (
                   <label
                     key={item.id}
@@ -309,7 +317,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   className="mt-0.5 rounded text-softblue focus:ring-softblue"
                 />
                 <span className="text-[11px] leading-snug">
-                  I give Re:kula permission to publish my testimonial on its website and marketing materials, and I understand I can ask for it to be removed at any time. <span className="text-red-500">*</span>
+                  I give Re:kula permission to publish my testimonial on its website and marketing materials and I understand I can ask for it to be removed at any time. <span className="text-red-500">*</span>
                 </span>
               </label>
 
@@ -355,9 +363,17 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
 
             <button
               type="submit"
-              className="w-full bg-navy hover:bg-navy-800 text-white font-semibold py-3 px-6 rounded-full text-xs sm:text-sm transition-colors shadow-md"
+              disabled={isSubmitting}
+              className="w-full bg-navy hover:bg-navy-800 text-white font-semibold py-3 px-6 rounded-full text-xs sm:text-sm transition-colors shadow-md disabled:opacity-60 flex items-center justify-center gap-2"
             >
-              Submit Testimonial for Review
+              {isSubmitting ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>SAVING TESTIMONIAL...</span>
+                </>
+              ) : (
+                <span>Submit Testimonial for Review</span>
+              )}
             </button>
           </form>
         )}

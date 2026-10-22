@@ -64,11 +64,11 @@ export const FounderPage: React.FC = () => {
           </div>
 
           <p>
-            Our Lead Educator is an accomplished educator, academic success consultant, and founder of Re:kula, whose work is grounded in a conviction that every learner deserves the opportunity to realise their full academic potential. With eight years of experience spanning foundational learning to adult education, she brings a wealth of expertise in teaching, remedial education, academic development, and university-level instruction and assessment.
+            Our Lead Educator is an accomplished educator, academic success consultant and founder of Re:kula, whose work is grounded in a conviction that every learner deserves the opportunity to realise their full academic potential. With eight years of experience spanning foundational learning to adult education, she brings a wealth of expertise in teaching, remedial education, academic development and university-level instruction and assessment.
           </p>
 
           <p>
-            A University of Pretoria graduate, our Lead Educator holds a Bachelor of Education with 22 distinctions and an Honours degree in Education (cum laude), and is currently completing her Master of Education. She is a Dell Young Leader and a member of the Golden Key International Honour Society, reflecting her commitment to academic excellence and educational advancement.
+            A University of Pretoria graduate, our Lead Educator holds a Bachelor of Education with 22 distinctions and an Honours degree in Education (cum laude) and is currently completing her Master of Education. She is a Dell Young Leader and a member of the Golden Key International Honour Society, reflecting her commitment to academic excellence and educational advancement.
           </p>
 
           <p>

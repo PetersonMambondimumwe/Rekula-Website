@@ -151,7 +151,7 @@ export const ServiceDetailPage: React.FC = () => {
               Bespoke Academic Plan
             </h3>
             <p className="text-cream-muted leading-relaxed">
-              Every learner’s plan is tailored around their exact commitments, teachers, and syllabus. We discuss options privately during consultation.
+              Every learner’s plan is tailored around their exact commitments, teachers and syllabus. We discuss options privately during consultation.
             </p>
 
             <div className="dashed-divider" />

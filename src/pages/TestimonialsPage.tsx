@@ -31,7 +31,7 @@ export const TestimonialsPage: React.FC = () => {
           KIND WORDS FROM OUR COMMUNITY.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          Behind every learner is a story of growing again. Here is what learners, parents, schools, and tutors say about working with Re:kula.
+          Behind every learner is a story of growing again. Here is what learners, parents, schools and tutors say about working with Re:kula.
         </p>
 
         <div className="pt-2 flex flex-wrap items-center gap-4">

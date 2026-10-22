@@ -24,7 +24,7 @@ export const ServicesPage: React.FC = () => {
           EDUCATIONAL SERVICES HUB.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          All services are available to any learner who needs them, of any age, in any situation, across CAPS, IEB, and the Cambridge International Curriculum. Every plan is bespoke—no fixed packages or rigid rate cards.
+          All services are available to any learner who needs them, of any age, in any situation, across CAPS, IEB and the Cambridge International Curriculum. Every plan is bespoke, with no fixed packages or rigid rate cards.
         </p>
 
         {/* Filter tags */}
@@ -114,7 +114,7 @@ export const ServicesPage: React.FC = () => {
           Don’t see your exact scenario?
         </h3>
         <p className="text-xs sm:text-sm text-cream-muted max-w-xl mx-auto leading-relaxed">
-          Re:kula is founder-led and highly adaptable. We work with learners who need multidisciplinary support, flexible exam arrangements, or custom timetables. Every consultation is private and tailored.
+          Re:kula is founder-led and highly adaptable. We work with learners who need multidisciplinary support, flexible exam arrangements or custom timetables. Every consultation is private and tailored.
         </p>
         <button
           onClick={() => openConsultationModal()}

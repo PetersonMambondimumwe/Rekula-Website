@@ -14,6 +14,7 @@ export const CareersForm: React.FC = () => {
   const { addSubmission, setActiveTab } = useApp();
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [honeypot, setHoneypot] = useState('');
 
@@ -118,7 +119,7 @@ export const CareersForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return;
 
@@ -137,7 +138,9 @@ export const CareersForm: React.FC = () => {
       return;
     }
 
-    addSubmission('careers', {
+    setIsSubmitting(true);
+    setErrorMsg('');
+    const res = await addSubmission('careers', {
       fullName,
       email,
       phone,
@@ -159,8 +162,13 @@ export const CareersForm: React.FC = () => {
       cvFileName,
       motivation,
     });
+    setIsSubmitting(false);
 
-    setSubmitted(true);
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(res.error || 'Failed to submit application. Please try again.');
+    }
   };
 
   if (submitted) {
@@ -218,14 +226,14 @@ export const CareersForm: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Full Name <span className="text-ember">*</span>
+              Your Name <span className="text-ember">*</span>
             </label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Peterson Mambondimumwe"
+              placeholder="e.g. Peterson"
               className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>
@@ -275,7 +283,7 @@ export const CareersForm: React.FC = () => {
 
         <div>
           <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            Can you work online, in person, or both? <span className="text-ember">*</span>
+            Can you work online, in person or both? <span className="text-ember">*</span>
           </label>
           <div className="flex gap-2">
             {(['In person', 'Online', 'Both'] as const).map((mode) => (
@@ -708,7 +716,7 @@ export const CareersForm: React.FC = () => {
           rows={3}
           value={motivation}
           onChange={(e) => setMotivation(e.target.value)}
-          placeholder="Share your teaching philosophy, passion for education, and what drew you to Re:kula..."
+          placeholder="Share your teaching philosophy, passion for education and what drew you to Re:kula..."
           className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
         />
       </div>
@@ -736,17 +744,27 @@ export const CareersForm: React.FC = () => {
           </span>
         </label>
         <p className="text-[11px] text-cream-muted/70 mt-2 font-mono">
-          Note: We never ask for ID copies, bank details, or sensitive financial information at the initial application stage. Child protection and police clearance checks occur prior to final onboarding.
+          Note: We never ask for ID copies, bank details or sensitive financial information at the initial application stage. Child protection and police clearance checks occur prior to final onboarding.
         </p>
       </div>
 
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <Briefcase className="w-4 h-4 text-void" />
-          <span>Submit Application to Join Team</span>
+          {isSubmitting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SAVING APPLICATION TO DATABASE...</span>
+            </>
+          ) : (
+            <>
+              <Briefcase className="w-4 h-4 text-void" />
+              <span>Submit Application to Join Team</span>
+            </>
+          )}
         </button>
       </div>
     </form>

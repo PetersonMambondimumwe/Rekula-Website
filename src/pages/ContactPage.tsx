@@ -20,7 +20,7 @@ export const ContactPage: React.FC = () => {
           GET IN TOUCH & CONSULT.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          Tell us about the learner, their goals and their situation. We will take it from there. Every plan is bespoke, compassionate, and built around real life.
+          Tell us about the learner, their goals and their situation. We will take it from there. Every plan is bespoke, compassionate and built around real life.
         </p>
       </section>
 
@@ -142,7 +142,7 @@ export const ContactPage: React.FC = () => {
                   Request a Consultation
                 </h2>
                 <p className="text-xs text-cream-muted">
-                  Complete this form to receive a tailored academic roadmap. Every learner’s plan is unique—no packages or rate cards.
+                  Complete this form to receive a tailored academic roadmap. Every learner’s plan is unique, with no packages or rate cards.
                 </p>
               </div>
               <ConsultationForm isEmbedded={true} />
@@ -156,7 +156,7 @@ export const ContactPage: React.FC = () => {
                   Institutional & School Enquiries
                 </h2>
                 <p className="text-xs text-cream-muted">
-                  For schools, sports clubs, homeschool co-ops, and academies seeking workshop-style exam preparation or structured bridging.
+                  For schools, sports clubs, homeschool co-ops and academies seeking workshop-style exam preparation or structured bridging.
                 </p>
               </div>
               <OrganizationForm />
@@ -186,7 +186,7 @@ export const ContactPage: React.FC = () => {
           <ShieldCheck className="w-4 h-4 text-softblue" /> NOTE ON TUITION PRICING:
         </p>
         <p>
-          Every learner’s plan is tailored to their specific curriculum, diagnostic needs, and timetable. We do not publish fixed rate cards or packages. Options and fees are discussed transparently and privately during your consultation.
+          Every learner’s plan is tailored to their specific curriculum, diagnostic needs and timetable. We do not publish fixed rate cards or packages. Options and fees are discussed transparently and privately during your consultation.
         </p>
       </section>
 

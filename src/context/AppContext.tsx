@@ -24,7 +24,7 @@ interface AppContextType {
   testimonials: Testimonial[];
   approvedTestimonials: Testimonial[];
   featuredTestimonials: Testimonial[];
-  addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'dateSubmitted' | 'isApproved' | 'isFeatured'>) => void;
+  addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'dateSubmitted' | 'isApproved' | 'isFeatured'>) => Promise<{ success: boolean; error?: string }>;
   approveTestimonial: (id: string, isApproved: boolean) => void;
   toggleFeaturedTestimonial: (id: string) => void;
   deleteTestimonial: (id: string) => void;
@@ -37,7 +37,7 @@ interface AppContextType {
 
   // Forms & Inquiries
   submissions: FormSubmission[];
-  addSubmission: (formType: FormSubmission['formType'], data: Record<string, any>) => void;
+  addSubmission: (formType: FormSubmission['formType'], data: Record<string, any>) => Promise<{ success: boolean; submissionId?: string; message?: string; error?: string }>;
   updateSubmissionStatus: (id: string, status: FormSubmission['status']) => void;
   deleteSubmission: (id: string) => void;
   exportSubmissionsToCSV: () => void;
@@ -151,7 +151,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Testimonial CRUD
-  const addTestimonial = (item: Omit<Testimonial, 'id' | 'dateSubmitted' | 'isApproved' | 'isFeatured'>) => {
+  const addTestimonial = async (
+    item: Omit<Testimonial, 'id' | 'isApproved' | 'dateSubmitted' | 'isFeatured'>
+  ): Promise<{ success: boolean; error?: string }> => {
     const newTestimonial: Testimonial = {
       ...item,
       id: `test-${Date.now()}`,
@@ -161,11 +163,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     setTestimonials((prev) => [newTestimonial, ...prev]);
 
-    // Also register in submissions log
-    addSubmission('testimonial', {
+    // Also register in submissions log and sync to secure database
+    const res = await addSubmission('testimonial', {
       ...item,
       note: 'Awaiting founder verification before public publishing',
     });
+
+    return { success: res.success, error: res.error };
   };
 
   const approveTestimonial = (id: string, isApproved: boolean) => {
@@ -197,23 +201,86 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setFaqs((prev) => prev.filter((f) => f.id !== id));
   };
 
-  // Submissions Log
-  const addSubmission = (formType: FormSubmission['formType'], data: Record<string, any>) => {
-    const newSubmission: FormSubmission = {
-      id: `sub-${Date.now()}`,
-      formType,
-      createdAt: new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' }),
-      status: 'new',
-      fullName: data.fullName || data.contactPerson || data.name || data.organisationName || 'Anonymous',
-      email: data.email || 'N/A',
-      phone: data.phone || data.whatsappNumber || '',
-      whatsappConsent: !!data.whatsappConsent,
-      preferredContact: data.preferredContact,
-      bestTime: data.bestTime,
-      location: data.location || data.provinceCity,
-      data,
-    };
-    setSubmissions((prev) => [newSubmission, ...prev]);
+  // Submissions Log & Database Persistence
+  const addSubmission = async (
+    formType: FormSubmission['formType'],
+    data: Record<string, any>
+  ): Promise<{ success: boolean; submissionId?: string; message?: string; error?: string }> => {
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ formType, data }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        const errorMsg =
+          result.message ||
+          'Unable to submit your information to our secure database. Please try again or message us on WhatsApp (+27 67 435 0849).';
+        return { success: false, error: errorMsg };
+      }
+
+      const generatedId = result.submissionId || `sub-${Date.now()}`;
+      const newSubmission: FormSubmission = {
+        id: generatedId,
+        formType,
+        createdAt: new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' }),
+        status: 'new',
+        fullName:
+          data.fullName ||
+          data.contactPerson ||
+          data.name ||
+          data.organisationName ||
+          data.authorDisplayName ||
+          'Anonymous',
+        email: data.email || data.authorEmail || 'N/A',
+        phone: data.phone || data.whatsappNumber || '',
+        whatsappConsent: !!data.whatsappConsent,
+        preferredContact: data.preferredContact,
+        bestTime: data.bestTime,
+        location: data.location || data.cityProvince || 'South Africa',
+        data,
+      };
+
+      setSubmissions((prev) => [newSubmission, ...prev]);
+
+      return {
+        success: true,
+        submissionId: generatedId,
+        message: result.message || 'Your enquiry has been securely received.',
+      };
+    } catch (err: any) {
+      console.error('Submission request network failure:', err);
+
+      // Local fallback save so data is not lost even during transient network drops
+      const fallbackId = `sub-local-${Date.now()}`;
+      const fallbackSubmission: FormSubmission = {
+        id: fallbackId,
+        formType,
+        createdAt: new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' }),
+        status: 'new',
+        fullName:
+          data.fullName ||
+          data.contactPerson ||
+          data.name ||
+          data.organisationName ||
+          'Anonymous',
+        email: data.email || 'N/A',
+        phone: data.phone || data.whatsappNumber || '',
+        data,
+      };
+      setSubmissions((prev) => [fallbackSubmission, ...prev]);
+
+      return {
+        success: false,
+        error:
+          'A network error occurred while connecting to our database. Your request has been saved locally, or you can contact us directly via WhatsApp (+27 67 435 0849).',
+      };
+    }
   };
 
   const updateSubmissionStatus = (id: string, status: FormSubmission['status']) => {
