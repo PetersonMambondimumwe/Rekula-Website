@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import { neon } from '@neondatabase/serverless';
+import { sendFormNotificationEmails } from './emailService.js';
 
 // Load environment variables if not already loaded
 config();
@@ -421,6 +422,13 @@ export async function handleFormSubmission(formType, data, meta = {}) {
           );
         }
       }
+    }
+
+    // 6. Send transactional notification emails via Resend (isolated fail-safe)
+    try {
+      await sendFormNotificationEmails(formType, data, submissionId);
+    } catch (emailErr) {
+      console.error('[EMAIL BACKGROUND DISPATCH ERROR]:', emailErr?.message || emailErr);
     }
 
     return {
