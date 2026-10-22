@@ -122,7 +122,7 @@ export const Navbar: React.FC = () => {
                 Re:kula · SITEMAP
               </span>
               <span className="text-[10px] uppercase tracking-[0.15em] text-ember">
-                PRETORIA · EST. 2023
+                SOUTH AFRICA · EST. 2023
               </span>
             </div>
 

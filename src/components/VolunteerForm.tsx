@@ -19,7 +19,7 @@ export const VolunteerForm: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [location, setLocation] = useState('Pretoria');
+  const [location, setLocation] = useState('South Africa');
 
   const [volunteerRole, setVolunteerRole] = useState<'Student' | 'Teacher' | 'Retired educator' | 'Working professional' | 'Other'>('Student');
   const [volunteerRoleOther, setVolunteerRoleOther] = useState('');
@@ -152,7 +152,7 @@ export const VolunteerForm: React.FC = () => {
           Thank You for Giving Back
         </h3>
         <p className="text-sm text-cream-muted max-w-lg mx-auto leading-relaxed">
-          Your willingness to share your knowledge with learners from under-resourced communities means the world to us. Shawn and the Re:kula team will be in touch with you to align on volunteer tutoring sessions.
+          Your willingness to share your knowledge with learners from under-resourced communities means the world to us. Our Lead Educator and the Re:kula team will be in touch with you to align on volunteer tutoring sessions.
         </p>
         <button
           onClick={() => setSubmitted(false)}
@@ -244,7 +244,7 @@ export const VolunteerForm: React.FC = () => {
               required
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Pretoria / Mamelodi / Soshanguve"
+              placeholder="e.g. Gauteng / Western Cape / KwaZulu-Natal"
               className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>

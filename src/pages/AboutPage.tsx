@@ -62,7 +62,7 @@ export const AboutPage: React.FC = () => {
           </h2>
 
           <p>
-            Re:kula began in 2023 as a simple tutoring company in Pretoria, created to support learners who were struggling with core subjects.
+            Re:kula began in 2023 as a simple tutoring company in South Africa, created to support learners who were struggling with core subjects.
           </p>
 
           <p>
@@ -87,13 +87,13 @@ export const AboutPage: React.FC = () => {
             <div className="rounded-lg overflow-hidden aspect-[3/4] sm:aspect-[4/3] bg-void relative">
               <img
                 src="/assets/shawn-maluleke.png"
-                alt="Shawn Maluleke, Founder of Re:kula"
+                alt="Lead Educator of Re:kula"
                 className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[0.92]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-4 left-4 right-4 text-left">
                 <p className="text-[10px] font-mono uppercase tracking-widest text-ember">FOUNDER & LEAD EDUCATOR · EST. 2023</p>
-                <p className="font-serif text-base uppercase tracking-wider text-cream font-medium mt-0.5">Shawn Maluleke</p>
+                <p className="font-serif text-base uppercase tracking-wider text-cream font-medium mt-0.5">Lead Educator</p>
                 <p className="text-[11px] text-cream-muted font-mono tracking-wider">B.Ed (22 Distinctions) · Cum Laude</p>
               </div>
             </div>
@@ -182,7 +182,7 @@ export const AboutPage: React.FC = () => {
             Ready to Build a Plan?
           </h3>
           <p className="text-xs sm:text-sm text-cream-muted">
-            Shawn Maluleke and our educator team will construct an individualized roadmap fitting your life.
+            Our Lead Educator and our educator team will construct an individualized roadmap fitting your life.
           </p>
         </div>
 

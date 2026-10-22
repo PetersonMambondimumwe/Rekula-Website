@@ -15,6 +15,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
   const [authorType, setAuthorType] = useState('Parent or guardian');
   const [selectedServices, setSelectedServices] = useState<string[]>(['Curriculum Bridging']);
   const [gradeStage, setGradeStage] = useState('High school');
+  const [gradeStageOther, setGradeStageOther] = useState('');
   const [quote, setQuote] = useState('');
   const [rating, setRating] = useState(5);
   const [nameDisplayOption, setNameDisplayOption] = useState<'Full name' | 'First name and last initial' | 'First name only' | 'Anonymous'>('Anonymous');
@@ -44,6 +45,11 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
       return;
     }
 
+    const resolvedGradeStage =
+      gradeStage === 'Other' && gradeStageOther.trim()
+        ? `Other: ${gradeStageOther.trim()}`
+        : gradeStage;
+
     // Determine display name
     let computedDisplayName = 'Anonymous';
     if (nameDisplayOption === 'Full name') {
@@ -54,13 +60,13 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
       const parts = name.split(' ');
       computedDisplayName = parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : parts[0];
     } else {
-      computedDisplayName = `${authorType} (${gradeStage})`;
+      computedDisplayName = `${authorType} (${resolvedGradeStage})`;
     }
 
     addTestimonial({
       quote: quote.trim(),
       authorDisplayName: computedDisplayName,
-      authorRole: `${authorType} • ${gradeStage}`,
+      authorRole: `${authorType} • ${resolvedGradeStage}`,
       serviceTag: selectedServices[0] || 'Academic Support',
       rating,
       authorEmail: email,
@@ -93,7 +99,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
               Thank You for Sharing Your Story
             </h3>
             <p className="text-sm text-slate-subtle max-w-sm mx-auto leading-relaxed">
-              Your reflection has been sent directly to Shawn Maluleke. In line with our strict privacy rules, nothing is published without direct founder verification.
+              Your reflection has been sent directly to our Lead Educator. In line with our strict privacy rules, nothing is published without direct founder verification.
             </p>
           </div>
         ) : (
@@ -127,7 +133,7 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Shawn Maluleke"
+                  placeholder="e.g. Peterson Mambondimumwe"
                   className="w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-softblue"
                 />
                 <span className="text-[10px] text-slate-subtle">
@@ -186,6 +192,16 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
                   <option value="Adult learner">Adult learner</option>
                   <option value="Other">Other</option>
                 </select>
+                {gradeStage === 'Other' && (
+                  <input
+                    type="text"
+                    required
+                    value={gradeStageOther}
+                    onChange={(e) => setGradeStageOther(e.target.value)}
+                    placeholder="Specify grade or stage..."
+                    className="mt-2 w-full px-3 py-2 text-base sm:text-xs rounded-xl border border-slate-200 bg-white"
+                  />
+                )}
               </div>
             </div>
 
@@ -257,9 +273,9 @@ export const TestimonialFormModal: React.FC<TestimonialModalProps> = ({ isOpen, 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 {[
                   { id: 'Anonymous', label: 'Anonymous (e.g. Parent of a Grade 8 learner)' },
-                  { id: 'First name only', label: 'First name only (e.g. Shawn)' },
-                  { id: 'First name and last initial', label: 'First name & initial (e.g. Shawn M.)' },
-                  { id: 'Full name', label: 'Full name (e.g. Shawn Maluleke)' },
+                  { id: 'First name only', label: 'First name only (e.g. Peterson)' },
+                  { id: 'First name and last initial', label: 'First name & initial (e.g. Peterson M.)' },
+                  { id: 'Full name', label: 'Full name (e.g. Peterson Mambondimumwe)' },
                 ].map((item) => (
                   <label
                     key={item.id}

@@ -19,10 +19,10 @@ export const ServiceDetailPage: React.FC = () => {
       <div className="py-28 text-center space-y-4 bg-void text-cream">
         <p className="text-sm text-cream-muted">Service blueprint not found.</p>
         <button
-          onClick={() => setActiveTab('services')}
+          onClick={() => setActiveTab('home')}
           className="text-xs text-softblue underline font-mono uppercase"
         >
-          Return to services hub
+          Return to Home
         </button>
       </div>
     );
@@ -36,10 +36,10 @@ export const ServiceDetailPage: React.FC = () => {
       {/* Back link */}
       <div>
         <button
-          onClick={() => setActiveTab('services')}
+          onClick={() => setActiveTab('home')}
           className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-cream-muted hover:text-white transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Services Hub
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
         </button>
       </div>
 
@@ -48,7 +48,7 @@ export const ServiceDetailPage: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted">
           <span className="text-ember">{currentService.curricula.join(' · ')}</span>
           <span>•</span>
-          <span>PRETORIA ON-SITE & GLOBAL ONLINE</span>
+          <span>SOUTH AFRICA ON-SITE & GLOBAL ONLINE</span>
         </div>
 
         <h1 className="font-serif text-[36px] sm:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
@@ -68,7 +68,7 @@ export const ServiceDetailPage: React.FC = () => {
           </button>
 
           <a
-            href={`https://wa.me/27674350849?text=${encodeURIComponent(`Hello Shawn, I would like to ask about ${currentService.title}.`)}`}
+            href={`https://wa.me/27674350849?text=${encodeURIComponent(`Hello, I would like to ask about ${currentService.title}.`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"

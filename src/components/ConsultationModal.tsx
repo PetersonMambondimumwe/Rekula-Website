@@ -43,13 +43,13 @@ export const ConsultationModal: React.FC = () => {
         <div className="space-y-2 mb-6 pr-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-void border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-            <span>CONFIDENTIAL ASSESSMENT · PRETORIA & ONLINE</span>
+            <span>CONFIDENTIAL ASSESSMENT · SOUTH AFRICA & ONLINE</span>
           </div>
           <h2 id="consultation-modal-title" className="font-serif text-2xl sm:text-3xl font-medium uppercase tracking-tight text-cream">
             LET’S BUILD A PLAN AROUND YOUR LEARNER.
           </h2>
           <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
-            Tell us about your learner, their curriculum, and what support is needed. Shawn and our leadership team will respond with a tailored roadmap.
+            Tell us about your learner, their curriculum, and what support is needed. Our Lead Educator and our leadership team will respond with a tailored roadmap.
           </p>
           <div className="dashed-divider mt-4" />
         </div>

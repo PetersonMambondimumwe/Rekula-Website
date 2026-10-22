@@ -163,9 +163,19 @@ export const HomePage: React.FC = () => {
               className="rounded-cards bg-surface/50 border border-border-cork p-7 flex flex-col justify-between space-y-6 hover:border-softblue/40 transition-colors group"
             >
               <div className="space-y-3">
-                <span className="font-mono text-3xl font-light text-cream-muted/50 group-hover:text-softblue transition-colors block">
-                  {step.number}
-                </span>
+                <div className="flex items-center justify-between pb-1">
+                  <span className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-void border-2 border-softblue text-softblue font-mono text-xs sm:text-sm font-bold shadow-md tracking-wider">
+                    STEP {step.number}
+                  </span>
+  
+                  <span className="font-mono text-2xl sm:text-3xl font-bold text-softblue/70 group-hover:text-softblue transition-colors">
+                    #{step.number}
+                  </span>
+  
+                </div>
+
+
+
                 <div className="dashed-divider my-2" />
                 <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
                   {step.title}

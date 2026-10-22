@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="pt-2 text-[10px] font-mono uppercase tracking-widest text-cream-muted space-y-1">
-              <p>* FOUNDED IN PRETORIA, SOUTH AFRICA · 2023</p>
+              <p>* FOUNDED IN SOUTH AFRICA · 2023</p>
               <p>* CAPS · IEB · CAMBRIDGE INTERNATIONAL PROGRAMMES</p>
             </div>
           </div>
@@ -100,7 +100,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button onClick={() => handleNav('founder')} className="hover:text-white transition-colors">
-                  Meet Shawn Maluleke
+                  Meet Our Lead Educator
                 </button>
               </li>
               <li>
@@ -129,13 +129,13 @@ export const Footer: React.FC = () => {
           {/* Contact Base */}
           <div className="space-y-3">
             <h4 className="text-[10px] font-medium uppercase tracking-[0.25em] text-ember">
-              PRETORIA BASE
+              SOUTH AFRICA BASE
             </h4>
             <div className="dashed-divider my-2" />
             <ul className="space-y-3 text-xs text-cream-muted">
               <li className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-softblue shrink-0 mt-0.5" />
-                <span>Pretoria, Gauteng · In-Person & Global Online</span>
+                <span>South Africa · In-Person & Global Online</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-softblue shrink-0" />

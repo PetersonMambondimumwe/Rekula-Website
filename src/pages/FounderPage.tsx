@@ -15,7 +15,7 @@ export const FounderPage: React.FC = () => {
           <span>LEADERSHIP & PEDAGOGICAL CONVICTION</span>
         </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-          MEET THE FOUNDER.
+          MEET OUR LEAD EDUCATOR.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
           Led by an accomplished educator and academic success consultant whose career is dedicated to unlocking the highest potential in every learner.
@@ -31,12 +31,12 @@ export const FounderPage: React.FC = () => {
             <div className="rounded-lg overflow-hidden aspect-[3/4] bg-void relative">
               <img
                 src="/assets/shawn-maluleke.png"
-                alt="Shawn Maluleke, Founder of Re:kula"
+                alt="Lead Educator of Re:kula"
                 className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[0.9]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-70" />
               <div className="absolute bottom-4 left-4 right-4 text-cream">
-                <p className="font-serif text-lg uppercase tracking-wider font-medium">Shawn Maluleke</p>
+                <p className="font-serif text-lg uppercase tracking-wider font-medium">Lead Educator</p>
                 <p className="text-[10px] text-cream-muted uppercase font-mono tracking-widest mt-0.5">Founder & Lead Educator</p>
               </div>
             </div>
@@ -56,19 +56,19 @@ export const FounderPage: React.FC = () => {
         <div className="md:col-span-7 space-y-6 text-sm sm:text-base leading-relaxed text-cream-muted">
           <div className="space-y-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-ember block">
-              FOUNDER PROFILE
+              LEAD EDUCATOR PROFILE
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream">
-              Shawn Maluleke
+              Lead Educator
             </h2>
           </div>
 
           <p>
-            Shawn is an accomplished educator, academic success consultant, and founder of Re:kula, whose work is grounded in a conviction that every learner deserves the opportunity to realise their full academic potential. With eight years of experience spanning foundational learning to adult education, she brings a wealth of expertise in teaching, remedial education, academic development, and university-level instruction and assessment.
+            Our Lead Educator is an accomplished educator, academic success consultant, and founder of Re:kula, whose work is grounded in a conviction that every learner deserves the opportunity to realise their full academic potential. With eight years of experience spanning foundational learning to adult education, she brings a wealth of expertise in teaching, remedial education, academic development, and university-level instruction and assessment.
           </p>
 
           <p>
-            A University of Pretoria graduate, Shawn holds a Bachelor of Education with 22 distinctions and an Honours degree in Education (cum laude), and is currently completing her Master of Education. She is a Dell Young Leader and a member of the Golden Key International Honour Society, reflecting her commitment to academic excellence and educational advancement.
+            A University of Pretoria graduate, our Lead Educator holds a Bachelor of Education with 22 distinctions and an Honours degree in Education (cum laude), and is currently completing her Master of Education. She is a Dell Young Leader and a member of the Golden Key International Honour Society, reflecting her commitment to academic excellence and educational advancement.
           </p>
 
           <p>
@@ -102,7 +102,7 @@ export const FounderPage: React.FC = () => {
               onClick={() => openConsultationModal()}
               className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2"
             >
-              <span>Consult with Shawn</span>
+              <span>Consult with Lead Educator</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
 

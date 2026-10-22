@@ -39,7 +39,7 @@ export const PrivacyPage: React.FC = () => {
             1. Commitment to Information Security
           </h2>
           <p>
-            Re:kula (Pty) Ltd ("Re:kula", "we", "us", or "our"), founded in Pretoria, South Africa, respects the constitutional right to privacy and is strictly committed to protecting the personal information of our learners, parents, guardians, job applicants, and volunteers in accordance with the Protection of Personal Information Act, 4 of 2013 (POPIA).
+            Re:kula (Pty) Ltd ("Re:kula", "we", "us", or "our"), founded in South Africa, respects the constitutional right to privacy and is strictly committed to protecting the personal information of our learners, parents, guardians, job applicants, and volunteers in accordance with the Protection of Personal Information Act, 4 of 2013 (POPIA).
           </p>
         </section>
 
@@ -91,7 +91,7 @@ export const PrivacyPage: React.FC = () => {
             5. Inquiries & Data Rights
           </h2>
           <p>
-            For data inquiries or consent withdrawal under POPIA, contact Shawn Maluleke directly at{' '}
+            For data inquiries or consent withdrawal under POPIA, contact our Lead Educator directly at{' '}
             <a href={`mailto:${siteSettings.displayEmail}`} className="text-softblue underline font-mono">
               {siteSettings.displayEmail}
             </a>

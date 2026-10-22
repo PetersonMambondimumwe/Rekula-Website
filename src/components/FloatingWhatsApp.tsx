@@ -9,14 +9,14 @@ export const FloatingWhatsApp: React.FC = () => {
   const sendWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
     const encoded = encodeURIComponent(
-      customMsg.trim() || 'Hello Shawn, I would like to enquire about Re:kula academic support for my learner.'
+      customMsg.trim() || 'Hello, I would like to enquire about Re:kula academic support for my learner.'
     );
     window.open(`https://wa.me/27674350849?text=${encoded}`, '_blank');
     setIsOpen(false);
   };
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 flex flex-col items-end">
       {/* Popover Bubble in Warm-Dark Theme */}
       {isOpen && (
         <div className="mb-3 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-cards bg-surface border border-border-cork p-4 sm:p-5 shadow-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-200">
@@ -26,15 +26,15 @@ export const FloatingWhatsApp: React.FC = () => {
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-void border border-emerald-500">
                   <img
                     src="/assets/shawn-maluleke.png"
-                    alt="Shawn Maluleke"
+                    alt="Lead Educator"
                     className="w-full h-full object-cover object-top filter contrast-[1.05]"
                   />
                 </div>
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-void rounded-full"></span>
               </div>
               <div>
-                <h4 className="text-xs font-serif uppercase tracking-wider font-medium text-cream">Shawn Maluleke</h4>
-                <p className="text-[10px] text-cream-muted uppercase font-mono">Founder, Re:kula · Online</p>
+                <h4 className="text-xs font-serif uppercase tracking-wider font-medium text-cream">Lead Educator</h4>
+                <p className="text-[10px] text-cream-muted uppercase font-mono">Lead Educator, Re:kula · Online</p>
               </div>
             </div>
             <button
@@ -51,7 +51,7 @@ export const FloatingWhatsApp: React.FC = () => {
               Hello. Welcome to Re:kula.
             </p>
             <p className="mt-1 text-[11px]">
-              Have a question regarding curriculum bridging, tutoring, exam prep, or volunteering? Send a direct WhatsApp message to Shawn.
+              Have a question regarding curriculum bridging, tutoring, exam prep, or volunteering? Send a direct WhatsApp message to our Lead Educator.
             </p>
           </div>
 

@@ -43,7 +43,15 @@ export const HowItWorksPage: React.FC = () => {
             className="rounded-cards bg-surface/50 border border-border-cork p-7 flex flex-col justify-between space-y-5"
           >
             <div className="space-y-3">
-              <span className="font-mono text-3xl font-light text-cream-muted/50 block">
+              <div className="flex items-center justify-between pb-1">
+                <span className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-void border-2 border-softblue text-softblue font-mono text-xs sm:text-sm font-bold shadow-md tracking-wider">
+                  STEP {step.number}
+                </span>
+                <span className="font-mono text-2xl sm:text-3xl font-bold text-softblue/70">
+                  #{step.number}
+                </span>
+              </div>
+              <span className="hidden">
                 {step.number}
               </span>
               <div className="dashed-divider my-2" />
@@ -156,7 +164,7 @@ export const HowItWorksPage: React.FC = () => {
             Still Have a Question?
           </h3>
           <p className="text-xs sm:text-sm text-cream-muted">
-            Shawn Maluleke and the Re:kula team are always here to advise you on the right path.
+            Our Lead Educator and the Re:kula team are always here to advise you on the right path.
           </p>
         </div>
 
@@ -174,7 +182,7 @@ export const HowItWorksPage: React.FC = () => {
             className="rounded-buttons-outlined border border-cream text-cream hover:bg-void px-6 py-3 text-xs font-medium uppercase tracking-widest transition-all inline-flex items-center gap-1.5"
           >
             <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-            <span>WhatsApp Shawn</span>
+            <span>WhatsApp Lead Educator</span>
           </a>
         </div>
       </section>

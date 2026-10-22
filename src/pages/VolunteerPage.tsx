@@ -38,7 +38,7 @@ export const VolunteerPage: React.FC = () => {
           </div>
           <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">Flexible Schedules</h3>
           <p className="text-xs text-cream-muted leading-relaxed">
-            From 1–2 hours a week to weekend workshops, online or in person across Pretoria community venues.
+            From 1–2 hours a week to weekend workshops, online or in person across South Africa community venues.
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export const VolunteerPage: React.FC = () => {
           </div>
           <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">Guided Pedagogy</h3>
           <p className="text-xs text-cream-muted leading-relaxed">
-            Benefit from Re:kula’s proven teaching strategies and structured curricula guidance led by Shawn Maluleke.
+            Benefit from Re:kula’s proven teaching strategies and structured curricula guidance led by our Lead Educator.
           </p>
         </div>
       </section>

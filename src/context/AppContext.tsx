@@ -47,22 +47,24 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [activeTab, setActiveTabState] = useState<NavigationTab>(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (['home', 'about', 'services', 'service-detail', 'how-it-works', 'founder', 'testimonials', 'careers', 'volunteer', 'contact', 'privacy', 'admin'].includes(hash)) {
-      return hash as NavigationTab;
+  // Always initialize activeTab to 'home' so page refreshes always land on Home
+  const [activeTab, setActiveTabState] = useState<NavigationTab>('home');
+
+  useEffect(() => {
+    // When the user refreshes or opens the page, clear any URL hash and enforce Home
+    setActiveTabState('home');
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
-    return 'home';
-  });
+  }, []);
 
   const [selectedServiceSlug, setSelectedServiceSlug] = useState<string | null>(null);
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const [consultationPreselectedService, setConsultationPreselectedService] = useState('');
 
-  // Sync hash with activeTab
+  // Switch navigation tab and scroll to top smoothly
   const setActiveTab = (tab: NavigationTab) => {
     setActiveTabState(tab);
-    window.location.hash = tab;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -123,18 +125,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('rekula_submissions', JSON.stringify(submissions));
   }, [submissions]);
-
-  // Listen to hash changes (e.g. browser back/forward buttons)
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '') as NavigationTab;
-      if (hash && ['home', 'about', 'services', 'service-detail', 'how-it-works', 'founder', 'testimonials', 'careers', 'volunteer', 'contact', 'privacy', 'admin'].includes(hash)) {
-        setActiveTabState(hash);
-      }
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
 
   const publishedServices = services
     .filter((s) => s.status === 'published')

@@ -120,7 +120,7 @@ export const ServicesPage: React.FC = () => {
           onClick={() => openConsultationModal()}
           className="mt-2 rounded-buttons-pill bg-surface hover:bg-cream hover:text-void border border-border-cork text-cream px-6 py-2.5 text-xs font-medium uppercase tracking-widest transition-colors"
         >
-          Speak with Shawn Maluleke &rarr;
+          Speak with Lead Educator &rarr;
         </button>
       </section>
 

@@ -20,7 +20,7 @@ export const CareersForm: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [location, setLocation] = useState('Pretoria');
+  const [location, setLocation] = useState('South Africa');
   const [workPreference, setWorkPreference] = useState<'In person' | 'Online' | 'Both'>('Both');
 
   const [role, setRole] = useState<'Tutor' | 'Teacher' | 'Educational psychologist' | 'Psychology student' | 'Other'>('Tutor');
@@ -173,7 +173,7 @@ export const CareersForm: React.FC = () => {
           Application Successfully Lodged
         </h3>
         <p className="text-sm text-cream-muted max-w-lg mx-auto leading-relaxed">
-          Thank you, <span className="text-cream font-medium">{fullName}</span>. We keep every application on file in our dedicated educator registry. Shawn and our leadership team will review your qualifications and contact you when matching tutoring or workshop opportunities arise.
+          Thank you, <span className="text-cream font-medium">{fullName}</span>. We keep every application on file in our dedicated educator registry. Our Lead Educator and our leadership team will review your qualifications and contact you when matching tutoring or workshop opportunities arise.
         </p>
         <button
           onClick={() => setSubmitted(false)}
@@ -267,7 +267,7 @@ export const CareersForm: React.FC = () => {
               required
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Pretoria / Hatfield / Centurion"
+              placeholder="e.g. Johannesburg / Cape Town / Durban"
               className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
             />
           </div>

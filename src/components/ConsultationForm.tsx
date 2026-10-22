@@ -29,11 +29,12 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
   const [whatsappConsent, setWhatsappConsent] = useState(true);
   const [preferredContact, setPreferredContact] = useState<'Email' | 'Phone call' | 'WhatsApp'>('WhatsApp');
   const [bestTime, setBestTime] = useState<'Morning' | 'Afternoon' | 'Evening' | 'Any time'>('Afternoon');
-  const [location, setLocation] = useState('Pretoria');
+  const [location, setLocation] = useState('South Africa');
 
   // Section B: About Learner
   const [learnerFirstName, setLearnerFirstName] = useState('');
   const [ageGrade, setAgeGrade] = useState('Grade 10–12');
+  const [ageGradeOther, setAgeGradeOther] = useState('');
   const [schoolingSituation, setSchoolingSituation] = useState('At a school');
   const [curriculum, setCurriculum] = useState('CAPS');
   const [currentSchool, setCurrentSchool] = useState('');
@@ -116,6 +117,11 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
       compiledSubjects.push(customSubject.trim());
     }
 
+    const resolvedAgeGrade =
+      ageGrade === 'Other' && ageGradeOther.trim()
+        ? `Other: ${ageGradeOther.trim()}`
+        : ageGrade;
+
     const payload = {
       enquiryFor,
       fullName,
@@ -126,7 +132,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
       bestTime,
       location,
       learnerFirstName: isAdultOrGroup ? 'Self/Group' : learnerFirstName || 'Not specified',
-      ageGrade,
+      ageGrade: resolvedAgeGrade,
       schoolingSituation,
       curriculum,
       currentSchool,
@@ -168,7 +174,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
             CONSULTATION REQUEST RECEIVED
           </h3>
           <p className="text-xs sm:text-sm text-cream-muted max-w-md mx-auto leading-relaxed">
-            Thank you, <span className="font-semibold text-cream">{fullName}</span>. Shawn and the Re:kula academic team have received your request and will reach out via <span className="font-semibold text-cream">{preferredContact}</span> during the {bestTime.toLowerCase()}.
+            Thank you, <span className="font-semibold text-cream">{fullName}</span>. Our Lead Educator and the Re:kula academic team have received your request and will reach out via <span className="font-semibold text-cream">{preferredContact}</span> during the {bestTime.toLowerCase()}.
           </p>
         </div>
 
@@ -269,7 +275,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Shawn Maluleke"
+              placeholder="e.g. Peterson Mambondimumwe"
               className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
@@ -319,7 +325,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Pretoria / Centurion"
+              placeholder="e.g. Johannesburg / Cape Town / Durban"
               className="w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
             />
           </div>
@@ -404,6 +410,16 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 <option value="Adult learner (second-chance matric)">Adult learner (second-chance matric)</option>
                 <option value="Other">Other</option>
               </select>
+              {ageGrade === 'Other' && (
+                <input
+                  type="text"
+                  required
+                  value={ageGradeOther}
+                  onChange={(e) => setAgeGradeOther(e.target.value)}
+                  placeholder="Please specify grade or phase (e.g. Pre-primary, Cambridge A-Level)..."
+                  className="mt-2.5 w-full px-3.5 py-2.5 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream animate-in fade-in duration-200"
+                />
+              )}
             </div>
 
             <div>

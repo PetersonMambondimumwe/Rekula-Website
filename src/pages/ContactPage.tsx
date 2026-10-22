@@ -14,7 +14,7 @@ export const ContactPage: React.FC = () => {
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-          <span>DIRECT ENQUIRIES · PRETORIA & ONLINE</span>
+          <span>DIRECT ENQUIRIES · SOUTH AFRICA & ONLINE</span>
         </div>
         <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           GET IN TOUCH & CONSULT.
@@ -71,7 +71,7 @@ export const ContactPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Pretoria Base */}
+        {/* South Africa Base */}
         <div className="rounded-cards bg-surface/50 border border-border-cork p-6 flex items-start gap-4">
           <div className="w-10 h-10 rounded-full bg-void border border-border-cork text-ember flex items-center justify-center shrink-0">
             <MapPin className="w-4 h-4" />
@@ -81,10 +81,10 @@ export const ContactPage: React.FC = () => {
               LOCATION
             </span>
             <h3 className="font-serif text-lg font-medium uppercase tracking-tight text-cream">
-              Pretoria, South Africa
+              South Africa
             </h3>
             <p className="text-xs text-cream-muted">
-              In-person across Pretoria; online nationwide & internationally.
+              In-person and online nationwide across South Africa & internationally.
             </p>
           </div>
         </div>

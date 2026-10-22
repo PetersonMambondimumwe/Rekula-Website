@@ -5,7 +5,7 @@ export const siteSettings: SiteSettings = {
   phoneDisplay: '+27 67 435 0849',
   displayEmail: 'shawn.kulanigt@gmail.com',
   backupEmail: 'shawn.kulanigt@gmail.com',
-  location: 'Pretoria, South Africa',
+  location: 'South Africa',
   yearsOfExperience: 8,
   foundedYear: 2023,
 };
@@ -251,7 +251,7 @@ export const differentiators = [
   },
   {
     title: 'Founder-led and qualified',
-    desc: 'Led by Shawn Maluleke, a registered educator with 8 years of experience, a B.Ed with 22 distinctions, and honours cum laude.',
+    desc: 'Led by our Lead Educator, a registered educator with 8 years of experience, a B.Ed with 22 distinctions, and honours cum laude.',
   },
   {
     title: 'Personal, not packaged',
@@ -300,7 +300,7 @@ export const initialTestimonials: Testimonial[] = [
   },
   {
     id: 'test-2',
-    quote: 'Taking my matric rewrite at age 29 felt intimidating, but Shawn and the Re:kula team treated me with such dignity and patience. They explained Mathematics and Accounting in ways I could finally understand. I achieved the bachelor pass I had waited ten years for.',
+    quote: 'Taking my matric rewrite at age 29 felt intimidating, but our Lead Educator and the Re:kula team treated me with such dignity and patience. They explained Mathematics and Accounting in ways I could finally understand. I achieved the bachelor pass I had waited ten years for.',
     authorDisplayName: 'Adult Learner',
     authorRole: 'Adult Learner, Second-Chance Matric',
     serviceTag: 'Personalised Tutoring',
@@ -311,7 +311,7 @@ export const initialTestimonials: Testimonial[] = [
   },
   {
     id: 'test-3',
-    quote: 'Relocating from the UK to Pretoria was overwhelming for our twin boys entering Grade 9 IEB. The Re:kula team bridged the terminology differences and eased their anxiety within the first month. An invaluable academic partner.',
+    quote: 'Relocating from the UK to South Africa was overwhelming for our twin boys entering Grade 9 IEB. The Re:kula team bridged the terminology differences and eased their anxiety within the first month. An invaluable academic partner.',
     authorDisplayName: 'Relocated Family',
     authorRole: 'Parent of Grade 9 IEB Learners',
     serviceTag: 'Curriculum Integration',
@@ -387,7 +387,7 @@ export const initialFAQs: FAQItem[] = [
     id: 'faq-11',
     category: 'logistics',
     question: 'Do you offer online support, in-person support, or both?',
-    answer: 'We offer both. Online support is accessible nationwide across South Africa and internationally. In-person support and on-site workshops are available across Pretoria and surrounding Gauteng regions.',
+    answer: 'We offer both. Online support is accessible nationwide across South Africa and internationally. In-person support and on-site workshops are available across South Africa.',
   },
   {
     id: 'faq-12',
