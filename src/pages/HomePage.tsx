@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useApp } from '../context/AppContext';
 import { RekulaCapstoneStage } from '../components/RekulaCapstoneStage';
+import { MotionBackground } from '../components/MotionBackground';
+import { ShinyText } from '../components/ShinyText';
 import { processSteps } from '../data/initialData';
 import { ArrowUpRight, MessageSquare } from 'lucide-react';
 
@@ -32,6 +34,9 @@ export const HomePage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <div className="relative w-full h-[100dvh] overflow-hidden flex flex-col justify-between">
         
+        {/* Full-screen Dark Blue Ambient Video Motion Background */}
+        <MotionBackground />
+
         {/* 3D WebGL Canvas Layer */}
         <RekulaCapstoneStage
           onProgressChange={handleProgressChange}
@@ -78,7 +83,7 @@ export const HomePage: React.FC = () => {
               </span>
 
               <h2 className="font-serif text-[28px] sm:text-[42px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
-                YOUR ACADEMIC FUTURE IN <span className="text-softblue italic">TRUSTED HANDS.</span>
+                YOUR ACADEMIC FUTURE IN <ShinyText className="italic">TRUSTED HANDS.</ShinyText>
               </h2>
 
               <div className="dashed-divider my-3" />
@@ -109,10 +114,10 @@ export const HomePage: React.FC = () => {
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pointer-events-auto">
                 <button
                   onClick={() => openConsultationModal()}
-                  className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+                  className="group rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3.5 text-xs sm:text-[13px] font-medium tracking-[0.14em] uppercase transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
                 >
                   <span>Request Consultation</span>
-                  <ArrowUpRight className="w-4 h-4 text-void" />
+                  <ArrowUpRight className="w-4 h-4 text-void transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
 
                 <button
