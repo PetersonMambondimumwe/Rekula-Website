@@ -169,7 +169,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: System legal & studio credit */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
+        <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
           <div>
             <span className="normal-case">&copy; {new Date().getFullYear()} Re:kula (Pty) Ltd</span> · GROW AGAIN · ALL RIGHTS RESERVED
           </div>

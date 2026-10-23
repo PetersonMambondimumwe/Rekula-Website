@@ -16,7 +16,7 @@ export const FloatingWhatsApp: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-28 right-4 sm:bottom-32 sm:right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-16 right-4 sm:bottom-[70px] sm:right-6 z-50 flex flex-col items-end">
       {/* Popover Bubble in Warm-Dark Theme */}
       {isOpen && (
         <div className="mb-3 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-cards bg-surface border border-border-cork p-4 sm:p-5 shadow-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-200">

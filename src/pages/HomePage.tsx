@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
             <div className="hidden lg:flex lg:col-span-4 lg:h-[400px] items-center justify-center relative pointer-events-none" />
 
             {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
-            <div className="lg:col-span-4 text-left space-y-5 lg:pl-8 xl:pl-12">
+            <div className="lg:col-span-4 text-left space-y-5 pl-2 sm:pl-4 lg:pl-14 xl:pl-20">
               <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cream block">
                 OUR PURPOSE
               </span>
