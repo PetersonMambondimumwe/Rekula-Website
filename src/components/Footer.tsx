@@ -174,17 +174,26 @@ export const Footer: React.FC = () => {
             <span className="normal-case">&copy; {new Date().getFullYear()} Re:kula (Pty) Ltd</span> · GROW AGAIN · ALL RIGHTS RESERVED
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <span>
+              Designed and developed by{' '}
+              <a
+                href="https://www.mambondimumwe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cream hover:text-softblue underline underline-offset-2 transition-colors normal-case"
+              >
+                www.mambondimumwe.com
+              </a>
+            </span>
 
-            
             <button
               onClick={() => handleNav('admin')}
-              className="hover:text-white transition-colors flex items-center p-1 opacity-40 hover:opacity-100"
+              className="hover:text-white transition-colors flex items-center p-1 opacity-30 hover:opacity-100"
               title="Portal"
               aria-label="Portal"
             >
               <Lock className="w-3 h-3 text-softblue" />
-
             </button>
           </div>
         </div>
