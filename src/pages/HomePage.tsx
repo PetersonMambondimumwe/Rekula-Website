@@ -78,8 +78,8 @@ export const HomePage: React.FC = () => {
             
             {/* Left Column: Mission Headline & Curriculum */}
             <div className="lg:col-span-4 text-left space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
-                ACADEMIC SUPPORT & CONSULTING
+              <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cream block">
+                ACADEMIC SUPPORT & CONSULTATION
               </span>
 
               <h2 className="font-serif text-[28px] sm:text-[42px] lg:text-[50px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
@@ -101,12 +101,12 @@ export const HomePage: React.FC = () => {
             <div className="hidden lg:flex lg:col-span-4 lg:h-[400px] items-center justify-center relative pointer-events-none" />
 
             {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
-            <div className="lg:col-span-4 text-left space-y-5">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted block">
-                OUR PROMISE
+            <div className="lg:col-span-4 text-left space-y-5 lg:pl-8 xl:pl-12">
+              <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cream block">
+                OUR PURPOSE
               </span>
 
-              <p className="text-[17px] sm:text-[22px] lg:text-[25px] font-normal leading-[1.3] text-cream">
+              <p className="text-[17px] sm:text-[22px] lg:text-[25px] font-semibold leading-[1.3] text-cream">
                 Learning support that meets every learner where they are.
               </p>
 
