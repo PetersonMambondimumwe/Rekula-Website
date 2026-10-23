@@ -144,7 +144,7 @@ export const Navbar: React.FC = () => {
               Request a Consultation
             </button>
             <p className="text-center text-[10px] text-cream-muted uppercase tracking-widest">
-              Zero Pricing Displayed • Tailored Individual Support
+              Tailored Individual Support · South Africa & Global Online
             </p>
           </div>
         </div>

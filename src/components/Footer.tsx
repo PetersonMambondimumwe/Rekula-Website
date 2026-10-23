@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-void text-cream pt-20 pb-8 sm:pb-9 border-t border-dashed border-border-cork relative overflow-hidden">
+    <footer className="w-full bg-void text-cream pt-20 pb-16 sm:pb-9 border-t border-dashed border-border-cork relative overflow-hidden">
       
       {/* Background ambient warmth */}
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-softblue/5 rounded-full blur-[140px] pointer-events-none" />
@@ -169,7 +169,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: System legal & studio credit */}
-        <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70">
+        <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 text-[9px] font-mono uppercase tracking-widest text-cream-muted/70 text-center sm:text-left">
           <div>
             <span className="normal-case">&copy; {new Date().getFullYear()} Re:kula (Pty) Ltd</span> · GROW AGAIN · ALL RIGHTS RESERVED
           </div>

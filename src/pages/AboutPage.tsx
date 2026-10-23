@@ -39,7 +39,7 @@ export const AboutPage: React.FC = () => {
           <span>POSITIONING STATEMENT · FOUNDED 2023</span>
         </div>
 
-        <h1 className="font-serif text-[40px] sm:text-[56px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[44px] lg:text-[56px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           THE ACADEMIC PARTNER FOR LEARNERS WHOSE EDUCATION NEEDS A DIFFERENT KIND OF SUPPORT.
         </h1>
 

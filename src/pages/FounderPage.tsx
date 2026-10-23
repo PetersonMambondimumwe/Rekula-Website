@@ -14,7 +14,7 @@ export const FounderPage: React.FC = () => {
           <span className="w-1.5 h-1.5 rounded-full bg-ember" />
           <span>LEADERSHIP & PEDAGOGICAL CONVICTION</span>
         </div>
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           MEET OUR LEAD EDUCATOR.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">

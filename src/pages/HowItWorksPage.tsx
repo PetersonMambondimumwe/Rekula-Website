@@ -27,7 +27,7 @@ export const HowItWorksPage: React.FC = () => {
       
       {/* Header */}
       <section className="space-y-4 max-w-3xl">
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           HOW WORKING WITH US WORKS.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">

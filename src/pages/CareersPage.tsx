@@ -15,7 +15,7 @@ export const CareersPage: React.FC = () => {
           <Briefcase className="w-3 h-3 text-ember" />
           <span>JOIN THE Re:kula TEAM · EDUCATORS & SPECIALISTS</span>
         </div>
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium tracking-tight text-cream leading-[0.92]">
           JOIN THE Re:kula TEAM.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
@@ -38,7 +38,7 @@ export const CareersPage: React.FC = () => {
         <h2 className="text-[10px] font-mono uppercase tracking-[0.25em] text-cream-muted">
           PROFILES WE WELCOME
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {[
             { title: 'Tutors', desc: 'University graduates & subject specialists' },
             { title: 'Teachers', desc: 'Registered SACE educators' },

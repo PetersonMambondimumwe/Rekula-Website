@@ -27,7 +27,7 @@ export const TestimonialsPage: React.FC = () => {
           <Heart className="w-3 h-3 text-ember" />
           <span>COMMUNITY VOICES · VERIFIED & ANONYMOUS</span>
         </div>
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           KIND WORDS FROM OUR COMMUNITY.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">

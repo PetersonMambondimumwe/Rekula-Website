@@ -9,7 +9,7 @@ export const VolunteerPage: React.FC = () => {
       
       {/* Header strictly from brief */}
       <section className="space-y-4 max-w-3xl">
-        <h1 className="font-serif text-[40px] sm:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
+        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
           GIVE A LEARNER THE CHANCE TO GROW.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">

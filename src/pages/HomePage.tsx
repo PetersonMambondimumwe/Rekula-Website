@@ -67,7 +67,7 @@ export const HomePage: React.FC = () => {
 
         {/* Core Value Proposition & Actions (Revealed in palm state) */}
         <div
-          className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-none transition-transform will-change-transform overflow-y-auto lg:overflow-visible pt-24 pb-16 lg:py-0"
+          className="absolute inset-0 z-20 flex items-center justify-center px-6 sm:px-12 pointer-events-auto transition-transform will-change-transform overflow-y-auto lg:overflow-visible pt-24 pb-16 lg:py-0"
           style={{
             opacity: finalProgress,
             transform: `translateY(${finalTranslate}px)`,
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
             <div className="hidden lg:flex lg:col-span-4 lg:h-[400px] items-center justify-center relative pointer-events-none" />
 
             {/* Right Column: Clear, Straightforward Summary & Primary CTAs */}
-            <div className="lg:col-span-4 text-left space-y-5 pl-2 sm:pl-4 lg:pl-14 xl:pl-20">
+            <div className="lg:col-span-4 text-left space-y-5 pl-3 sm:pl-5 lg:pl-16 xl:pl-24">
               <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cream block">
                 OUR PURPOSE
               </span>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
           {processSteps.map((step) => (
             <div
               key={step.number}
-              className="rounded-cards bg-surface/50 border border-border-cork p-7 flex flex-col justify-between space-y-6 hover:border-softblue/40 transition-colors group"
+              className="rounded-cards bg-surface/50 border border-border-cork p-5 sm:p-7 flex flex-col justify-between space-y-6 hover:border-softblue/40 transition-colors group"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between pb-1">
