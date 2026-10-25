@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { NavigationTab } from '../types';
 
 export const Navbar: React.FC = () => {
@@ -78,22 +78,12 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right Action: Pill Button (Filled) strictly from ORYZO */}
-        <div className="flex items-center gap-3">
-
-          {/* Primary Consultation Pill CTA */}
-          <button
-            onClick={() => openConsultationModal()}
-            className="hidden sm:inline-flex items-center gap-2 rounded-buttons-pill bg-surface hover:bg-softblue text-cream hover:text-white px-5 py-2.5 text-[11px] sm:text-[12px] font-medium tracking-[0.12em] uppercase border border-border-cork transition-all duration-300 active:scale-[0.98]"
-          >
-            <span>Consultation</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
-
+        {/* Right Action: Mobile Menu Trigger (Desktop Consultation button removed) */}
+        <div className="flex items-center gap-3 lg:hidden">
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors cursor-pointer"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-surface border border-border-cork text-cream flex items-center justify-center hover:border-cream transition-colors cursor-pointer"
             aria-label="Toggle navigation drawer"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
