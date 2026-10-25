@@ -156,14 +156,6 @@ export const Footer: React.FC = () => {
               </li>
             </ul>
 
-            <div className="pt-2">
-              <button
-                onClick={() => handleNav('contact')}
-                className="w-full rounded-buttons-outlined border border-cream text-cream hover:bg-cream hover:text-void py-2.5 text-[10px] font-medium uppercase tracking-widest transition-colors"
-              >
-                Direct Consultation
-              </button>
-            </div>
           </div>
 
         </div>
