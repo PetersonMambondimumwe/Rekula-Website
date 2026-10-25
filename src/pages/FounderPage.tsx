@@ -15,11 +15,8 @@ export const FounderPage: React.FC = () => {
           <span>LEADERSHIP & MULTIDISCIPLINARY EDUCATOR NETWORK</span>
         </div>
         <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-          MEET OUR LEAD EDUCATOR & TEAM.
+          MEET OUR LEAD EDUCATOR.
         </h1>
-        <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          Led by an accomplished educator and academic success consultant, and powered by a passionate multidisciplinary team of subject specialists, registered teachers and educational practitioners dedicated to helping every learner grow again.
-        </p>
       </section>
 
       {/* 2. Main Profile Grid */}
