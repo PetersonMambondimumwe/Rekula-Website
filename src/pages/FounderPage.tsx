@@ -1,28 +1,28 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Award, GraduationCap, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { Award, GraduationCap, ArrowUpRight, MessageSquare, Users, BookOpen, Brain, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export const FounderPage: React.FC = () => {
-  const { openConsultationModal } = useApp();
+  const { openConsultationModal, setActiveTab } = useApp();
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-16 text-left">
+    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-20 text-left">
       
-      {/* Header */}
+      {/* 1. Page Header */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-ember text-[10px] font-mono uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-          <span>LEADERSHIP & PEDAGOGICAL CONVICTION</span>
+          <span>LEADERSHIP & MULTIDISCIPLINARY EDUCATOR NETWORK</span>
         </div>
         <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-          MEET OUR LEAD EDUCATOR.
+          MEET OUR LEAD EDUCATOR & TEAM.
         </h1>
         <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          Led by an accomplished educator and academic success consultant whose career is dedicated to unlocking the highest potential in every learner.
+          Led by an accomplished educator and academic success consultant, and powered by a passionate multidisciplinary team of subject specialists, registered teachers and educational practitioners dedicated to helping every learner grow again.
         </p>
       </section>
 
-      {/* Main Profile Grid */}
+      {/* 2. Main Profile Grid */}
       <section className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
         
         {/* Founder Portrait Card */}
@@ -52,14 +52,14 @@ export const FounderPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Bio Copy strictly from brief */}
+        {/* Bio Copy combining Founder Leadership & The Team */}
         <div className="md:col-span-7 space-y-6 text-sm sm:text-base leading-relaxed text-cream-muted">
           <div className="space-y-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-ember block">
-              LEAD EDUCATOR PROFILE
+              LEADERSHIP & PEDAGOGICAL VISION
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream">
-              Lead Educator
+              Lead Educator & The Team
             </h2>
           </div>
 
@@ -72,7 +72,11 @@ export const FounderPage: React.FC = () => {
           </p>
 
           <p>
-            Founded in 2023, Re:kula is the expression of her vision to make meaningful, individualised academic support a catalyst for lasting learner growth and success.
+            Founded in 2023, Re:kula is the expression of her vision to make meaningful, individualised academic support a catalyst for lasting learner growth and success. Every learner is paired with caring, capable educators who understand their curriculum and learning style.
+          </p>
+
+          <p className="text-cream font-medium">
+            Working alongside our Lead Educator is a dedicated team of subject-specialist tutors, registered classroom teachers, educational psychologists and exam workshop facilitators. Together, our team ensures that every child, athlete, homeschooler and adult learner receives tailored, compassionate guidance aligned to their specific syllabus goals.
           </p>
 
           {/* Academic Honors Badges */}
@@ -102,7 +106,7 @@ export const FounderPage: React.FC = () => {
               onClick={() => openConsultationModal()}
               className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2"
             >
-              <span>Consult with Lead Educator</span>
+              <span>Consult with Our Team</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
 
@@ -117,6 +121,112 @@ export const FounderPage: React.FC = () => {
             </a>
           </div>
 
+        </div>
+
+      </section>
+
+      {/* 3. The Multidisciplinary Educator & Specialist Team Section */}
+      <section className="space-y-10 pt-8 border-t border-dashed border-border-cork">
+        <div className="space-y-3 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border-cork text-softblue text-[10px] font-mono uppercase tracking-widest">
+            <Users className="w-3.5 h-3.5 text-softblue" />
+            <span>OUR EDUCATOR TALENT NETWORK</span>
+          </div>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-medium uppercase tracking-tight text-cream">
+            The Re:kula Team & Specialists
+          </h2>
+
+          <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
+            While Re:kula is founder-led, our impact on every learner is delivered by a carefully assembled network of educators, subject specialists and psychology practitioners across South Africa. Every member of our team is selected for subject mastery, empathy and alignment with our diagnostic approach.
+          </p>
+        </div>
+
+        {/* Team Pillars Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              role: 'Subject Specialist Tutors',
+              badge: 'CORE & ELECTIVES',
+              desc: 'High-achieving university graduates and subject specialists who break down complex concepts into manageable, confidence-building steps across CAPS, IEB and Cambridge.',
+              qualities: ['Mathematics & Physical Sciences', 'Languages & Humanities', 'Accounting & Business Studies']
+            },
+            {
+              role: 'Registered Classroom Teachers',
+              badge: 'SACE ACCREDITED',
+              desc: 'Experienced educators with proven classroom and remedial backgrounds who know syllabus requirements, internal marking rubrics and assessment benchmarks inside out.',
+              qualities: ['Primary & High School Phases', 'Curriculum Bridging Expertise', 'Diagnostic Progress Monitoring']
+            },
+            {
+              role: 'Educational Psychologists & Specialists',
+              badge: 'LEARNING SUPPORT',
+              desc: 'Specialists who support cognitive learning strategies, study systems, remedial reading literacy and emotional adjustment for learners navigating academic transitions.',
+              qualities: ['Early Literacy & Remedial Reading', 'Personalised Study Systems', 'Emotional & Academic Adjustment']
+            },
+            {
+              role: 'Exam Preparation Facilitators',
+              badge: 'WORKSHOP MASTERY',
+              desc: 'Senior educators and past-paper mentors who run intensive, interactive exam workshops for schools, cohorts and matric revision groups.',
+              qualities: ['Matric & Cambridge Exam Revision', 'Past-Paper Strategy & Technique', 'Exam Anxiety Reduction']
+            }
+          ].map((pillar) => (
+            <div
+              key={pillar.role}
+              className="rounded-cards bg-surface/50 border border-border-cork p-6 flex flex-col justify-between space-y-5 hover:border-softblue/50 transition-colors"
+            >
+              <div className="space-y-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-softblue font-medium block">
+                  {pillar.badge}
+                </span>
+
+                <h3 className="font-serif text-xl font-medium uppercase tracking-tight text-cream">
+                  {pillar.role}
+                </h3>
+
+                <div className="dashed-divider my-2" />
+
+                <p className="text-xs text-cream-muted leading-relaxed">
+                  {pillar.desc}
+                </p>
+              </div>
+
+              <div className="space-y-1.5 pt-3 border-t border-dashed border-border-cork text-[11px] font-mono text-cream-muted">
+                {pillar.qualities.map((q) => (
+                  <div key={q} className="flex items-center gap-1.5 text-cream">
+                    <span className="w-1.5 h-1.5 rounded-full bg-softblue shrink-0" />
+                    <span>{q}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Join Our Educator Network CTA Card */}
+        <div className="rounded-cards bg-surface/30 border border-border-cork p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <h3 className="font-serif text-xl sm:text-2xl font-medium uppercase tracking-tight text-cream">
+              Want to Join Our Educator Team?
+            </h3>
+            <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
+              We are constantly seeking passionate tutors, teachers, educational psychologists and workshop facilitators who believe every learner can grow again.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <button
+              onClick={() => setActiveTab('careers')}
+              className="rounded-buttons-pill bg-cream text-void hover:bg-white px-6 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md"
+            >
+              Apply to Join Team
+            </button>
+            <button
+              onClick={() => setActiveTab('volunteer')}
+              className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors text-center"
+            >
+              Volunteer Tutoring
+            </button>
+          </div>
         </div>
 
       </section>
