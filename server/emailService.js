@@ -9,10 +9,10 @@ config();
  * Powered by Resend API
  */
 
-const DEFAULT_FROM = 'Re:kula Academic Support <info@mambondimumwe.com>';
+const DEFAULT_FROM = 'Re:kula Academic Support <info@rekula.co.za>';
 const TARGET_ADMIN_EMAIL = 'shawn.kulanigt@gmail.com';
 const LOGO_URL = 'https://raw.githubusercontent.com/PetersonMambondimumwe/Rekula-Website/main/public/assets/rekula-logo-navy.png';
-const WEBSITE_URL = 'https://re-luka-webiste.vercel.app/';
+const WEBSITE_URL = 'https://www.rekula.co.za/';
 
 function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY;
