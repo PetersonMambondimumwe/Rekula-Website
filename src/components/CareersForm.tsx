@@ -125,8 +125,8 @@ export const CareersForm: React.FC = () => {
         const uploadResult = await uploadFileToSeaweed(file, 'cvs');
         setCvUrl(uploadResult.url);
       } catch (err: any) {
-        console.error('SeaweedFS CV upload failed:', err);
-        setErrorMsg(err.message || 'Could not upload CV to SeaweedFS storage. Please try again.');
+        console.error('CV upload failed:', err);
+        setErrorMsg(err.message || 'Could not upload CV. Please try again.');
       } finally {
         setIsUploadingCv(false);
       }
@@ -722,13 +722,13 @@ export const CareersForm: React.FC = () => {
         {isUploadingCv && (
           <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
             <span className="w-3.5 h-3.5 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
-            <span>Uploading securely to SeaweedFS storage...</span>
+            <span>Uploading...</span>
           </div>
         )}
         {!isUploadingCv && cvUrl && (
           <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
             <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
-            <span>Stored on SeaweedFS: {cvFileName}</span>
+            <span>Uploaded: {cvFileName}</span>
           </div>
         )}
         {!isUploadingCv && !cvUrl && cvFileName && (

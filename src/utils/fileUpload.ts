@@ -41,7 +41,7 @@ export async function uploadFileToSeaweed(
 
         if (!response.ok || !data.success) {
           throw new Error(
-            data.message || 'Unable to store file on SeaweedFS storage. Please try again.'
+            data.message || 'Unable to upload file. Please try again.'
           );
         }
 

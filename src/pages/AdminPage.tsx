@@ -567,7 +567,7 @@ export const AdminPage: React.FC = () => {
             {(inspectSubmission.data?.cvUrl || inspectSubmission.data?.attachmentUrl) && (
               <div className="p-3 bg-void/80 rounded border border-softblue/30 flex items-center justify-between">
                 <span className="font-mono text-[11px] text-cream-muted truncate max-w-xs">
-                  SeaweedFS Stored Document: {inspectSubmission.data.cvFileName || inspectSubmission.data.attachmentName || 'Attachment'}
+                  Stored Document: {inspectSubmission.data.cvFileName || inspectSubmission.data.attachmentName || 'Attachment'}
                 </span>
                 <a
                   href={inspectSubmission.data.cvUrl || inspectSubmission.data.attachmentUrl}
@@ -575,7 +575,7 @@ export const AdminPage: React.FC = () => {
                   rel="noreferrer"
                   className="px-3 py-1 rounded bg-softblue text-white text-[10px] font-mono uppercase tracking-wider hover:bg-softblue/80 transition-colors shrink-0"
                 >
-                  View on SeaweedFS
+                  View Document
                 </a>
               </div>
             )}

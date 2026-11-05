@@ -114,8 +114,8 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
         const uploadResult = await uploadFileToSeaweed(file, 'consultations');
         setAttachmentUrl(uploadResult.url);
       } catch (err: any) {
-        console.error('SeaweedFS consultation upload error:', err);
-        setErrorMsg(err.message || 'Could not upload document to SeaweedFS storage. Please try again.');
+        console.error('Consultation upload error:', err);
+        setErrorMsg(err.message || 'Could not upload document. Please try again.');
       } finally {
         setIsUploadingAttachment(false);
       }
@@ -607,13 +607,13 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
           {isUploadingAttachment && (
             <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
               <span className="w-3.5 h-3.5 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
-              <span>Uploading to SeaweedFS storage...</span>
+              <span>Uploading...</span>
             </div>
           )}
           {!isUploadingAttachment && attachmentUrl && (
             <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
-              <span>Stored on SeaweedFS: {attachmentFileName}</span>
+              <span>Uploaded: {attachmentFileName}</span>
             </div>
           )}
         </div>
