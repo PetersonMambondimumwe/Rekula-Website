@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Award, GraduationCap, ArrowUpRight, MessageSquare, Users, BookOpen, Brain, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Award, GraduationCap, Users, BookOpen, Brain, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export const FounderPage: React.FC = () => {
-  const { openConsultationModal, setActiveTab } = useApp();
+  const { setActiveTab } = useApp();
 
   return (
     <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-20 text-left">
@@ -95,27 +95,6 @@ export const FounderPage: React.FC = () => {
                 Member of the international collegiate honour society for top academic achievers.
               </p>
             </div>
-          </div>
-
-          {/* Direct Actions */}
-          <div className="pt-4 flex flex-wrap gap-4">
-            <button
-              onClick={() => openConsultationModal()}
-              className="rounded-buttons-pill bg-cream text-void hover:bg-white px-7 py-3 text-xs font-medium uppercase tracking-widest transition-all shadow-md inline-flex items-center gap-2"
-            >
-              <span>Consult with Our Team</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-
-            <a
-              href="https://wa.me/27674350849"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-buttons-outlined border border-cream text-cream hover:bg-surface px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors inline-flex items-center gap-2"
-            >
-              <MessageSquare className="w-4 h-4 text-softblue" />
-              <span>Direct WhatsApp</span>
-            </a>
           </div>
 
         </div>
