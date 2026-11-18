@@ -127,7 +127,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                 >
                   <div className="relative z-10 flex flex-col flex-1">
                     {/* Icon Container */}
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#173A63]/85 to-[#0D233D]/95 border border-[#36A9F5]/30 flex items-center justify-center text-[#E8F1FA] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] group-hover:border-[#36A9F5]/55 transition-colors duration-300 mb-6">
+                    <div className="w-[48px] h-[48px] rounded-xl bg-gradient-to-b from-[#173A63]/85 to-[#0D233D]/95 border border-[#36A9F5]/30 flex items-center justify-center text-[#E8F1FA] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] group-hover:border-[#36A9F5]/55 transition-colors duration-300 mb-[24px]">
                       <Icon className="w-5 h-5" strokeWidth={1.65} />
                     </div>
 

@@ -37,13 +37,13 @@ export const Navbar: React.FC = () => {
           : 'bg-transparent py-5 sm:py-6'
       }`}
     >
-      <div className="max-w-[1360px] mx-auto w-full px-6 sm:px-10 lg:px-12 flex items-center justify-between">
+      <div className="max-w-[1360px] mx-auto w-full px-5 sm:px-[40px] lg:px-[48px] flex items-center justify-between">
         {/* Left: Re:kula Brand Emblem & Serif Wordmark */}
         <button
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3.5 sm:gap-4 group text-left focus:outline-none cursor-pointer"
         >
-          <div className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
+          <div className="w-[56px] h-[56px] sm:w-[68px] sm:h-[68px] md:w-[76px] md:h-[76px] flex items-center justify-center shrink-0">
             <img
               src="/assets/rekula-logo-cream.png"
               alt="Re:kula Logo"
@@ -52,9 +52,9 @@ export const Navbar: React.FC = () => {
           </div>
           <span
             aria-hidden="true"
-            className="h-6 w-px bg-[#F5F1EA]/20 hidden sm:block"
+            className="h-[30px] w-px bg-[#F5F1EA]/20 hidden sm:block"
           />
-          <span className="font-serif text-[22px] sm:text-[25px] font-medium tracking-[-0.01em] text-[#F5F1EA] leading-none">
+          <span className="font-serif text-[24px] sm:text-[28px] font-medium tracking-[-0.01em] text-[#F5F1EA] leading-none">
             Re<span className="text-[#36A9F5]">:</span>kula
           </span>
         </button>
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
         {/* Right: Minimal Editorial Desktop Navigation */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden lg:flex items-center gap-8 xl:gap-10 text-[12px] font-sans font-medium tracking-[0.16em] uppercase"
+          className="hidden lg:flex items-center gap-[32px] xl:gap-[40px] text-[12px] font-sans font-medium tracking-[0.16em] uppercase"
         >
           {navItems.map((item) => {
             const isActive =
