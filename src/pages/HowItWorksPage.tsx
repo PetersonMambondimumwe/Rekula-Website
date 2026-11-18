@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { processSteps } from '../data/initialData';
+import { HowItWorksSection } from '../components/HowItWorksSection';
 import { ChevronDown, ChevronUp, Search, MessageSquare } from 'lucide-react';
 
 export const HowItWorksPage: React.FC = () => {
@@ -23,55 +23,15 @@ export const HowItWorksPage: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-20 text-left">
-      
-      {/* Header */}
-      <section className="space-y-4 max-w-3xl">
-        <h1 className="font-serif text-[32px] sm:text-[42px] lg:text-[54px] font-medium uppercase tracking-tight text-cream leading-[0.92]">
-          HOW WORKING WITH US WORKS.
-        </h1>
-        <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-          We know that falling behind or shifting curricula can feel stressful. Our four-step partnership eliminates anxiety by establishing a transparent, supportive plan tailored to your learner’s life.
-        </p>
-      </section>
+    <div className="w-full bg-void text-cream text-left">
+      <HowItWorksSection
+        headingAs="h1"
+        showTopBorder={false}
+        className="pt-32 sm:pt-36 pb-20 sm:pb-24"
+      />
 
-      {/* 4 Steps In-Depth */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {processSteps.map((step) => (
-          <div
-            key={step.number}
-            className="rounded-cards bg-surface/50 border border-border-cork p-7 flex flex-col justify-between space-y-5"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between pb-1">
-                <span className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-void border-2 border-softblue text-softblue font-mono text-xs sm:text-sm font-bold shadow-md tracking-wider">
-                  STEP {step.number}
-                </span>
-                <span className="font-mono text-2xl sm:text-3xl font-bold text-softblue/70">
-                  #{step.number}
-                </span>
-              </div>
-              <span className="hidden">
-                {step.number}
-              </span>
-              <div className="dashed-divider my-2" />
-              <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
-                {step.title}
-              </h3>
-              <p className="text-xs font-mono font-medium text-softblue uppercase tracking-wider">
-                {step.summary}
-              </p>
-              <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
-                {step.detail}
-              </p>
-            </div>
-
-            <div className="w-8 h-px bg-border-cork" />
-          </div>
-        ))}
-      </section>
-
-      {/* FAQs Section */}
+      <div className="w-full px-6 sm:px-12 pb-20 space-y-20">
+        {/* FAQs Section */}
       <section className="space-y-8 pt-8 border-t border-dashed border-border-cork">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-dashed border-border-cork pb-6">
           <div className="space-y-2 max-w-xl">
@@ -186,7 +146,7 @@ export const HowItWorksPage: React.FC = () => {
           </a>
         </div>
       </section>
-
+      </div>
     </div>
   );
 };

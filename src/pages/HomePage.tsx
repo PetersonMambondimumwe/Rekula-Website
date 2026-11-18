@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { RekulaCapstoneStage } from '../components/RekulaCapstoneStage';
 import { MotionBackground } from '../components/MotionBackground';
 import { ShinyText } from '../components/ShinyText';
-import { processSteps } from '../data/initialData';
+import { HowItWorksSection } from '../components/HowItWorksSection';
 import { ArrowUpRight, MessageSquare } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
@@ -147,57 +147,9 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. HOW IT WORKS CARDS (REPLACES WHOLE SECTION BELOW HAND)
+          2. HOW WORKING WITH US WORKS
           ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-void px-6 sm:px-12 py-24 border-t border-dashed border-border-cork text-left space-y-12">
-        <div className="max-w-3xl space-y-3">
-          <h2 className="font-serif text-[34px] sm:text-[46px] font-medium uppercase tracking-tight text-cream leading-[0.94]">
-            HOW WORKING WITH US WORKS.
-          </h2>
-
-          <p className="text-sm sm:text-base text-cream-muted leading-relaxed">
-            We know that falling behind or shifting curricula can feel stressful. Our four-step partnership eliminates anxiety by establishing a transparent, supportive plan tailored to your learner’s life.
-          </p>
-        </div>
-
-        {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {processSteps.map((step) => (
-            <div
-              key={step.number}
-              className="rounded-cards bg-surface/50 border border-border-cork p-5 sm:p-7 flex flex-col justify-between space-y-6 hover:border-softblue/40 transition-colors group"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between pb-1">
-                  <span className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-void border-2 border-softblue text-softblue font-mono text-xs sm:text-sm font-bold shadow-md tracking-wider">
-                    STEP {step.number}
-                  </span>
-  
-                  <span className="font-mono text-2xl sm:text-3xl font-bold text-softblue/70 group-hover:text-softblue transition-colors">
-                    #{step.number}
-                  </span>
-  
-                </div>
-
-
-
-                <div className="dashed-divider my-2" />
-                <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
-                  {step.title}
-                </h3>
-                <p className="text-xs font-mono font-medium text-softblue uppercase tracking-wider">
-                  {step.summary}
-                </p>
-                <p className="text-xs sm:text-sm text-cream-muted leading-relaxed">
-                  {step.detail}
-                </p>
-              </div>
-
-              <div className="w-8 h-px bg-border-cork group-hover:bg-softblue/60 transition-colors" />
-            </div>
-          ))}
-        </div>
-      </section>
+      <HowItWorksSection />
 
     </div>
   );
