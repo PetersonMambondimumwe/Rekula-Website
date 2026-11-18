@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { HeartHandshake, Plus, Trash2, Upload, AlertCircle, FileText, CheckCircle2 } from 'lucide-react';
+import {
+  HeartHandshake,
+  Upload,
+  AlertCircle,
+  FileText,
+  CheckCircle2,
+  X,
+} from 'lucide-react';
 import { uploadFileToSeaweed } from '../utils/fileUpload';
-
-interface VolunteerSubjectEntry {
-  id: string;
-  subject: string;
-  highestGrade: string;
-  curricula: string[];
-}
 
 export const VolunteerForm: React.FC = () => {
   const { addSubmission, setActiveTab } = useApp();
@@ -21,81 +21,18 @@ export const VolunteerForm: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [location, setLocation] = useState('South Africa');
-
-  const [volunteerRole, setVolunteerRole] = useState<'Student' | 'Teacher' | 'Retired educator' | 'Working professional' | 'Other'>('Student');
-  const [volunteerRoleOther, setVolunteerRoleOther] = useState('');
-
-  const [subjectsList, setSubjectsList] = useState<VolunteerSubjectEntry[]>([
-    {
-      id: 'vol-subj-1',
-      subject: 'Mathematics',
-      highestGrade: 'Senior Phase (Gr 7–9)',
-      curricula: ['CAPS'],
-    },
-  ]);
-
-  const [languages, setLanguages] = useState<string[]>(['English']);
-  const [otherLanguage, setOtherLanguage] = useState('');
+  const [location, setLocation] = useState('');
+  const [volunteerRole, setVolunteerRole] = useState('Student');
   const [qualificationOrStudy, setQualificationOrStudy] = useState('');
-  const [saceStatus, setSaceStatus] = useState<'Registered' | 'Not registered' | 'Not applicable'>('Not applicable');
-  const [volunteerMode, setVolunteerMode] = useState<'Online' | 'In person' | 'Either'>('Either');
+  const [subjectsText, setSubjectsText] = useState('');
+  const [volunteerMode, setVolunteerMode] = useState<'Either' | 'Online' | 'In person'>('Either');
   const [timeOffered, setTimeOffered] = useState('1–2 hours a week');
-  const [commitmentLength, setCommitmentLength] = useState('One school term');
-  const [availabilities, setAvailabilities] = useState<string[]>(['Weekday afternoons']);
   const [whyVolunteer, setWhyVolunteer] = useState('');
+
   const [cvFileName, setCvFileName] = useState('');
   const [cvUrl, setCvUrl] = useState('');
   const [isUploadingCv, setIsUploadingCv] = useState(false);
   const [consent, setConsent] = useState(false);
-
-  const addSubjectRow = () => {
-    setSubjectsList((prev) => [
-      ...prev,
-      {
-        id: `vol-subj-${Date.now()}`,
-        subject: '',
-        highestGrade: 'Senior Phase (Gr 7–9)',
-        curricula: ['CAPS'],
-      },
-    ]);
-  };
-
-  const removeSubjectRow = (id: string) => {
-    if (subjectsList.length === 1) return;
-    setSubjectsList((prev) => prev.filter((s) => s.id !== id));
-  };
-
-  const updateSubjectRow = (id: string, field: keyof VolunteerSubjectEntry, val: any) => {
-    setSubjectsList((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, [field]: val } : s))
-    );
-  };
-
-  const toggleCurriculumOnRow = (id: string, c: string) => {
-    setSubjectsList((prev) =>
-      prev.map((s) => {
-        if (s.id !== id) return s;
-        const exists = s.curricula.includes(c);
-        return {
-          ...s,
-          curricula: exists ? s.curricula.filter((item) => item !== c) : [...s.curricula, c],
-        };
-      })
-    );
-  };
-
-  const toggleLanguage = (lang: string) => {
-    setLanguages((prev) =>
-      prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang]
-    );
-  };
-
-  const toggleAvailability = (slot: string) => {
-    setAvailabilities((prev) =>
-      prev.includes(slot) ? prev.filter((a) => a !== slot) : [...prev, slot]
-    );
-  };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -120,48 +57,59 @@ export const VolunteerForm: React.FC = () => {
     }
   };
 
+  const clearAttachment = () => {
+    setCvFileName('');
+    setCvUrl('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) return;
 
-    if (!fullName || !email || !phone || !qualificationOrStudy) {
-      setErrorMsg('Please complete your name, email, phone and qualification/study details.');
+    if (!fullName.trim() || !email.trim() || !phone.trim() || !subjectsText.trim()) {
+      setErrorMsg('Please fill in your name, email, phone and subjects.');
       return;
     }
 
     if (isUploadingCv) {
-      setErrorMsg('Please wait until your CV document finishes uploading to storage.');
+      setErrorMsg('Please wait until your CV finishes uploading.');
       return;
     }
 
     if (!consent) {
-      setErrorMsg('Please tick the consent box to proceed.');
+      setErrorMsg('Please accept the privacy policy consent to proceed.');
       return;
     }
 
-    const compiledLanguages = [...languages];
-    if (otherLanguage.trim()) compiledLanguages.push(otherLanguage.trim());
+    const parsedSubjects = subjectsText
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((subject) => ({ subject }));
 
     setIsSubmitting(true);
     setErrorMsg('');
+
     const res = await addSubmission('volunteer', {
-      fullName,
-      email,
-      phone,
-      location,
-      volunteerRole: volunteerRole === 'Other' ? volunteerRoleOther : volunteerRole,
-      subjects: subjectsList,
-      languages: compiledLanguages,
-      qualificationOrStudy,
-      saceStatus,
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      location: location.trim() || 'South Africa',
+      cityProvince: location.trim() || 'South Africa',
+      volunteerRole,
+      currentOccupation: volunteerRole,
+      qualificationOrStudy: qualificationOrStudy.trim() || 'Not specified',
+      subjects: parsedSubjects,
       volunteerMode,
+      mode: volunteerMode,
       timeOffered,
-      commitmentLength,
-      availabilities,
-      whyVolunteer,
+      weeklyHours: timeOffered,
+      whyVolunteer: whyVolunteer.trim(),
+      volunteerMotivation: whyVolunteer.trim(),
       cvFileName: cvFileName || 'Not provided (optional)',
       cvUrl: cvUrl || undefined,
     });
+
     setIsSubmitting(false);
 
     if (res.success) {
@@ -173,351 +121,171 @@ export const VolunteerForm: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="text-center py-12 px-6 bg-surface rounded-cards border border-border-cork space-y-4 animate-in fade-in">
-        <div className="w-14 h-14 bg-softblue/10 text-softblue border border-softblue/40 rounded-full flex items-center justify-center mx-auto">
-          <HeartHandshake className="w-7 h-7" />
+      <div className="text-center py-10 px-6 bg-void/60 rounded-xl border border-border-cork space-y-4">
+        <div className="w-12 h-12 bg-softblue/10 text-softblue border border-softblue/40 rounded-full flex items-center justify-center mx-auto">
+          <CheckCircle2 className="w-6 h-6" />
         </div>
         <h3 className="font-serif text-2xl font-medium uppercase tracking-tight text-cream">
           Thank You for Giving Back
         </h3>
-        <p className="text-sm text-cream-muted max-w-lg mx-auto leading-relaxed">
-          Your willingness to share your knowledge with learners from under-resourced communities means the world to us. Our Lead Educator and the Re:kula team will be in touch with you to align on volunteer tutoring sessions.
+        <p className="text-sm text-cream-muted max-w-md mx-auto leading-relaxed">
+          Thank you, <span className="font-semibold text-cream">{fullName}</span>. Our Lead Educator will review your details and reach out shortly to align on volunteer tutoring.
         </p>
-        <button
-          onClick={() => setSubmitted(false)}
-          className="text-xs text-softblue hover:underline font-mono uppercase tracking-wider pt-2"
-        >
-          Submit another volunteer application
-        </button>
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={() => setSubmitted(false)}
+            className="rounded-buttons-pill bg-cream text-void hover:bg-white px-6 py-2.5 text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+          >
+            Submit Another Application
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 text-left text-cream">
+    <form onSubmit={handleSubmit} className="space-y-6 text-left text-cream">
       <input
         type="text"
         value={honeypot}
         onChange={(e) => setHoneypot(e.target.value)}
         className="hidden"
         tabIndex={-1}
+        aria-hidden="true"
       />
 
       {errorMsg && (
-        <div className="p-4 bg-red-950/50 border border-red-800/80 rounded-lg flex items-center gap-3 text-xs text-red-200">
+        <div className="p-3.5 bg-red-950/40 border border-red-800 rounded-lg flex items-center gap-2.5 text-xs text-red-200">
           <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      {/* 1. Personal & Contact Information */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2 pb-2 border-b border-dashed border-border-cork">
-          <span className="w-5 h-5 rounded-full bg-void border border-border-cork text-softblue text-[10px] font-mono font-bold flex items-center justify-center">
-            1
-          </span>
-          <h3 className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream">
-            YOUR DETAILS
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Your Name <span className="text-ember">*</span>
-            </label>
-            <input
-              type="text"
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Peterson"
-              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Email Address <span className="text-ember">*</span>
-            </label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@example.co.za"
-              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Phone / WhatsApp <span className="text-ember">*</span>
-            </label>
-            <input
-              type="tel"
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="067 435 0849"
-              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-              Province / City <span className="text-ember">*</span>
-            </label>
-            <input
-              type="text"
-              required
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Gauteng / Western Cape / KwaZulu-Natal"
-              className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Your Profile / Background */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2 pb-2 border-b border-dashed border-border-cork">
-          <span className="w-5 h-5 rounded-full bg-void border border-border-cork text-softblue text-[10px] font-mono font-bold flex items-center justify-center">
-            2
-          </span>
-          <h3 className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream">
-            BACKGROUND & ROLE
-          </h3>
-        </div>
-
-        <div>
-          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2.5">
-            I am a: <span className="text-ember">*</span>
-          </label>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-            {(['Student', 'Teacher', 'Retired educator', 'Working professional', 'Other'] as const).map((role) => (
-              <label
-                key={role}
-                className={`flex items-center gap-2.5 p-3 rounded-lg border text-xs cursor-pointer transition-all ${
-                  volunteerRole === role
-                    ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
-                    : 'border-border-cork bg-void/50 hover:border-border-driftwood text-cream-muted'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="volRole"
-                  checked={volunteerRole === role}
-                  onChange={() => setVolunteerRole(role)}
-                  className="accent-cream"
-                />
-                <span className="truncate">{role}</span>
-              </label>
-            ))}
-          </div>
-
-          {volunteerRole === 'Other' && (
-            <input
-              type="text"
-              value={volunteerRoleOther}
-              onChange={(e) => setVolunteerRoleOther(e.target.value)}
-              placeholder="Please specify your occupation or background..."
-              className="mt-3 w-full px-4 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
-            />
-          )}
-        </div>
-      </div>
-
-      {/* 3. Subjects You Can Tutor */}
-      <div className="space-y-4 p-5 sm:p-6 bg-void/70 rounded-cards border border-border-cork">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-dashed border-border-cork">
-          <div>
-            <label className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-cream block">
-              Subjects You Can Volunteer to Tutor <span className="text-ember">*</span>
-            </label>
-            <span className="text-[11px] text-cream-muted mt-0.5 block">
-              Add the subjects, grade phases and curricula you feel confident supporting.
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={addSubjectRow}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border-cork hover:border-cream text-cream text-[11px] font-mono uppercase tracking-wider transition-all bg-surface hover:bg-surface-elevated shrink-0 cursor-pointer"
-          >
-            <Plus className="w-3.5 h-3.5 text-softblue" />
-            <span>Add Another Subject</span>
-          </button>
-        </div>
-
-        <div className="space-y-4">
-          {subjectsList.map((entry, idx) => (
-            <div
-              key={entry.id}
-              className="p-4 sm:p-5 bg-surface border border-border-cork/90 rounded-lg space-y-4 shadow-sm"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-softblue font-medium flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-softblue" />
-                  Subject #{idx + 1}
-                </span>
-                {subjectsList.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeSubjectRow(entry.id)}
-                    className="text-cream-muted hover:text-red-400 p-1 transition-colors cursor-pointer"
-                    title="Remove subject"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
-                    Subject Name:
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={entry.subject}
-                    onChange={(e) => updateSubjectRow(entry.id, 'subject', e.target.value)}
-                    placeholder="e.g. Mathematics, Reading, Physical Sciences"
-                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
-                    Highest Grade / Level:
-                  </label>
-                  <select
-                    value={entry.highestGrade}
-                    onChange={(e) => updateSubjectRow(entry.id, 'highestGrade', e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
-                  >
-                    <option value="Foundation Phase (Gr R–3)">Foundation Phase (Gr R–3)</option>
-                    <option value="Intermediate Phase (Gr 4–6)">Intermediate Phase (Gr 4–6)</option>
-                    <option value="Senior Phase (Gr 7–9)">Senior Phase (Gr 7–9)</option>
-                    <option value="FET Phase (Gr 10–12)">FET Phase (Gr 10–12)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-mono uppercase tracking-wider text-cream-muted mb-1.5">
-                  Curricula You Can Guide:
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {['CAPS', 'IEB', 'Cambridge'].map((c) => {
-                    const isSelected = entry.curricula.includes(c);
-                    return (
-                      <button
-                        type="button"
-                        key={c}
-                        onClick={() => toggleCurriculumOnRow(entry.id, c)}
-                        className={`text-xs px-3.5 py-1 rounded-full border transition-all cursor-pointer ${
-                          isSelected
-                            ? 'bg-cream text-void font-medium border-cream'
-                            : 'border-border-cork bg-void text-cream-muted hover:border-border-driftwood'
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. Languages */}
-      <div className="space-y-3">
-        <label className="block text-xs font-medium uppercase tracking-wider text-cream">
-          Languages You Can Tutor In
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {['English', 'Afrikaans', 'Setswana', 'isiZulu', 'Sepedi'].map((lang) => {
-            const isSelected = languages.includes(lang);
-            return (
-              <button
-                type="button"
-                key={lang}
-                onClick={() => toggleLanguage(lang)}
-                className={`px-3.5 py-1.5 rounded-full text-xs transition-all cursor-pointer border ${
-                  isSelected
-                    ? 'bg-cream text-void font-medium border-cream'
-                    : 'border-border-cork bg-void text-cream-muted hover:border-border-driftwood'
-                }`}
-              >
-                {lang}
-              </button>
-            );
-          })}
-        </div>
-        <input
-          type="text"
-          value={otherLanguage}
-          onChange={(e) => setOtherLanguage(e.target.value)}
-          placeholder="Other languages (e.g. Xhosa, Sesotho, French)..."
-          className="w-full px-4 py-2.5 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
-        />
-      </div>
-
-      {/* 5. Qualifications & Availability Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {/* Name & Email */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            Highest Qualification or Current Study <span className="text-ember">*</span>
+            Your Name <span className="text-ember">*</span>
           </label>
           <input
             type="text"
             required
-            value={qualificationOrStudy}
-            onChange={(e) => setQualificationOrStudy(e.target.value)}
-            placeholder="e.g. 2nd Year BSc Physics, UP / Retired Maths Teacher"
-            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="e.g. Peterson"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
           />
         </div>
 
         <div>
           <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            SACE Registration (If Applicable)
+            Email Address <span className="text-ember">*</span>
+          </label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@example.co.za"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Phone & Location */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            Phone / WhatsApp <span className="text-ember">*</span>
+          </label>
+          <input
+            type="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="067 435 0849"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            City / Province
+          </label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="e.g. Pretoria, Gauteng"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Background & Qualification */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            I Am A <span className="text-ember">*</span>
           </label>
           <select
-            value={saceStatus}
-            onChange={(e) => setSaceStatus(e.target.value as any)}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            value={volunteerRole}
+            onChange={(e) => setVolunteerRole(e.target.value)}
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
           >
-            <option value="Not applicable">Not applicable</option>
-            <option value="Registered">Registered</option>
-            <option value="Not registered">Not registered</option>
+            <option value="Student">University / College Student</option>
+            <option value="Teacher">Teacher / Educator</option>
+            <option value="Retired educator">Retired Educator</option>
+            <option value="Working professional">Working Professional</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
         <div>
           <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            How would you like to volunteer?
+            Qualification or Current Study
           </label>
-          <div className="flex gap-2">
-            {(['Online', 'In person', 'Either'] as const).map((mode) => (
-              <button
-                type="button"
-                key={mode}
-                onClick={() => setVolunteerMode(mode)}
-                className={`flex-1 py-2.5 text-xs rounded-lg border transition-all cursor-pointer ${
-                  volunteerMode === mode
-                    ? 'border-cream bg-void font-medium text-cream ring-1 ring-cream'
-                    : 'border-border-cork bg-void/50 text-cream-muted hover:border-border-driftwood'
-                }`}
-              >
-                {mode}
-              </button>
-            ))}
-          </div>
+          <input
+            type="text"
+            value={qualificationOrStudy}
+            onChange={(e) => setQualificationOrStudy(e.target.value)}
+            placeholder="e.g. 2nd Year BSc / BEd / Maths Teacher"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Subjects */}
+      <div>
+        <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+          Subjects & Grades You Can Tutor <span className="text-ember">*</span>
+        </label>
+        <input
+          type="text"
+          required
+          value={subjectsText}
+          onChange={(e) => setSubjectsText(e.target.value)}
+          placeholder="e.g. Mathematics (Gr 8–12), Physical Sciences, English"
+          className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
+        />
+      </div>
+
+      {/* Mode & Time Offered */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+            Preferred Format
+          </label>
+          <select
+            value={volunteerMode}
+            onChange={(e) => setVolunteerMode(e.target.value as 'Either' | 'Online' | 'In person')}
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
+          >
+            <option value="Either">Either (Online or In Person)</option>
+            <option value="Online">Online</option>
+            <option value="In person">In Person</option>
+          </select>
         </div>
 
         <div>
@@ -527,7 +295,7 @@ export const VolunteerForm: React.FC = () => {
           <select
             value={timeOffered}
             onChange={(e) => setTimeOffered(e.target.value)}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
+            className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream focus:outline-none focus:border-cream"
           >
             <option value="1–2 hours a week">1–2 hours a week</option>
             <option value="3–5 hours a week">3–5 hours a week</option>
@@ -535,101 +303,71 @@ export const VolunteerForm: React.FC = () => {
             <option value="Flexible">Flexible</option>
           </select>
         </div>
-
-        <div>
-          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            How long can you commit?
-          </label>
-          <select
-            value={commitmentLength}
-            onChange={(e) => setCommitmentLength(e.target.value)}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream focus:outline-none focus:border-cream"
-          >
-            <option value="One school term">One school term</option>
-            <option value="A semester or half year">A semester or half year</option>
-            <option value="A full academic year">A full academic year</option>
-            <option value="Flexible">Flexible</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-            Availability
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {['Weekday afternoons', 'Evenings', 'Weekends', 'School holidays'].map((slot) => {
-              const isSelected = availabilities.includes(slot);
-              return (
-                <button
-                  type="button"
-                  key={slot}
-                  onClick={() => toggleAvailability(slot)}
-                  className={`px-3 py-1.5 rounded-full text-xs border transition-all cursor-pointer ${
-                    isSelected
-                      ? 'border-softblue bg-softblue/20 text-softblue font-medium'
-                      : 'border-border-cork bg-void text-cream-muted hover:border-border-driftwood'
-                  }`}
-                >
-                  {slot}
-                </button>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
-      {/* 6. Why Volunteer */}
+      {/* Short Note */}
       <div>
         <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
-          Why would you like to volunteer? (Optional)
+          Short Note or Availability (Optional)
         </label>
         <textarea
           rows={3}
           value={whyVolunteer}
           onChange={(e) => setWhyVolunteer(e.target.value)}
-          placeholder="Tell us what motivates you to support under-resourced learners..."
-          className="w-full px-4 py-3 text-base sm:text-sm bg-void border border-border-cork rounded-lg text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream"
+          placeholder="Share your preferred days/times or why you'd like to volunteer..."
+          className="w-full px-4 py-3 text-base sm:text-xs rounded-lg bg-void border border-border-cork text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-cream transition-colors"
         />
       </div>
 
-      {/* 7. CV Upload (Optional) */}
-      <div className="p-6 bg-void/60 rounded-cards border-2 border-dashed border-border-cork hover:border-border-driftwood transition-colors text-center cursor-pointer">
-        <label className="cursor-pointer block">
-          <Upload className="w-7 h-7 text-softblue mx-auto mb-2" />
-          <span className="text-xs font-mono uppercase tracking-wider text-cream block font-medium">
-            Upload Your CV (Optional)
-          </span>
-          <span className="text-[11px] text-cream-muted block mt-1">
-            PDF, Word (.docx) or image format, max 15MB.
-          </span>
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-            onChange={handleFileUpload}
-            className="hidden"
-          />
+      {/* Compact Optional CV Upload */}
+      <div>
+        <label className="block text-xs font-medium uppercase tracking-wider text-cream mb-2">
+          CV or Supporting Document (Optional)
         </label>
-        {isUploadingCv && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
-            <span className="w-3.5 h-3.5 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
-            <span>Uploading...</span>
-          </div>
-        )}
-        {!isUploadingCv && cvUrl && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-softblue/40 rounded-full text-xs text-softblue font-medium">
-            <CheckCircle2 className="w-3.5 h-3.5 text-softblue" />
-            <span>Uploaded: {cvFileName}</span>
-          </div>
-        )}
-        {!isUploadingCv && !cvUrl && cvFileName && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-border-cork rounded-full text-xs text-cream-muted font-medium">
-            <FileText className="w-3.5 h-3.5 text-softblue" />
-            <span>Selected: {cvFileName}</span>
-          </div>
-        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-void border border-border-cork hover:border-cream/70 text-xs text-cream transition-colors cursor-pointer">
+            <Upload className="w-3.5 h-3.5 text-softblue" />
+            <span>{cvFileName ? 'Replace File' : 'Attach File (PDF / Word)'}</span>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+          </label>
+
+          {isUploadingCv && (
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-void border border-softblue/40 rounded-full text-xs text-softblue font-medium animate-pulse">
+              <span className="w-3 h-3 border-2 border-softblue border-t-transparent rounded-full animate-spin" />
+              <span>Uploading...</span>
+            </span>
+          )}
+
+          {!isUploadingCv && cvUrl && (
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-void border border-softblue/40 rounded-full text-xs text-softblue font-medium max-w-full">
+              <CheckCircle2 className="w-3.5 h-3.5 text-softblue shrink-0" />
+              <span className="truncate max-w-[200px]">Uploaded: {cvFileName}</span>
+              <button
+                type="button"
+                onClick={clearAttachment}
+                aria-label="Remove uploaded file"
+                className="text-cream-muted hover:text-cream cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </span>
+          )}
+
+          {!isUploadingCv && !cvUrl && cvFileName && (
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-void border border-border-cork rounded-full text-xs text-cream-muted font-medium">
+              <FileText className="w-3.5 h-3.5 text-softblue shrink-0" />
+              <span className="truncate max-w-[200px]">Selected: {cvFileName}</span>
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* 8. Consent & Submit */}
+      {/* POPIA Consent */}
       <div className="pt-2 border-t border-dashed border-border-cork">
         <label className="flex items-start gap-3 text-xs text-cream-muted cursor-pointer">
           <input
@@ -639,12 +377,12 @@ export const VolunteerForm: React.FC = () => {
             onChange={(e) => setConsent(e.target.checked)}
             className="mt-0.5 accent-cream"
           />
-          <span className="leading-relaxed">
-            I agree to Re:kula storing my information and contacting me about volunteering opportunities as described in the{' '}
+          <span className="leading-relaxed text-[11px]">
+            I agree to Re:kula storing my information and contacting me about volunteering opportunities according to the{' '}
             <button
               type="button"
               onClick={() => setActiveTab('privacy')}
-              className="text-softblue underline"
+              className="text-softblue underline hover:text-white"
             >
               privacy policy
             </button>
@@ -653,20 +391,21 @@ export const VolunteerForm: React.FC = () => {
         </label>
       </div>
 
-      <div className="pt-2">
+      {/* Submit */}
+      <div className="pt-1">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full sm:w-auto px-8 py-3.5 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+          className="w-full sm:w-auto px-8 py-3 rounded-buttons-pill bg-cream text-void hover:bg-white text-xs font-medium uppercase tracking-[0.14em] transition-all shadow-xl active:scale-[0.98] inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
           {isSubmitting ? (
             <>
-              <span className="w-4 h-4 border-2 border-void border-t-transparent rounded-full animate-spin" />
-              <span>SAVING VOLUNTEER APPLICATION...</span>
+              <span className="w-3.5 h-3.5 border-2 border-void border-t-transparent rounded-full animate-spin" />
+              <span>SUBMITTING...</span>
             </>
           ) : (
             <>
-              <HeartHandshake className="w-4 h-4 text-void" />
+              <HeartHandshake className="w-3.5 h-3.5 text-void" />
               <span>Submit Volunteer Application</span>
             </>
           )}
