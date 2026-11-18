@@ -103,7 +103,7 @@ export const AdminPage: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-10 text-left">
+    <div className="w-full bg-transparent text-cream pt-28 pb-20 px-6 sm:px-12 space-y-10 text-left">
       
       {/* Header */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-dashed border-border-cork">

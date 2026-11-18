@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-void text-cream pt-20 pb-16 sm:pb-9 border-t border-dashed border-border-cork relative overflow-hidden">
+    <footer className="w-full bg-[#03070d]/55 backdrop-blur-sm text-cream pt-20 pb-16 sm:pb-9 border-t border-dashed border-border-cork relative z-10 overflow-hidden">
       
       {/* Background ambient warmth */}
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-softblue/5 rounded-full blur-[140px] pointer-events-none" />

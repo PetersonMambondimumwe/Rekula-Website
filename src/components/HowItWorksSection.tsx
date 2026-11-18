@@ -62,7 +62,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
   return (
     <section
       aria-labelledby="how-it-works-heading"
-      className={`relative w-full overflow-hidden bg-[#071321] px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32 ${
+      className={`relative w-full overflow-hidden bg-transparent px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32 ${
         showTopBorder ? 'border-t border-[#36A9F5]/15' : ''
       } ${className}`}
     >

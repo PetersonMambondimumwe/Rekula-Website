@@ -9,11 +9,11 @@ export const HomePage: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="relative w-full bg-[#050D18] text-[#F5F1EA]">
+    <div className="relative w-full bg-transparent text-[#F5F1EA]">
       {/* ─────────────────────────────────────────────────────────────
           1. EDITORIAL ACADEMIC CONSULTANCY HERO
           ───────────────────────────────────────────────────────────── */}
-      <section className="relative w-full min-h-[100dvh] flex items-center overflow-hidden bg-[#050D18] pt-28 pb-16 lg:pt-24 lg:pb-12">
+      <section className="relative w-full min-h-[100dvh] flex items-center overflow-hidden bg-transparent pt-28 pb-16 lg:pt-24 lg:pb-12">
         {/* Atmospheric Deep Navy & Subtle Electric Blue Radial Lighting */}
         <div
           aria-hidden="true"
@@ -58,12 +58,6 @@ export const HomePage: React.FC = () => {
             strokeWidth="1.25"
           />
         </svg>
-
-        {/* Bottom Seam Fade Into How It Works Section */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#071321] to-transparent z-10"
-        />
 
         {/* Hero Two-Column Content Grid */}
         <div className="relative z-20 max-w-[1360px] mx-auto w-full px-6 sm:px-10 lg:px-12">

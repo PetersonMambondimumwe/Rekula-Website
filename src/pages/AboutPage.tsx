@@ -30,7 +30,7 @@ export const AboutPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-24 text-left">
+    <div className="w-full bg-transparent text-cream pt-28 pb-20 px-6 sm:px-12 space-y-24 text-left">
       
       {/* 1. Header & Core Positioning Statement */}
       <section className="max-w-5xl space-y-6">

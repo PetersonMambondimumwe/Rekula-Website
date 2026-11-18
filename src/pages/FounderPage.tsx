@@ -6,7 +6,7 @@ export const FounderPage: React.FC = () => {
   const { setActiveTab } = useApp();
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-20 text-left">
+    <div className="w-full bg-transparent text-cream pt-28 pb-20 px-6 sm:px-12 space-y-20 text-left">
       
       {/* 1. Page Header */}
       <section className="space-y-4 max-w-3xl">

@@ -23,7 +23,7 @@ export const HowItWorksPage: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-void text-cream text-left">
+    <div className="w-full bg-transparent text-cream text-left">
       <HowItWorksSection
         headingAs="h1"
         showTopBorder={false}

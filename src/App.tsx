@@ -3,6 +3,7 @@ import { useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ConsultationModal } from './components/ConsultationModal';
+import { RekulaShaderBackground } from './components/RekulaShaderBackground';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -52,12 +53,15 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-navy selection:bg-softblue selection:text-white">
+    <div className="relative min-h-screen flex flex-col bg-[#03070d] text-cream selection:bg-softblue selection:text-white">
+      {/* Global WebGL Motion Background */}
+      <RekulaShaderBackground />
+
       {/* Top Floating Glass Navigation */}
       <Navbar />
 
       {/* Main View Area with page fade-in */}
-      <main className="flex-1 animate-in fade-in duration-300">
+      <main className="relative z-10 flex-1 animate-in fade-in duration-300">
         {renderActivePage()}
       </main>
 

@@ -3,7 +3,7 @@ import { VolunteerForm } from '../components/VolunteerForm';
 
 export const VolunteerPage: React.FC = () => {
   return (
-    <div className="w-full bg-void text-cream pt-32 pb-24 px-6 sm:px-12 text-left">
+    <div className="w-full bg-transparent text-cream pt-32 pb-24 px-6 sm:px-12 text-left">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
         {/* Left Column: Editorial Intro & Key Info Ledger */}
         <aside className="lg:col-span-4 lg:sticky lg:top-28 space-y-10">

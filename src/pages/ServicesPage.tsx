@@ -95,7 +95,7 @@ export const ServicesPage: React.FC = () => {
   });
 
   return (
-    <div className="relative w-full overflow-hidden bg-[#071321] text-[#F5F1EA] pt-32 sm:pt-36 pb-24 px-6 sm:px-10 lg:px-12">
+    <div className="relative w-full overflow-hidden bg-transparent text-[#F5F1EA] pt-32 sm:pt-36 pb-24 px-6 sm:px-10 lg:px-12">
       {/* Subtle Blue Radial Edge Gradients */}
       <div
         aria-hidden="true"

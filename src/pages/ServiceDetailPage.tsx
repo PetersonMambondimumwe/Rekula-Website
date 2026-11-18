@@ -16,7 +16,7 @@ export const ServiceDetailPage: React.FC = () => {
 
   if (!currentService) {
     return (
-      <div className="py-28 text-center space-y-4 bg-void text-cream">
+      <div className="py-28 text-center space-y-4 bg-transparent text-cream">
         <p className="text-sm text-cream-muted">Service blueprint not found.</p>
         <button
           onClick={() => setActiveTab('home')}
@@ -31,7 +31,7 @@ export const ServiceDetailPage: React.FC = () => {
   const otherServices = publishedServices.filter((s) => s.id !== currentService.id);
 
   return (
-    <div className="w-full bg-void text-cream pt-28 pb-20 px-6 sm:px-12 space-y-12 text-left">
+    <div className="w-full bg-transparent text-cream pt-28 pb-20 px-6 sm:px-12 space-y-12 text-left">
       
       {/* Back link */}
       <div>
