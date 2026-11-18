@@ -25,7 +25,6 @@ export const Navbar: React.FC = () => {
     { tab: 'home', label: 'HOME' },
     { tab: 'services', label: 'SERVICES' },
     { tab: 'founder', label: 'TEAM' },
-    { tab: 'testimonials', label: 'STORIES' },
     { tab: 'volunteer', label: 'GIVE BACK' },
     { tab: 'contact', label: 'CONTACT' },
   ];

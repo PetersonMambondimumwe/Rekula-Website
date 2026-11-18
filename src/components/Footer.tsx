@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button onClick={() => handleNav('testimonials')} className="hover:text-white transition-colors">
-                  Kind Words & Stories
+                  Stories
                 </button>
               </li>
               <li>
