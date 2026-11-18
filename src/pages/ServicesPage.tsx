@@ -283,28 +283,6 @@ export const ServicesPage: React.FC = () => {
             );
           })}
         </section>
-
-        {/* Bespoke Support Notice */}
-        <section className="rounded-2xl bg-[#0D1A28]/85 border border-[#20374B] p-8 sm:p-10 text-center space-y-4 max-w-4xl mx-auto">
-          <h2 className="font-serif text-2xl sm:text-[28px] font-medium tracking-[-0.01em] text-[#F5F1EA]">
-            Don&apos;t see your exact scenario?
-          </h2>
-          <p className="font-sans text-sm text-[#AAB6C5] max-w-xl mx-auto leading-relaxed">
-            Re:kula is founder-led and highly adaptable. We work with learners
-            who need multidisciplinary support, flexible exam arrangements or
-            custom timetables. Every consultation is private and tailored.
-          </p>
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={() => openConsultationModal()}
-              className="group inline-flex items-center gap-2 rounded-full bg-[#F5F1EA] hover:bg-white text-[#071321] px-7 py-3 text-xs font-sans font-semibold uppercase tracking-[0.14em] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer active:scale-[0.98]"
-            >
-              <span>Speak with Lead Educator</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-          </div>
-        </section>
       </div>
     </div>
   );
