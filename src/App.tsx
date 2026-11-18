@@ -2,7 +2,6 @@ import React from 'react';
 import { useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { ConsultationModal } from './components/ConsultationModal';
 
 import { HomePage } from './pages/HomePage';
@@ -64,9 +63,6 @@ export const AppContent: React.FC = () => {
 
       {/* Global Consultation Modal */}
       <ConsultationModal />
-
-      {/* Floating WhatsApp Action Pill */}
-      <FloatingWhatsApp />
 
       {/* Comprehensive Brand Footer */}
       <Footer />
